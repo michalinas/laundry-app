@@ -3,8 +3,60 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>AWSCognito.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSDynamoDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-laudry app.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>2424F3B8426EC2E6A0EEA813BFA12ACD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2D5E797AC948C7289DD2427EED7850E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2D93A8C948B13767EFDA624AD8424088</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>383ABB0D550E383C833300C72086A789</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A79E4DFDB520AC579CEA22EC6DE9ECD7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>
