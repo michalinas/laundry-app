@@ -12,6 +12,25 @@
 		0A24F3C21C570908007F8920 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C01C570908007F8920 /* Main.storyboard */; };
 		0A24F3C41C570908007F8920 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C31C570908007F8920 /* Assets.xcassets */; };
 		0A24F3C71C570908007F8920 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */; };
+		0A3495081C89FCEA001ECFA7 /* roundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3495071C89FCEA001ECFA7 /* roundedButton.swift */; };
+		0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3495091C8A182A001ECFA7 /* errorLabel.swift */; };
+		0A34950E1C8A292A001ECFA7 /* machine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A34950D1C8A292A001ECFA7 /* machine.png */; };
+		0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */; };
+		0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */; };
+		0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42EC3E1C6D682500253A0C /* historyViewController.swift */; };
+		0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */; };
+		0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */; };
+		0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */; };
+		0A90345F1C8E45F700F9EDC6 /* zips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A90345E1C8E45F700F9EDC6 /* zips.txt */; };
+		0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB42DBB1C86118C0016F836 /* LocationManager.swift */; };
+		0AEBDE8F1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */; };
+		0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF036171C8FBF69002770CD /* UserExtension.swift */; };
+		0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */; };
+		0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */; };
+		0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE055B1C62DDEE00FDF0BB /* models.swift */; };
+		0AFE2C621C8DF473002D291B /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE2C611C8DF473002D291B /* ReportCell.swift */; };
+		0AFE2C641C8E158C002D291B /* noun_161138_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C631C8E158C002D291B /* noun_161138_cc.png */; };
+		0AFE2C661C8E15A1002D291B /* noun_161132_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +41,25 @@
 		0A24F3C31C570908007F8920 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A24F3C61C570908007F8920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A24F3C81C570908007F8920 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A3495071C89FCEA001ECFA7 /* roundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = roundedButton.swift; sourceTree = "<group>"; };
+		0A3495091C8A182A001ECFA7 /* errorLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = errorLabel.swift; sourceTree = "<group>"; };
+		0A34950D1C8A292A001ECFA7 /* machine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = machine.png; sourceTree = "<group>"; };
+		0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_machine_copy.png; sourceTree = "<group>"; };
+		0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordViewControler.swift; sourceTree = "<group>"; };
+		0A42EC3E1C6D682500253A0C /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
+		0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
+		0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewControler.swift; path = ../ProfileViewControler.swift; sourceTree = "<group>"; };
+		0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		0A90345E1C8E45F700F9EDC6 /* zips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zips.txt; sourceTree = "<group>"; };
+		0AB42DBB1C86118C0016F836 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rsz_noun_93753_cc@2x.png"; sourceTree = "<group>"; };
+		0AF036171C8FBF69002770CD /* UserExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExtension.swift; sourceTree = "<group>"; };
+		0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineCell.swift; sourceTree = "<group>"; };
+		0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		0AFE055B1C62DDEE00FDF0BB /* models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
+		0AFE2C611C8DF473002D291B /* ReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCell.swift; sourceTree = "<group>"; };
+		0AFE2C631C8E158C002D291B /* noun_161138_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161138_cc.png; sourceTree = "<group>"; };
+		0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161132_cc.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +92,41 @@
 		0A24F3BB1C570908007F8920 /* laudry app */ = {
 			isa = PBXGroup;
 			children = (
+				0A90345E1C8E45F700F9EDC6 /* zips.txt */,
+				0A24F3D01C570F9C007F8920 /* image */,
 				0A24F3BC1C570908007F8920 /* AppDelegate.swift */,
-				0A24F3BE1C570908007F8920 /* ViewController.swift */,
+				0A24F3C81C570908007F8920 /* Info.plist */,
 				0A24F3C01C570908007F8920 /* Main.storyboard */,
 				0A24F3C31C570908007F8920 /* Assets.xcassets */,
-				0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */,
-				0A24F3C81C570908007F8920 /* Info.plist */,
+				0A24F3BE1C570908007F8920 /* ViewController.swift */,
+				0A42EC3E1C6D682500253A0C /* historyViewController.swift */,
+				0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */,
+				0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */,
+				0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */,
+				0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */,
+				0AFE2C611C8DF473002D291B /* ReportCell.swift */,
+				0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */,
+				0AB42DBB1C86118C0016F836 /* LocationManager.swift */,
+				0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */,
+				0AFE055B1C62DDEE00FDF0BB /* models.swift */,
+				0AF036171C8FBF69002770CD /* UserExtension.swift */,
+				0A3495091C8A182A001ECFA7 /* errorLabel.swift */,
+				0A3495071C89FCEA001ECFA7 /* roundedButton.swift */,
 			);
 			path = "laudry app";
+			sourceTree = "<group>";
+		};
+		0A24F3D01C570F9C007F8920 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */,
+				0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */,
+				0AFE2C631C8E158C002D291B /* noun_161138_cc.png */,
+				0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */,
+				0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */,
+				0A34950D1C8A292A001ECFA7 /* machine.png */,
+			);
+			name = image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,12 +155,16 @@
 		0A24F3B11C570908007F8920 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					machineLabel,
+				);
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Michalina Simik";
 				TargetAttributes = {
 					0A24F3B81C570908007F8920 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = QJDVATC5AZ;
 					};
 				};
 			};
@@ -122,8 +191,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFE2C661C8E15A1002D291B /* noun_161132_cc.png in Resources */,
 				0A24F3C71C570908007F8920 /* LaunchScreen.storyboard in Resources */,
 				0A24F3C41C570908007F8920 /* Assets.xcassets in Resources */,
+				0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */,
+				0AEBDE8F1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png in Resources */,
+				0AFE2C641C8E158C002D291B /* noun_161138_cc.png in Resources */,
+				0A34950E1C8A292A001ECFA7 /* machine.png in Resources */,
+				0A90345F1C8E45F700F9EDC6 /* zips.txt in Resources */,
 				0A24F3C21C570908007F8920 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,7 +211,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A24F3BF1C570908007F8920 /* ViewController.swift in Sources */,
+				0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */,
+				0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */,
+				0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */,
 				0A24F3BD1C570908007F8920 /* AppDelegate.swift in Sources */,
+				0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */,
+				0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */,
+				0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */,
+				0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */,
+				0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */,
+				0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */,
+				0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */,
+				0AFE2C621C8DF473002D291B /* ReportCell.swift in Sources */,
+				0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */,
+				0A3495081C89FCEA001ECFA7 /* roundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,9 +335,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "laudry app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "oo.laudry-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -258,9 +347,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "laudry app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "oo.laudry-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -284,6 +374,7 @@
 				0A24F3CD1C570908007F8920 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
