@@ -27,6 +27,11 @@ class ReportCell: UITableViewCell {
 
     
     func loadCell() {
+        if let filePath = NSBundle.mainBundle().pathForResource("noun_161138_cc", ofType: "png"), image = UIImage(contentsOfFile: filePath) {
+            tableCellImage.contentMode = .ScaleAspectFit
+            tableCellImage.image = image
+        }
+
         if report.machineType == .Washer {
             tableCellTitle.text! = "Washing mashine # \(report.machineId)"
             if report.actionType == .Reservation {
@@ -46,10 +51,15 @@ class ReportCell: UITableViewCell {
                 tableCellImage.image = image
             }
         } else {
-            tableCellSubtitle.text! = "\(report.actionType): \(report.useTime)"
+            tableCellSubtitle.text! = "\(report.actionType): \(dateFormat(report.useTime))"
         }
     }
 
+    func dateFormat(date: NSDate) -> String {
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "dd-MM-YYYY HH:mm"
+        return dateFormat.stringFromDate(date)
+    }
     
     
 }

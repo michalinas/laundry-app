@@ -78,11 +78,19 @@ class MachineCell: UICollectionViewCell {
     
     func updateResaStatus() {
         if machine.type == .Washer {
-            if machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil {
+            if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil) {
                 reserveButton.setTitle("reserve", forState: .Normal)
                 if machine.state == .Empty {
                     machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
                 }
+            } else if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!]?.reservedTime.dateByAddingTimeInterval(Double(900)).compare(NSDate()) == NSComparisonResult.OrderedAscending) {
+                machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = nil
+                ReportManager.sharedInstance.addCancellationReport(machine)
+                reserveButton.setTitle("reserve", forState: .Normal)
+                if machine.state == .Empty {
+                    machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                }
+                
             } else {
                 reserveButton.setTitle("cancel", forState: .Normal)
                 if machine.state == .Empty {

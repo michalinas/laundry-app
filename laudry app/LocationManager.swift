@@ -44,8 +44,9 @@ class LocationManager {
         newLocation.zip = zip
         newLocation.street = street
         newLocation.buildingNum = buildingNum
+        newLocation.city = cities[String(zip)]!
         locations[newLocation.locationId] = newLocation
-        Profile.userProfiles.registeringUser?.chosenLocationId = newLocation.locationId
+        Profile.userProfiles.registeringUser?.locationId = newLocation.locationId
         return newLocation
     }
     
@@ -91,6 +92,7 @@ class LocationManager {
     }
     
     func loadLocations() {
+        loadCities()
         let loc1 = createLocation(10024, street: "1212 78th Street")
         let loc2 = createLocation(10024, street: "5050 50th Street")
         let loc3 = createLocation(10024, street: "1634 64th Street")

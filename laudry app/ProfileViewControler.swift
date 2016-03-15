@@ -14,15 +14,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     
     var username: String = ""
     var password: String = ""
-    let profileAlerts: [String:String] = ["loginError": "Username or password are incorrect. Please try again",
-        "usernameUsed": "This username is not available", "password" : "Your passwords must match and be at least 6 charachters long",
-        "EmptyField": "Please fill all fields", "logout": "You have sucessfully logged out. Goodbye!",
-        "delete": "You will delete your profile permamently and loose all your data.", "location" : "please select a location"]
     
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var logButton: UIButton!
+    @IBOutlet weak var loginErrorLabel: ErrorLabel!
     
     
     override func viewDidLoad() {
@@ -32,10 +29,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         passwordField.placeholder = "enter your password"
         passwordField.delegate = self
         passwordField.secureTextEntry = true
-        
         Profile.userProfiles.loadUsers()
         LocationManager.sharedLocations.loadLocations()
-        
+        loginErrorLabel.alpha = 0.0
     }
     
     
@@ -57,19 +53,42 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     */
     @IBAction func logButtonTapped(sender: UIButton) {
         if nameField.text!.isEmpty || passwordField.text!.isEmpty {
-            profileError(profileAlerts["EmptyField"]!)
+            loginErrorLabel.text = "Please fill all fields"
+            loginErrorLabel.alpha = 1.0
         } else {
-            if Profile.userProfiles.trytoLogIn(nameField.text!, password: passwordField.text!) {
-            print("log in")
-            print(Profile.userProfiles.currentUser?.username)
+            loginErrorLabel.alpha = 0.0
+            Profile.userProfiles.trytoLogIn(nameField.text!, password: passwordField.text!, completion: {(error) in
+                if error == nil {
             self.loginView.alpha = 0.0
-            loggedViewOpen()
+            self.loggedViewOpen()
             self.loggedView.alpha = 1.0
             self.tabBarController?.selectedIndex = 0
-            } else {
-                print("failed login")
-                profileError(profileAlerts["loginError"]!)
-            }
+                } else {
+            self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
+            self.loginErrorLabel.alpha = 1.0
+
+                    let alertController = UIAlertController()
+            alertController.title = "Unable to login"
+            alertController.message = error!.localizedDescription
+            alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
+            } })
+            
+            
+            
+            
+            
+            
+            
+//            {
+//                self.loginView.alpha = 0.0
+//                loggedViewOpen()
+//                self.loggedView.alpha = 1.0
+//                self.tabBarController?.selectedIndex = 0
+//            } else {
+//                loginErrorLabel.text = "Username or password are incorrect. Please try again"
+//                loginErrorLabel.alpha = 1.0
+//            }
         }
     }
     
@@ -90,6 +109,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         locationButton.setTitle("click to chose your location", forState: .Normal)
         sendToRegisterButton.setTitle("click to register", forState: .Normal)
         backToLoginButton.setTitle("back to log in", forState: .Normal)
+        newUsernameErrorLabel.alpha = 0.0
+        passwordErrorLabel.alpha = 0.0
+        locationErrorLabel.alpha = 0.0
         
         Profile.userProfiles.startNewUser()
         
@@ -109,16 +131,15 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     }
 
 
-    func profileError(alertMessage: String, alertTitle: String = "error") {
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
+//    func profileError(alertMessage: String, alertTitle: String = "error") {
+//        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+//        self.presentViewController(alert, animated: true, completion: nil)
+//    }
     
-    func deleteAlert(alertMessage: String) {
-        let alert = UIAlertController(title: "delete", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+    func deleteAlert() {
+        let alert = UIAlertController(title: "delete", message: "You will delete your profile permamently and loose all your data.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive, handler: { (UIAlertAction) -> Void in
-            print(Profile.userProfiles.currentUser!.username)
             Profile.userProfiles.profiles.removeValueForKey(Profile.userProfiles.currentUser!.username)
             Profile.userProfiles.currentUser = nil
             self.loggedView.alpha = 0.0
@@ -137,6 +158,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var sendToRegisterButton: UIButton!
     @IBOutlet weak var backToLoginButton: UIButton!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var newUsernameErrorLabel: UILabel!
+    @IBOutlet weak var locationErrorLabel: UILabel!
     
     @IBAction func backToLoginTapped(sender: AnyObject) {
         UIView.animateWithDuration(0.3) {() -> Void in
@@ -151,43 +175,55 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     change alpha of login view to 0 and logged view to 1, so next time the user see his profile info.
     */
     @IBAction func sendToRegisterButtonTapped(sender: AnyObject) {
+        locationErrorLabel.alpha = 0.0
+        passwordErrorLabel.alpha = 0.0
+        newUsernameErrorLabel.alpha = 0.0
         if (newUsernameField.text!.isEmpty || newPasswordField.text!.isEmpty || confirmPasswordField.text!.isEmpty) {
-            profileError(profileAlerts["EmptyField"]!)
+            newUsernameErrorLabel.text = "Please fill all fields"
+            newUsernameErrorLabel.alpha = 1.0
         } else {
+            newUsernameErrorLabel.alpha = 0.0
+            passwordErrorLabel.alpha = 0.0
+            locationErrorLabel.alpha = 0.0
             if !Profile.userProfiles.checkUsername(newUsernameField.text!) {
                 if (newPasswordField.text == confirmPasswordField.text) && (newPasswordField.text!.characters.count >= 6) {
                     let newUser = Profile.userProfiles.registeringUser
-                    if newUser == nil {
-                        print("user nil")
-                        
-                    }
-                    if Profile.userProfiles.registeringUser == nil {
-                        print("registering user nil")
-                    }
                     newUser!.password = newPasswordField.text!
                     newUser!.username = newUsernameField.text!
-                    
                     ReportManager.sharedInstance.addUserToReports((newUser?.username)!)
-
-                    if newUser!.chosenLocationId != 0 {
-                        Profile.userProfiles.registerNewUser(newUser!)
-                        self.registerView.alpha = 0.0
-                        loggedViewOpen()
-                        self.loggedView.alpha = 1.0
-                        self.tabBarController?.selectedIndex = 0
+                    
+                    if newUser!.locationId!.integerValue != 0 {
+                        Profile.userProfiles.registerNewUser(newUser!, completion: {(error) in
+                            if error == nil {
+                                self.registerView.alpha = 0.0
+                                self.loggedViewOpen()
+                                self.loggedView.alpha = 1.0
+                                self.tabBarController?.selectedIndex = 0
+                            } else {
+                                let alertController = UIAlertController()
+                                alertController.title = "Unable to register"
+                                alertController.message = error!.localizedDescription
+                                alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                                self.presentViewController(alertController, animated: true, completion: nil)
+                            }
+                        
+                        })
+                        
                     } else {
-                        profileError(profileAlerts["location"]!)
-                        // ----------- when OK go to locaiton veiw Controller
-                        // ----------- cancel just close alert
+                        locationErrorLabel.text = "Please select a location."
+                        locationErrorLabel.alpha = 1.0
                     }
                 } else {
-                    profileError(profileAlerts["password"]!)
+                    passwordErrorLabel.text = "Your passwords must match and be at least 6 charachters long."
+                    passwordErrorLabel.alpha = 1.0
                 }
             } else {
-                profileError(profileAlerts["usernameUsed"]!)
+                newUsernameErrorLabel.text = "This username is not available."
+                newUsernameErrorLabel.alpha = 1.0
             }
         }
     }
+    
     
     // MARK: - loggedView
     
@@ -204,23 +240,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         let userData = Profile.userProfiles.currentUser!
         loggedHelloLabel.text = "Hello, \(userData.username)"
         loggedPasswordButton.setTitle("change password", forState: .Normal)
-        currentLocationLabel.text = "Your current laundry address: \((LocationManager.sharedLocations.locations[(userData.chosenLocationId)]?.street)!) in \(LocationManager.sharedLocations.cities[String(LocationManager.sharedLocations.locations[userData.chosenLocationId]?.zip)])"
+        currentLocationLabel.text = "Your current laundry address: \((LocationManager.sharedLocations.locations[(userData.locationId!.integerValue)]?.street)!) in \(LocationManager.sharedLocations.locations[(userData.locationId!.integerValue)]?.city)"
         changeAdressButton.setTitle("change laundry location", forState: .Normal)
         logOutButton.setTitle("log out", forState: .Normal)
         delateProfileButton.setTitle("delete profile", forState: .Normal)
+        ReportManager.sharedInstance.deleteOldReservationReports()
+
     }
     
     
     @IBAction func logOutButtonTapped(sender: AnyObject) {
         Profile.userProfiles.currentUser = nil
-        profileError(profileAlerts["logout"]!, alertTitle: "confirmation")
         loggedView.alpha = 0.0
         loginView.alpha = 1.0
-        
     }
     
     @IBAction func delateProfileButtonTapped(sender: AnyObject) {
-        deleteAlert(profileAlerts["delete"]!)
+        deleteAlert()
     }
     
     

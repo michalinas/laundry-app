@@ -36,18 +36,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(Profile.userProfiles.currentUser?.username)
         if Profile.userProfiles.currentUser == nil {
             noUserLabel.hidden = false
             noUserLabel.text = "Please log in to see your history."
             return 0
         } else if section == 0 {
-            print("resa section")
             noUserLabel.hidden = true
-            
             return ReportManager.sharedInstance.reservationReports[(Profile.userProfiles.currentUser?.username)!]!.count
         } else {
-            print("working section")
             noUserLabel.hidden = true
             return ReportManager.sharedInstance.finishedReports[(Profile.userProfiles.currentUser?.username)!]!.count
         }
@@ -92,6 +88,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         refreshControl.endRefreshing()
     }
 
+    
 
 }
 

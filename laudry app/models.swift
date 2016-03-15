@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import AWSDynamoDB
 
 enum LaundryState: Int {
     case Empty
@@ -58,16 +58,23 @@ class Report {
     var machineId: Int = 0
     var machineType: MachineType = .Washer
     var actionType: ActionType = .Reservation
-    var useTime: String = "00:00"
+    var useTime: NSDate = NSDate()
     var cancel: Bool = false
 }
 
 
-class User: Equatable {
+class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var username: String = ""
     var password: String = ""
-    var chosenLocationId: Int = 0
+    var locationId: NSNumber?
     
+    class func dynamoDBTableName() -> String {
+        return "User"
+    }
+    
+    class func hashKeyAttribute() -> String {
+        return "username"
+    }
 }
 
 func == (left: User, right: User) -> Bool {
@@ -77,6 +84,7 @@ func == (left: User, right: User) -> Bool {
 
 class Location {
     var zip: Int = 0
+    var city: String = ""
     var street: String?
     var buildingNum: String?
     var washers: [Machine] = []

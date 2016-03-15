@@ -18,7 +18,7 @@ class ErrorLabel: UILabel {
         layer.borderColor = UIColor(red: 1, green: 157/255, blue: 153/255, alpha: 1).CGColor
         layer.cornerRadius = 10
         clipsToBounds = true
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = .None
     }
     
 }

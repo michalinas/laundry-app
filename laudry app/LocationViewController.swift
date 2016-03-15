@@ -27,8 +27,8 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var locationTableView: UITableView!
     @IBOutlet weak var streetLabel: UILabel!
     @IBOutlet weak var newLocationVeiw: UIView!
+    @IBOutlet weak var errorLabel: ErrorLabel!
     
-    let alertsMessages = ["zipLength":"please insert full 5-digit zip code", "empty": "all fields are obligatory. Fill missing fields and submit again."]
     
     var locationResults: [Int] = []
     var cityName: String = ""
@@ -59,6 +59,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         locationTableView.delegate = self
         locationTableView.dataSource = self
         newLocationVeiw.hidden = true
+        errorLabel.alpha = 0.0
     }
     
     
@@ -94,7 +95,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         }
     }
     
-    //-----------
+    // MARK: - tableView setup
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cityName != "" {
@@ -108,7 +109,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath)
         if indexPath.row == 0 {
-            print("row 0")
             cell.textLabel?.text = cityName
             cell.detailTextLabel?.text = "click to add new location"
         } else {
@@ -134,7 +134,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         //------------- load location or create new
         if indexPath.row != 0 {
             acceptButton.setTitle("confirm", forState: .Normal)
-            Profile.userProfiles.registeringUser?.chosenLocationId = (LocationManager.sharedLocations.locations[locationResults[indexPath.row - 1]]!.locationId)
+            Profile.userProfiles.registeringUser?.locationId = (LocationManager.sharedLocations.locations[locationResults[indexPath.row - 1]]!.locationId)
             newLocationVeiw.hidden = true
         } else {
             newLocationVeiw.hidden = false
@@ -150,14 +150,14 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             locationResults.removeAll()
             self.locationTableView.reloadData()
         } else {
-        LocationManager.sharedLocations.loadCities()
-        cityName = LocationManager.sharedLocations.getCityForZip(sender.text!)
-        print(cityName)
-        if cityName != "" {
-            locationResults = LocationManager.sharedLocations.getLocationsForZip(sender.text!)
-        }
-        self.locationTableView.reloadData()
-        } }
+            errorLabel.alpha = 0.0
+            LocationManager.sharedLocations.loadCities()
+            cityName = LocationManager.sharedLocations.getCityForZip(sender.text!)
+            if cityName != "" {
+                locationResults = LocationManager.sharedLocations.getLocationsForZip(sender.text!)
+            }
+            self.locationTableView.reloadData()
+        }   }
     
     @IBAction func LaundryStepperChanged(sender: UIStepper) {
         self.NumLaundryField.text = String(Int(sender.value))
@@ -173,14 +173,18 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     
     
     @IBAction func acceptButtonTapped(sender: AnyObject) {
-        if sender.title == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
-            fieldAlert(alertsMessages["empty"]!)
-        // } else if zipField.text!.characters.count != 5 {
-           // fieldAlert(alertsMessages["zipLength"]!)
+        errorLabel.alpha = 0.0
+        if acceptButton.titleLabel?.text == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
+            errorLabel.text = "All fields are mandatory."
+            errorLabel.alpha = 1.0
+         } else if zipField.text!.characters.count != 5 {
+            errorLabel.text = "Please enter 5-digit zip code."
+            errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "confirm" {
             navigationController?.popViewControllerAnimated(true)
 
         } else {
+            errorLabel.alpha = 0.0
             let newLocation = LocationManager.sharedLocations.createLocation(Int(zipField.text!)!, street: streetField.text!)
             let dryers = Int(NumDryerField.text!)
             let washers = Int(NumLaundryField.text!)
@@ -190,7 +194,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             for every in 1...washers! {
                 LocationManager.sharedLocations.addWasher(Int(WashingTimeField.text!)! , numOfWashers: every, location: newLocation)
             }
-                Profile.userProfiles.currentUser?.chosenLocationId = newLocation.locationId
+                Profile.userProfiles.currentUser?.locationId = newLocation.locationId
                 navigationController?.popViewControllerAnimated(true)
         }
     }

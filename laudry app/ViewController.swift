@@ -14,8 +14,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     
     @IBOutlet weak var laundryCollectionView: UICollectionView!
     @IBOutlet weak var washerDryerSwitch: UISegmentedControl!
-    var alertMessages: [String: String] = ["Empty": "machine is empty again", "Working": "your machine has started", "Finished": "your laundry is done",
-        "Free" : "your reservation is cancelled", "Reserved" : "your reservation is confirmed"]
+    // notif: "Finished": "your laundry is done", "reserved": "your reservation of machine # starts in 10 min"
+    //
     var waitingMachineCell: MachineCell!
     var laundries: [Machine]?
     var dryers: [Machine]?
@@ -86,13 +86,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         } else {
             laundryCell.machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = nil
             laundryCell.updateResaStatus()
-            confirmationAlert(alertMessages["Free"]!)
+            
         }
     }
 
     func MachineCellDidChangeState(machineCell: MachineCell) {
         waitingMachineCell = machineCell
-        confirmationAlert(alertMessages[String(machineCell.machine.state)]!)
+        // --- alert removed ---
         if machineCell.machine.state == .Working {
             NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: ("updateTimer:"), userInfo: machineCell.machine, repeats: true)
         }
@@ -119,7 +119,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                     break
         }   }
         if machine.counter > 1 {
-            print(machine.counter)
             machine.counter--
             machineCell?.timerLabel.text = String(format:"%02d:%02d:%02d", machine.counter/3600, machine.counter/60, machine.counter%60)
         } else if machine.counter == 1 {
@@ -133,13 +132,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     }   }   }
     
     
-    // pop-up confirmation alert when state of machine changed
-    func confirmationAlert(alertMessage: String) {
-        let alert = UIAlertController(title: "Confirmation", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
     func machineLoad() {
         if Profile.userProfiles.currentUser == nil {
             noMachineLabel.text = "Please log in to see your location display."
@@ -148,13 +140,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             dryers = nil
         } else {
             noMachineLabel.hidden = true
-            laundries = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.chosenLocationId)!]?.washers
-            dryers = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.chosenLocationId)!]?.dryers
+            laundries = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.locationId!.integerValue)!]?.washers
+            dryers = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.locationId!.integerValue)!]?.dryers
         }
         laundryCollectionView.reloadData()
         dryerCollectionView.reloadData()
     }
     
+
     
     // MARK: - Data picker for laundry
     
@@ -180,17 +173,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         newReservation.reservedTime = dataPicker.date
         waitingMachineCell.machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = newReservation
         pickTimeView.alpha = 0.0
-        waitingMachineCell.updateResaStatus()
         ReportManager.sharedInstance.addReservationToLaundry(waitingMachineCell.machine)
-        confirmationAlert(alertMessages["Reserved"]!)
+        waitingMachineCell.updateResaStatus()
+        // -- reserved alert removed --
     }
     
 // set a datepicker with Cancel,Done buttons and opens the datapicekr view
     func pickTime(laundryCell: MachineCell) {
-        var maxDate = NSDate()
-        maxDate = maxDate.dateByAddingTimeInterval(86400)
+        let maxDate = NSDate().dateByAddingTimeInterval(86400)
+        //maxDate = maxDate.dateByAddingTimeInterval(86400)
         dataPicker.maximumDate = maxDate
-        dataPicker.minimumDate = laundryCell.machine.workEndDate
+        dataPicker.minimumDate = (laundryCell.machine.workEndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) ? laundryCell.machine.workEndDate: NSDate()
         dataPicker.minuteInterval = 30
         validateReservation.setTitle("Done", forState: .Normal)
         cancelReservation.setTitle("Cancel", forState: .Normal)

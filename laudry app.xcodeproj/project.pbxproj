@@ -23,6 +23,7 @@
 		0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */; };
 		0A90345F1C8E45F700F9EDC6 /* zips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A90345E1C8E45F700F9EDC6 /* zips.txt */; };
 		0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB42DBB1C86118C0016F836 /* LocationManager.swift */; };
+		0AEA163C1C97870E00A2928A /* DynamoDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA163B1C97870E00A2928A /* DynamoDB.swift */; };
 		0AEBDE8F1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */; };
 		0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF036171C8FBF69002770CD /* UserExtension.swift */; };
 		0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */; };
@@ -54,6 +55,7 @@
 		0A90345E1C8E45F700F9EDC6 /* zips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zips.txt; sourceTree = "<group>"; };
 		0AA161421C962E33009B9584 /* laudry app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "laudry app-Bridging-Header.h"; sourceTree = "<group>"; };
 		0AB42DBB1C86118C0016F836 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0AEA163B1C97870E00A2928A /* DynamoDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamoDB.swift; sourceTree = "<group>"; };
 		0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rsz_noun_93753_cc@2x.png"; sourceTree = "<group>"; };
 		0AF036171C8FBF69002770CD /* UserExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExtension.swift; sourceTree = "<group>"; };
 		0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineCell.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				0A3495091C8A182A001ECFA7 /* errorLabel.swift */,
 				0A3495071C89FCEA001ECFA7 /* roundedButton.swift */,
 				0AA161421C962E33009B9584 /* laudry app-Bridging-Header.h */,
+				0AEA163B1C97870E00A2928A /* DynamoDB.swift */,
 			);
 			path = "laudry app";
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				0A24F3BD1C570908007F8920 /* AppDelegate.swift in Sources */,
 				0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */,
 				0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */,
+				0AEA163C1C97870E00A2928A /* DynamoDB.swift in Sources */,
 				0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */,
 				0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */,
 				0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */,
