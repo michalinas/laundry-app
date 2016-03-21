@@ -30,7 +30,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var errorLabel: ErrorLabel!
     
     
-    var locationResults: [Int] = []
+    var locationResults: [Location] = []
     var cityName: String = ""
     
     override func viewDidLoad() {
@@ -113,9 +113,10 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             cell.detailTextLabel?.text = "click to add new location"
         } else {
             let index = indexPath.row - 1
-            cell.textLabel?.text = cityName + ", " + LocationManager.sharedLocations.locations[locationResults[index]]!.street!
-            let washingMachines = LocationManager.sharedLocations.locations[locationResults[index]]!.washers.count
-            let dryers = LocationManager.sharedLocations.locations[locationResults[index]]!.dryers.count
+            cell.textLabel?.text = cityName + ", " + locationResults[index].street!
+            let washingMachines = locationResults[index].numWashers
+            let dryers = locationResults[index].numDryers
+            
             if washingMachines == 1 && dryers == 1{
                 cell.detailTextLabel?.text = "\(washingMachines) washing mashine, \(dryers) dryer"
             } else if washingMachines == 1 {
@@ -131,11 +132,16 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //------------- load location or create new
+        //------------- load existing location or open create new location optional view
         if indexPath.row != 0 {
             acceptButton.setTitle("confirm", forState: .Normal)
-            Profile.userProfiles.registeringUser?.locationId = (LocationManager.sharedLocations.locations[locationResults[indexPath.row - 1]]!.locationId)
+            if Profile.userProfiles.currentUser == nil {
+                Profile.userProfiles.registeringUser?.locationId = locationResults[indexPath.row - 1].locationId
+            } else {
+                Profile.userProfiles.currentUser!.locationId = locationResults[indexPath.row - 1].locationId
+            }
             newLocationVeiw.hidden = true
+            
         } else {
             newLocationVeiw.hidden = false
             acceptButton.setTitle("save", forState: .Normal)
@@ -154,7 +160,11 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             LocationManager.sharedLocations.loadCities()
             cityName = LocationManager.sharedLocations.getCityForZip(sender.text!)
             if cityName != "" {
-                locationResults = LocationManager.sharedLocations.getLocationsForZip(sender.text!)
+                LocationManager.sharedLocations.getLocationsForZip(Int(sender.text!)!) { (locations, error) -> Void in
+                    if locations != nil {
+                        self.locationResults = locations!
+                    }
+                }
             }
             self.locationTableView.reloadData()
         }   }
@@ -181,23 +191,85 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             errorLabel.text = "Please enter 5-digit zip code."
             errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "confirm" {
-            navigationController?.popViewControllerAnimated(true)
-
+            if Profile.userProfiles.currentUser != nil {
+                Profile.userProfiles.updateUser(Profile.userProfiles.currentUser!) { (error) -> Void in
+                    if error == nil {
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else {
+                        let alertController = UIAlertController()
+                        alertController.title = "Unable to change location"
+                        alertController.message = error!.localizedDescription
+                        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                }   }
+            } else {
+                navigationController?.popViewControllerAnimated(true)
+            }
         } else {
             errorLabel.alpha = 0.0
-            let newLocation = LocationManager.sharedLocations.createLocation(Int(zipField.text!)!, street: streetField.text!)
-            let dryers = Int(NumDryerField.text!)
-            let washers = Int(NumLaundryField.text!)
-            for every in 1...dryers! {
-                LocationManager.sharedLocations.addDryer(every, location: newLocation)
+            let newLocation = Location()
+            newLocation.zip = Int(zipField.text!)!
+            newLocation.street = streetField.text!
+            newLocation.city = LocationManager.sharedLocations.cities[String(newLocation.zip)]!
+            newLocation.numDryers = Int(NumDryerField.text!)!
+            newLocation.numWashers = Int(NumLaundryField.text!)!
+            LocationManager.sharedLocations.createLocation(newLocation) {(error) -> Void in
+                if error != nil {
+                    self.serverAlert("Unable to create a new location", error: error!)
+                    
+                } else {
+                    
+                    let dryers = newLocation.numDryers
+                    let washers = newLocation.numWashers
+                    
+                    for id in 1...dryers {
+                        let newDryer = Machine()
+                        newDryer.type = .Dryer
+                        newDryer.machineId = newLocation.locationId.integerValue * 10 + id
+                        newDryer.state = .Empty
+                        newDryer.workEndDate = NSDate()
+                        newDryer.locationId = newLocation.locationId
+
+                        LocationManager.sharedLocations.addMachine(newDryer) { (error) -> Void in
+                            if error != nil {
+                                self.serverAlert("Unable to add a dryer to db", error: error!)
+                            }
+                        }
+                    }
+                    
+                    for id in 1...washers {
+                        let newMachine = Machine()
+                        newMachine.locationId = newLocation.locationId
+                        newMachine.type = .Washer
+                        newMachine.counter = Int(self.WashingTimeField.text!)! * 60
+                        newMachine.machineId = newLocation.locationId.integerValue * 10 + id
+                        newMachine.state = .Empty
+                        newMachine.workEndDate = NSDate()
+                        
+                        LocationManager.sharedLocations.addMachine(newMachine) { (error) -> Void in
+                            if error != nil {
+                                self.serverAlert("Unable to add a washing machine to db", error: error!)
+                            }
+                        }
+                    }
+                    
+                    Profile.userProfiles.currentUser?.locationId = newLocation.locationId
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
             }
-            for every in 1...washers! {
-                LocationManager.sharedLocations.addWasher(Int(WashingTimeField.text!)! , numOfWashers: every, location: newLocation)
-            }
-                Profile.userProfiles.currentUser?.locationId = newLocation.locationId
-                navigationController?.popViewControllerAnimated(true)
         }
     }
+    
+    
+    
+    func serverAlert(title:String, error: NSError) {
+        let alertController = UIAlertController()
+        alertController.title = title
+        alertController.message = error.localizedDescription
+        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     
     func fieldAlert(alertMessage: String) {

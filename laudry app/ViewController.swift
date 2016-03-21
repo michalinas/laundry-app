@@ -17,8 +17,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     // notif: "Finished": "your laundry is done", "reserved": "your reservation of machine # starts in 10 min"
     //
     var waitingMachineCell: MachineCell!
-    var laundries: [Machine]?
-    var dryers: [Machine]?
+    var laundries: [Machine] = []
+    var dryers: [Machine] = []
     @IBOutlet weak var dryerCollectionView: UICollectionView!
     @IBOutlet weak var noMachineLabel: UILabel!
     
@@ -55,20 +55,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if washerDryerSwitch.selectedSegmentIndex == 0 {
-            return laundries?.count ?? 0
+            return laundries.count ?? 0
         } else {
-            return dryers?.count ?? 0
+            return dryers.count ?? 0
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MachineCell?
         if washerDryerSwitch.selectedSegmentIndex == 1 {
-            cell = dryerCollectionView.dequeueReusableCellWithReuseIdentifier("dryerCell", forIndexPath: indexPath)   as? MachineCell
-            cell!.machine = dryers![indexPath.item]
+            cell = dryerCollectionView.dequeueReusableCellWithReuseIdentifier("dryerCell", forIndexPath: indexPath) as? MachineCell
+            cell!.machine = dryers[indexPath.item]
         } else {
             cell = laundryCollectionView.dequeueReusableCellWithReuseIdentifier("laundryCell" , forIndexPath: indexPath) as? MachineCell
-            cell!.machine = laundries![indexPath.item]
+            cell!.machine = laundries[indexPath.item]
         }
         let label = cell!.machineLabel
         label?.text = "\(indexPath.item + 1)"
@@ -81,14 +81,30 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     
     func MachineCellDidTapReserve(laundryCell: MachineCell) {
         waitingMachineCell = laundryCell
-        if laundryCell.machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil {
-            pickTime(laundryCell)
-        } else {
-            laundryCell.machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = nil
-            laundryCell.updateResaStatus()
+        
+        ReportManager.sharedInstance.getResrvationsForUser((Profile.userProfiles.currentUser?.username)!) { (reservations, error) -> Void in
+            if reservations != nil {
+                var i = 1
+                for everyReservation in reservations! {
+                    print("resa \(i)")
+                    i++
+                    if everyReservation.machineId == laundryCell.machine.machineId && !everyReservation.cancel {
+                        ReportManager.sharedInstance.addCancelledReservation(everyReservation) { (error) -> Void in
+                            //---------------
+                        }
+                        break
+                    }
+                }
+                    print("picktime inside reservations !=nil")
+                    self.pickTime(laundryCell)
             
-        }
-    }
+            } else {
+                print("picktime no res")
+                self.pickTime(laundryCell)
+            }
+            laundryCell.updateResaStatus()
+    }   }
+
 
     func MachineCellDidChangeState(machineCell: MachineCell) {
         waitingMachineCell = machineCell
@@ -125,8 +141,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             machine.counter--
             machineCell?.timerLabel.text = String(format:"%02d:%02d:%02d", machine.counter/3600, machine.counter/60, machine.counter%60)
             machine.state = .Finished
-            ReportManager.sharedInstance.addWashingReport(machine)
+            
+            ReportManager.sharedInstance.addReport(machine) { (error) -> Void in
+                if error != nil {
+                    print("no finished report added: \(error?.localizedDescription)")
+                }
+            }
+            
             machineCell?.updateState()
+            
             if let _ = machineCell {
                MachineCellDidChangeState(machineCell!)
     }   }   }
@@ -136,13 +159,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         if Profile.userProfiles.currentUser == nil {
             noMachineLabel.text = "Please log in to see your location display."
             noMachineLabel.hidden = false
-            laundries = nil
-            dryers = nil
+            laundries.removeAll()
+            dryers.removeAll()
         } else {
             noMachineLabel.hidden = true
-            laundries = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.locationId!.integerValue)!]?.washers
-            dryers = LocationManager.sharedLocations.locations[(Profile.userProfiles.currentUser?.locationId!.integerValue)!]?.dryers
-        }
+            
+            LocationManager.sharedLocations.getMachinesForLocation(Int((Profile.userProfiles.currentUser?.locationId)!)) { (allMachines, error) -> Void in
+                if allMachines != nil {
+                    for eachMachine in allMachines! {
+                        if eachMachine.type == .Washer {
+                            self.laundries.append(eachMachine)
+                        } else {
+                            self.dryers.append(eachMachine)
+        }   }   }   }   }
+        
         laundryCollectionView.reloadData()
         dryerCollectionView.reloadData()
     }
@@ -168,12 +198,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     
 //add reservation time to laundryCell when validate button on datapicker view is tapped
     @IBAction func validateButtonTapped(sender: UIButton) {
-        let newReservation = Reservation()
-        newReservation.machineId = waitingMachineCell.machine.id
-        newReservation.reservedTime = dataPicker.date
-        waitingMachineCell.machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = newReservation
+        
+        ReportManager.sharedInstance.addReservation(waitingMachineCell.machine, reservedTime: dataPicker.date) { (error) -> Void in
+            if error != nil {
+                print("cannot add reservation: \(error?.localizedDescription)")
+            }
+        }
+        
         pickTimeView.alpha = 0.0
-        ReportManager.sharedInstance.addReservationToLaundry(waitingMachineCell.machine)
+
         waitingMachineCell.updateResaStatus()
         // -- reserved alert removed --
     }

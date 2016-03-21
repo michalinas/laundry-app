@@ -53,7 +53,10 @@ class MachineCell: UICollectionViewCell {
                 dryerStepper.maximumValue = 120.0
                 dryerStepper.minimumValue = 5.0
                 dryerStepper.stepValue = 5.0
-            } else if machine.type == .Washer && machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil {
+            
+                
+            
+//          } else if machine.type == .Washer && machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil {
                 machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
             } else {
                 machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
@@ -78,25 +81,51 @@ class MachineCell: UICollectionViewCell {
     
     func updateResaStatus() {
         if machine.type == .Washer {
-            if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil) {
-                reserveButton.setTitle("reserve", forState: .Normal)
-                if machine.state == .Empty {
-                    machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+            ReportManager.sharedInstance.getResrvationsForUser((Profile.userProfiles.currentUser?.username)!) { (userReservations, error) -> Void in
+                if userReservations != nil {
+                    for everyResa in userReservations! {
+                        if everyResa.machineId == self.machine.machineId && !everyResa.cancel {
+                            self.reserveButton.setTitle("cancel", forState: .Normal)
+                            if self.machine.state == .Empty {
+                                self.machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
+                            }
+                        } else if everyResa.machineId == self.machine.machineId && everyResa.cancel {
+                            // resa
+                            self.reserveButton.setTitle("reserve", forState: .Normal)
+                            if self.machine.state == .Empty {
+                                self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                            }
+                        }
+                    }
+                } else {
+                    // free
+                    self.reserveButton.setTitle("reserve", forState: .Normal)
+                    if self.machine.state == .Empty {
+                        self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                    }
                 }
-            } else if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!]?.reservedTime.dateByAddingTimeInterval(Double(900)).compare(NSDate()) == NSComparisonResult.OrderedAscending) {
-                machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = nil
-                ReportManager.sharedInstance.addCancellationReport(machine)
-                reserveButton.setTitle("reserve", forState: .Normal)
-                if machine.state == .Empty {
-                    machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
-                }
-                
-            } else {
-                reserveButton.setTitle("cancel", forState: .Normal)
-                if machine.state == .Empty {
-                    machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
-                }
-            }   }   }
+            }
+            
+            
+//            if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] == nil) {
+////                reserveButton.setTitle("reserve", forState: .Normal)
+////                if machine.state == .Empty {
+////                    machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+////                }
+//            } else if (machine.madeReservations[(Profile.userProfiles.currentUser?.username)!]?.reservedTime.dateByAddingTimeInterval(Double(900)).compare(NSDate()) == NSComparisonResult.OrderedAscending) {
+//                machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] = nil
+//                ReportManager.sharedInstance.addCancellationReport(machine)
+//                reserveButton.setTitle("reserve", forState: .Normal)
+//                if machine.state == .Empty {
+//                    machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+//                }
+//                
+//            } else {
+//                reserveButton.setTitle("cancel", forState: .Normal)
+//                if machine.state == .Empty {
+//                    machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
+//                }
+            }   }
     
     
     @IBAction func startButtonTApped(sender: UIButton) {
@@ -126,10 +155,10 @@ class MachineCell: UICollectionViewCell {
         if Profile.userProfiles.currentUser != nil {
             if machine.state == .Empty {
                 machine.workEndDate = NSDate()
-            }
-            if machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] != nil {
-                ReportManager.sharedInstance.addCancellationReport(machine)
-            }
+            } 
+//            if machine.madeReservations[(Profile.userProfiles.currentUser?.username)!] != nil {
+//                ReportManager.sharedInstance.addCancellationReport(machine)
+//            }
             delegate?.MachineCellDidTapReserve(self)
         } else {
             sender.enabled = false

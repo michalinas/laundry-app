@@ -16,12 +16,10 @@ enum LaundryState: Int {
     case Finished
 }
 
-
 enum ReservationStatus: Int {
     case Free
     case Reserved
 }
-
 
 enum MachineType: Int {
     case Dryer
@@ -29,44 +27,74 @@ enum MachineType: Int {
 }
 
 
-enum ActionType: Int {
-    case Reservation
-    case Cancellation
-    case Finished
-}
 
 
-class Machine {
+class Machine: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
+    var locationId: NSNumber = 0
+    var machineId: Int = -1
     var state: LaundryState = .Empty
     var workEndDate: NSDate = NSDate()
-    var id: Int = -1
     var counter: Int = 5
     var type: MachineType = .Washer
-    var madeReservations: [String: Reservation] = [:]
+    // var madeReservations: [String: Reservation] = [:]
     var userNameForWorking: String?
+    
+    class func dynamoDBTableName() -> String! {
+        return "Machine"
+    }
+    
+    class func hashKeyAttribute() -> String! {
+        return "machineId"
+    }
 }
 
 
-class Reservation {
-    var machineId: Int = 0
+class Reservation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
+    var machineId: NSNumber = 0
     var reservedTime: NSDate = NSDate()
     var username: String = ""
+    var cancel: Bool = false
+    
+    class func dynamoDBTableName() -> String! {
+        return "Reservation"
+    }
+    
+    class func hashKeyAttribute() -> String! {
+        return "username"
+    }
 }
 
 
-class Report {
+class Report: AWSDynamoDBObjectModel, AWSDynamoDBModeling  {
     var machineId: Int = 0
+    var username: String = ""
     var machineType: MachineType = .Washer
-    var actionType: ActionType = .Reservation
-    var useTime: NSDate = NSDate()
-    var cancel: Bool = false
+    var finishedTimestamp: NSNumber = 0
+    
+    var timeFinished: NSDate {
+        get { return NSDate(timeIntervalSince1970: finishedTimestamp.doubleValue) }
+        set { finishedTimestamp = newValue.timeIntervalSince1970 }
+    }
+
+    class func dynamoDBTableName() -> String! {
+        return "Report"
+    }
+    
+    class func hashKeyAttribute() -> String! {
+        return "username"
+    }
+    
+    class func ignoreAttributes() -> [AnyObject]! {
+        return ["timeFinished"]
+    }
+
 }
 
 
 class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var username: String = ""
     var password: String = ""
-    var locationId: NSNumber?
+    var locationId: NSNumber = 0
     
     class func dynamoDBTableName() -> String {
         return "User"
@@ -82,12 +110,22 @@ func == (left: User, right: User) -> Bool {
 }
 
 
-class Location {
-    var zip: Int = 0
+class Location: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
+    var locationId: NSNumber = 0
     var city: String = ""
     var street: String?
-    var buildingNum: String?
-    var washers: [Machine] = []
-    var dryers: [Machine] = []
-    var locationId: Int = 0
+    var zip: NSNumber = 0
+    var numDryers: Int = 0
+    var numWashers: Int = 0
+    // var buildingNum: String?
+    // var washers: [Machine] = []
+    // var dryers: [Machine] = []   
+    
+    class func dynamoDBTableName() -> String {
+        return "Location"
+    }
+    
+    class func hashKeyAttribute() -> String {
+        return "locationId"
+    }
 }

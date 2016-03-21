@@ -17,6 +17,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var HistoryTableView: UITableView!
     @IBOutlet weak var noUserLabel: UILabel!
     
+    var reservationReports: [Reservation] = []
+    var finishedReports: [Report] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,10 +45,22 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             return 0
         } else if section == 0 {
             noUserLabel.hidden = true
-            return ReportManager.sharedInstance.reservationReports[(Profile.userProfiles.currentUser?.username)!]!.count
+            
+            ReportManager.sharedInstance.getResrvationsForUser(Profile.userProfiles.currentUser!.username) { (reservations, error) -> Void in
+                if error != nil {
+                    self.reservationReports = reservations!
+                }
+            }
+            return reservationReports.count
         } else {
             noUserLabel.hidden = true
-            return ReportManager.sharedInstance.finishedReports[(Profile.userProfiles.currentUser?.username)!]!.count
+            
+            ReportManager.sharedInstance.getReporsForUser(Profile.userProfiles.currentUser!.username) { (reports, error) -> Void in
+                if error != nil {
+                    self.finishedReports = reports!
+                }
+            }
+            return finishedReports.count
         }
     }
     
@@ -70,14 +85,20 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! ReportCell
         var machineReport: Report?
+        var machineReservation: Reservation?
+        
+        
         
         if Profile.userProfiles.currentUser != nil {
             if indexPath.section == 0 {
-                machineReport = ReportManager.sharedInstance.reservationReports[(Profile.userProfiles.currentUser?.username)!]![indexPath.row]
+                machineReservation = reservationReports[indexPath.row]
+                cell.resReport = machineReservation
             } else {
-                machineReport = ReportManager.sharedInstance.finishedReports[(Profile.userProfiles.currentUser?.username)!]![indexPath.row]
-            }
+                machineReport = finishedReports[indexPath.row]
                 cell.report = machineReport
+            }
+            
+            
              }
         return cell
     }

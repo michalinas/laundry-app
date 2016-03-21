@@ -54,8 +54,22 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
             errorLabel.hidden = false
         } else {
             errorLabel.hidden = true
-            Profile.userProfiles.changePassword(newPasswordField.text!)
-            navigationController?.popViewControllerAnimated(true)
-        }
-    }
+            if let updatedUser = Profile.userProfiles.currentUser {
+                updatedUser.password = newPasswordField.text!
+                
+                Profile.userProfiles.updateUser(updatedUser) {(error) -> Void in
+                    if error == nil {
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else {
+                        let alertController = UIAlertController()
+                        alertController.title = "Unable to change password"
+                        alertController.message = error!.localizedDescription
+                        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+    }   }   }   }    }
+    
+    
+    
+    
+
 }

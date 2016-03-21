@@ -24,9 +24,16 @@ class ReportCell: UITableViewCell {
             loadCell()
         }
     }
+    
+    var resReport: Reservation! {
+        didSet {
+            loadCellWithReservation()
+        }
+    }
 
     
     func loadCell() {
+//        let image = UIImage(named: "noun_161138_cc")
         if let filePath = NSBundle.mainBundle().pathForResource("noun_161138_cc", ofType: "png"), image = UIImage(contentsOfFile: filePath) {
             tableCellImage.contentMode = .ScaleAspectFit
             tableCellImage.image = image
@@ -34,27 +41,33 @@ class ReportCell: UITableViewCell {
 
         if report.machineType == .Washer {
             tableCellTitle.text! = "Washing mashine # \(report.machineId)"
-            if report.actionType == .Reservation {
-                tableCellImage.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
-            } else {
-                tableCellImage.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
-            }
+        
         } else {
             tableCellTitle.text! = "Dryer # \(report.machineId)"
+        }
             tableCellImage.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
-        }
-        if report.cancel {
-            tableCellSubtitle.text! = "reservation cancelled"
-            tableCellImage.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
-            if let filePath = NSBundle.mainBundle().pathForResource("noun_161132_cc", ofType: "png"), image = UIImage(contentsOfFile: filePath) {
-                tableCellImage.contentMode = .ScaleAspectFit
-                tableCellImage.image = image
-            }
-        } else {
-            tableCellSubtitle.text! = "\(report.actionType): \(dateFormat(report.useTime))"
-        }
+            tableCellSubtitle.text! = "Finished: \(dateFormat(report.timeFinished))"
     }
 
+    
+    func loadCellWithReservation() {
+        tableCellTitle.text! = "Washing mashine # \(resReport.machineId)"
+        if resReport.cancel {
+            tableCellSubtitle.text! = "Reservation cancelled"
+            tableCellImage.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
+            let image = UIImage(named: "noun_161132_cc")
+            tableCellImage.contentMode = .ScaleAspectFit
+            tableCellImage.image = image
+        } else {
+            tableCellSubtitle.text! = "Reservation: \(dateFormat(resReport.reservedTime))"
+            tableCellImage.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
+            let image = UIImage(named: "noun_161138_cc")
+            tableCellImage.contentMode = .ScaleAspectFit
+            tableCellImage.image = image
+        }
+     }
+    
+    
     func dateFormat(date: NSDate) -> String {
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "dd-MM-YYYY HH:mm"

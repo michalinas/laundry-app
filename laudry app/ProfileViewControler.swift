@@ -59,37 +59,20 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             loginErrorLabel.alpha = 0.0
             Profile.userProfiles.trytoLogIn(nameField.text!, password: passwordField.text!, completion: {(error) in
                 if error == nil {
-            self.loginView.alpha = 0.0
-            self.loggedViewOpen()
-            self.loggedView.alpha = 1.0
-            self.tabBarController?.selectedIndex = 0
+                    self.loginView.alpha = 0.0
+                    self.loggedViewOpen()
+                    self.loggedView.alpha = 1.0
+                    self.tabBarController?.selectedIndex = 0
                 } else {
-            self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
-            self.loginErrorLabel.alpha = 1.0
+                    self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
+                    self.loginErrorLabel.alpha = 1.0
 
                     let alertController = UIAlertController()
-            alertController.title = "Unable to login"
-            alertController.message = error!.localizedDescription
-            alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
-            } })
-            
-            
-            
-            
-            
-            
-            
-//            {
-//                self.loginView.alpha = 0.0
-//                loggedViewOpen()
-//                self.loggedView.alpha = 1.0
-//                self.tabBarController?.selectedIndex = 0
-//            } else {
-//                loginErrorLabel.text = "Username or password are incorrect. Please try again"
-//                loginErrorLabel.alpha = 1.0
-//            }
-        }
+                    alertController.title = "Unable to login"
+                    alertController.message = error!.localizedDescription
+                    alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                    self.presentViewController(alertController, animated: true, completion: nil)
+        }   })  }
     }
     
     
@@ -136,18 +119,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
 //        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
 //        self.presentViewController(alert, animated: true, completion: nil)
 //    }
-    
-    func deleteAlert() {
-        let alert = UIAlertController(title: "delete", message: "You will delete your profile permamently and loose all your data.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive, handler: { (UIAlertAction) -> Void in
-            Profile.userProfiles.profiles.removeValueForKey(Profile.userProfiles.currentUser!.username)
-            Profile.userProfiles.currentUser = nil
-            self.loggedView.alpha = 0.0
-            self.registerView.alpha = 1.0
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
+
     
     // MARK: - registerView
 
@@ -170,8 +142,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     }
 
     
-    /* verify if all field are filled, then check if username is available if so create a new user,
-     set as a current user (=log in) and switch to the home page.
+    /* verify if all field are filled.
+    Then check if username is available. If not throws an error label, if yes continue the checks.
+    create a new user, set as a current user (=log in) and switch to the home page.
     change alpha of login view to 0 and logged view to 1, so next time the user see his profile info.
     */
     @IBAction func sendToRegisterButtonTapped(sender: AnyObject) {
@@ -185,16 +158,21 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             newUsernameErrorLabel.alpha = 0.0
             passwordErrorLabel.alpha = 0.0
             locationErrorLabel.alpha = 0.0
-            if !Profile.userProfiles.checkUsername(newUsernameField.text!) {
-                if (newPasswordField.text == confirmPasswordField.text) && (newPasswordField.text!.characters.count >= 6) {
+            
+            Profile.userProfiles.checkUsername(newUsernameField.text!) {(error) -> Void in
+                if error != nil {
+                    self.newUsernameErrorLabel.text = "This username is not available."
+                    self.newUsernameErrorLabel.alpha = 1.0
+                } else if (self.newPasswordField.text == self.confirmPasswordField.text) && (self.newPasswordField.text!.characters.count >= 6) {
                     let newUser = Profile.userProfiles.registeringUser
-                    newUser!.password = newPasswordField.text!
-                    newUser!.username = newUsernameField.text!
+                    newUser!.password = self.newPasswordField.text!
+                    newUser!.username = self.newUsernameField.text!
                     ReportManager.sharedInstance.addUserToReports((newUser?.username)!)
                     
-                    if newUser!.locationId!.integerValue != 0 {
-                        Profile.userProfiles.registerNewUser(newUser!, completion: {(error) in
+                    if newUser!.locationId.integerValue != 0 {
+                        Profile.userProfiles.registerNewUser(newUser!) {(error) in
                             if error == nil {
+                                self.loginView.alpha = 0.0
                                 self.registerView.alpha = 0.0
                                 self.loggedViewOpen()
                                 self.loggedView.alpha = 1.0
@@ -206,23 +184,20 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                                 alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                                 self.presentViewController(alertController, animated: true, completion: nil)
                             }
-                        
-                        })
-                        
+                        }
                     } else {
-                        locationErrorLabel.text = "Please select a location."
-                        locationErrorLabel.alpha = 1.0
+                        self.locationErrorLabel.text = "Please select a location."
+                        self.locationErrorLabel.alpha = 1.0
                     }
                 } else {
-                    passwordErrorLabel.text = "Your passwords must match and be at least 6 charachters long."
-                    passwordErrorLabel.alpha = 1.0
+                        self.passwordErrorLabel.text = "Your passwords must match and be at least 6 charachters long."
+                        self.passwordErrorLabel.alpha = 1.0
                 }
-            } else {
-                newUsernameErrorLabel.text = "This username is not available."
-                newUsernameErrorLabel.alpha = 1.0
             }
         }
     }
+    
+
     
     
     // MARK: - loggedView
@@ -239,13 +214,24 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     func loggedViewOpen() {
         let userData = Profile.userProfiles.currentUser!
         loggedHelloLabel.text = "Hello, \(userData.username)"
+        
+        LocationManager.sharedLocations.getLocationWith(userData.locationId.integerValue) { (userLocation, error) -> Void in
+            if userLocation != nil {
+                self.currentLocationLabel.text = "Your current laundry address: \(userLocation!.street) in \(userLocation!.city)"
+            } else {
+                self.currentLocationLabel.text = "cannot find your location details"
+            }
+        }
+        
         loggedPasswordButton.setTitle("change password", forState: .Normal)
-        currentLocationLabel.text = "Your current laundry address: \((LocationManager.sharedLocations.locations[(userData.locationId!.integerValue)]?.street)!) in \(LocationManager.sharedLocations.locations[(userData.locationId!.integerValue)]?.city)"
         changeAdressButton.setTitle("change laundry location", forState: .Normal)
         logOutButton.setTitle("log out", forState: .Normal)
         delateProfileButton.setTitle("delete profile", forState: .Normal)
-        ReportManager.sharedInstance.deleteOldReservationReports()
-
+        ReportManager.sharedInstance.deleteOldReservations(userData.username) { (reservations, error) -> Void in
+            if error != nil {
+                print("cannot delete old resrvations")
+            }
+        }
     }
     
     
@@ -255,8 +241,50 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         loginView.alpha = 1.0
     }
     
+    
     @IBAction func delateProfileButtonTapped(sender: AnyObject) {
-        deleteAlert()
+        let alert = UIAlertController(title: "delete", message: "You will delete your profile permamently and loose all your data.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive, handler: { (UIAlertAction) -> Void in
+            if let userToDelete = Profile.userProfiles.currentUser {
+                DynamoDB.delete(userToDelete) { (error) -> Void in
+                    var error = error
+                    if error == nil {
+                        ReportManager.sharedInstance.getResrvationsForUser(userToDelete.username) { (userReservations, error) -> Void in
+                            if userReservations != nil {
+                                for eachReservation in userReservations! {
+                                    DynamoDB.delete(eachReservation) { (error) -> Void in
+                                        //---------
+                                        print("resrvations deleted")
+                        }   }   }  }
+                        ReportManager.sharedInstance.getReporsForUser(userToDelete.username) { (userReports, error) -> Void in
+                            if userReports != nil {
+                                for eachReport in userReports! {
+                                    DynamoDB.delete(eachReport) { (error) -> Void in
+                                        //--------------
+                                        print("reports deleted")
+                        }   }   }   }
+                        LocationManager.sharedLocations.getMachinesForLocation(Int(userToDelete.locationId)) { (machines, error) -> Void in
+                            if machines != nil {
+                                for eachMachine in machines! {
+                                    if eachMachine.userNameForWorking == userToDelete.username {
+                                        eachMachine.userNameForWorking = nil
+                                        LocationManager.sharedLocations.updateMachine(eachMachine) { (error) -> Void in
+                                            //----------
+                                            print("machines updated")
+                        }   }   }   }   }
+                        
+                        Profile.userProfiles.currentUser = nil
+                        self.loggedView.alpha = 0.0
+                        self.registerView.alpha = 1.0
+                        print("user deleted")
+                        
+                    } else {
+                        print("error, user cannot be deleted")
+                        error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "cannot delete the user"])
+        }   }   }   }   )   )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     
