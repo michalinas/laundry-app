@@ -18,7 +18,6 @@
 		0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */; };
 		0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */; };
 		0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42EC3E1C6D682500253A0C /* historyViewController.swift */; };
-		0A4CF38D1C9B2754006355B0 /* MachineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4CF38C1C9B2754006355B0 /* MachineManager.swift */; };
 		0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */; };
 		0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */; };
 		0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */; };
@@ -37,7 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A24F3B91C570908007F8920 /* laudry app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "laudry app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A24F3B91C570908007F8920 /* laundry NYC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "laundry NYC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A24F3BC1C570908007F8920 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A24F3BE1C570908007F8920 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0A24F3C11C570908007F8920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +49,6 @@
 		0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_machine_copy.png; sourceTree = "<group>"; };
 		0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordViewControler.swift; sourceTree = "<group>"; };
 		0A42EC3E1C6D682500253A0C /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
-		0A4CF38C1C9B2754006355B0 /* MachineManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineManager.swift; sourceTree = "<group>"; };
 		0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControler.swift; sourceTree = "<group>"; };
 		0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
@@ -96,7 +94,7 @@
 		0A24F3BA1C570908007F8920 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A24F3B91C570908007F8920 /* laudry app.app */,
+				0A24F3B91C570908007F8920 /* laundry NYC.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,11 +113,10 @@
 				0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */,
 				0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */,
 				0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */,
+				0AB42DBB1C86118C0016F836 /* LocationManager.swift */,
 				0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */,
 				0AFE2C611C8DF473002D291B /* ReportCell.swift */,
-				0AB42DBB1C86118C0016F836 /* LocationManager.swift */,
 				0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */,
-				0A4CF38C1C9B2754006355B0 /* MachineManager.swift */,
 				0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */,
 				0AFE055B1C62DDEE00FDF0BB /* models.swift */,
 				0AF036171C8FBF69002770CD /* UserExtension.swift */,
@@ -164,9 +161,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0A24F3B81C570908007F8920 /* laudry app */ = {
+		0A24F3B81C570908007F8920 /* laundryNYC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laudry app" */;
+			buildConfigurationList = 0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laundryNYC" */;
 			buildPhases = (
 				F4E717FB0D9BA3EF87559D58 /* Check Pods Manifest.lock */,
 				0A24F3B51C570908007F8920 /* Sources */,
@@ -179,9 +176,9 @@
 			);
 			dependencies = (
 			);
-			name = "laudry app";
+			name = laundryNYC;
 			productName = "laudry app";
-			productReference = 0A24F3B91C570908007F8920 /* laudry app.app */;
+			productReference = 0A24F3B91C570908007F8920 /* laundry NYC.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -203,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laudry app" */;
+			buildConfigurationList = 0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laundryNYC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -216,7 +213,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0A24F3B81C570908007F8920 /* laudry app */,
+				0A24F3B81C570908007F8920 /* laundryNYC */,
 			);
 		};
 /* End PBXProject section */
@@ -294,7 +291,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A24F3BF1C570908007F8920 /* ViewController.swift in Sources */,
-				0A4CF38D1C9B2754006355B0 /* MachineManager.swift in Sources */,
 				0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */,
 				0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */,
 				0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */,
@@ -424,11 +420,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "laudry app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "laundry NYC";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -438,19 +438,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Michalina Simik (QJDVATC5AZ)";
 				INFOPLIST_FILE = "laudry app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "laundry NYC";
+				PROVISIONING_PROFILE = "b174234e-f4fc-41f3-acdf-a813c89b1aad";
 				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laudry app" */ = {
+		0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laundryNYC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0A24F3C91C570908007F8920 /* Debug */,
@@ -459,7 +463,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laudry app" */ = {
+		0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laundryNYC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0A24F3CC1C570908007F8920 /* Debug */,

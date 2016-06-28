@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0A24F3B81C570908007F8920"
-               BuildableName = "laudry app.app"
+               BuildableName = "laundry NYC.app"
                BlueprintName = "laudry app"
                ReferencedContainer = "container:laudry app.xcodeproj">
             </BuildableReference>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A24F3B81C570908007F8920"
-            BuildableName = "laudry app.app"
-            BlueprintName = "laudry app"
-            ReferencedContainer = "container:laudry app.xcodeproj">
+            BuildableName = "laundry NYC.app"
+            BlueprintName = "laundryNYC"
+            ReferencedContainer = "container:laundryNYC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A24F3B81C570908007F8920"
-            BuildableName = "laudry app.app"
-            BlueprintName = "laudry app"
-            ReferencedContainer = "container:laudry app.xcodeproj">
+            BuildableName = "laundry NYC.app"
+            BlueprintName = "laundryNYC"
+            ReferencedContainer = "container:laundryNYC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A24F3B81C570908007F8920"
-            BuildableName = "laudry app.app"
+            BuildableName = "laundry NYC.app"
             BlueprintName = "laudry app"
             ReferencedContainer = "container:laudry app.xcodeproj">
          </BuildableReference>

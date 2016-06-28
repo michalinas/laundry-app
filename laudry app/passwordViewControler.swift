@@ -16,7 +16,7 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
-    
+    let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +54,9 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
             errorLabel.hidden = false
         } else {
             errorLabel.hidden = true
-            if let updatedUser = Profile.userProfiles.currentUser {
-                updatedUser.password = newPasswordField.text!
-                
+            let updatedUser = Profile.userProfiles.getDefaultUser()
+            updatedUser.password = newPasswordField.text!
+            
                 Profile.userProfiles.updateUser(updatedUser) {(error) -> Void in
                     if error == nil {
                         self.navigationController?.popViewControllerAnimated(true)
@@ -66,7 +66,7 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
                         alertController.message = error!.localizedDescription
                         alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                         self.presentViewController(alertController, animated: true, completion: nil)
-    }   }   }   }    }
+    }   }   }   }
     
     
     
