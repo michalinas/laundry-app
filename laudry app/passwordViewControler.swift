@@ -44,13 +44,13 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         if (newPasswordField.text!.isEmpty) || (confirmPasswordField.text!.isEmpty) {
-            errorLabel.text = "please enter and confirm your password"
+            errorLabel.text = " please enter and confirm your password "
             errorLabel.hidden = false
         } else if newPasswordField.text! != confirmPasswordField.text! {
-            errorLabel.text = "passwords don't match"
+            errorLabel.text = " passwords don't match "
             errorLabel.hidden = false
         } else if newPasswordField.text?.characters.count < 6 {
-            errorLabel.text = "password has to be min. 6 characters"
+            errorLabel.text = " password has to be min. 6 characters "
             errorLabel.hidden = false
         } else {
             errorLabel.hidden = true

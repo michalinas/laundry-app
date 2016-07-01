@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     */
     @IBAction func logButtonTapped(sender: UIButton) {
         if nameField.text!.isEmpty || passwordField.text!.isEmpty {
-            loginErrorLabel.text = "Please fill all fields"
+            loginErrorLabel.text = " Please fill all fields "
             loginErrorLabel.alpha = 1.0
         } else {
             loginErrorLabel.alpha = 0.0
@@ -74,7 +74,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     self.loggedView.alpha = 1.0
                     self.tabBarController?.selectedIndex = 0
                 } else {
-                    self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
+                    self.loginErrorLabel.text = " Username or password are incorrect. Please try again. "
                     self.loginErrorLabel.alpha = 1.0
 
                     let alertController = UIAlertController()
@@ -155,7 +155,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         passwordErrorLabel.alpha = 0.0
         newUsernameErrorLabel.alpha = 0.0
         if (newUsernameField.text!.isEmpty || newPasswordField.text!.isEmpty || confirmPasswordField.text!.isEmpty) {
-            newUsernameErrorLabel.text = "Please fill all fields"
+            newUsernameErrorLabel.text = " Please fill all fields. "
             newUsernameErrorLabel.alpha = 1.0
         } else {
             newUsernameErrorLabel.alpha = 0.0
@@ -164,11 +164,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             
             Profile.userProfiles.checkUsername(newUsernameField.text!) {(user, error) -> Void in
                 if error != nil {
-                    self.newUsernameErrorLabel.text = "This username is not available."
+                    self.newUsernameErrorLabel.text = " This username is not available. "
                     print(error)
                     self.newUsernameErrorLabel.alpha = 1.0
                 } else if self.newPasswordField.text!.characters.count < 6 {
-                    self.passwordErrorLabel.text = "Password length: min. 6 characters"
+                    self.passwordErrorLabel.text = " Password length: min. 6 characters. "
                     self.passwordErrorLabel.alpha = 1.0
                 } else if self.newPasswordField.text == self.confirmPasswordField.text {
                     let newUser = Profile.userProfiles.registeringUser
@@ -192,11 +192,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                     } else {
-                        self.locationErrorLabel.text = "Please select a location."
+                        self.locationErrorLabel.text = " Please select a location. "
                         self.locationErrorLabel.alpha = 1.0
                     }
                 } else {
-                        self.passwordErrorLabel.text = "Your passwords must match."
+                        self.passwordErrorLabel.text = " Your passwords must match. "
                         self.passwordErrorLabel.alpha = 1.0
                 }
             }

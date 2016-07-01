@@ -191,13 +191,13 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBAction func acceptButtonTapped(sender: AnyObject) {
         errorLabel.alpha = 0.0
         if zipField.text!.characters.count != 5 {
-            errorLabel.text = "Please enter 5-digit zip code."
+            errorLabel.text = " Please enter 5-digit zip code. "
             errorLabel.alpha = 1.0
         } else if zipField.text!.characters.count == 5 && locationResults.isEmpty {
-            errorLabel.text = "Zip code is incorrect."
+            errorLabel.text = " Zip code is incorrect. "
             errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
-            errorLabel.text = "All fields are mandatory."
+            errorLabel.text = " All fields are mandatory. "
             errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "confirm" {
             
