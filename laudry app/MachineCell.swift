@@ -124,8 +124,6 @@ class MachineCell: UICollectionViewCell {
     /* start/empty machine
      if startbutton tapped and machine is a wmpty washer, it will verify if there is no pending reservation from different user which conflict
      with the washing time +15 min. if a collision found will pop up an alert
-     
-     
      */
     @IBAction func startButtonTApped(sender: UIButton) {
         let user = Profile.userProfiles.getDefaultUser()
@@ -204,8 +202,13 @@ class MachineCell: UICollectionViewCell {
                 print(error?.localizedDescription)
             }
         }
+        
+        ReportManager.sharedInstance.saveNotification(nil, machine: machine)
+
     }
     
+    
+
     
     @IBAction func reserveButtonTapped(sender: UIButton) {
         if defaultUser.objectForKey("currentUser") != nil {

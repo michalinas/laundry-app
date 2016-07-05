@@ -229,6 +229,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                     }
                 self.waitingMachineCell.updateResaStatus()
                 self.pickTimeView.alpha = 0.0
+                
                 }
             } else {
             let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)

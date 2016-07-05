@@ -24,6 +24,7 @@ class ReportManager {
                 print("error in adding resa: \(error)")
             } else {
                 print("reserv id: \(reservation.reservationId)")
+                self.saveNotification(reservation, machine: nil)
             }
             completion(error)
         }
@@ -123,7 +124,22 @@ class ReportManager {
             completion(reports, error)
         }}
 
-    
+    func saveNotification(reservation: Reservation?, machine: Machine?) {
+        let notification = UILocalNotification()
+        notification.alertAction = "ok"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        
+        if let reservation = reservation {
+            notification.alertBody = "machine # \(reservation.orderNumber) is reserved for you in 15 min"
+            notification.fireDate = reservation.reservedTime.dateByAddingTimeInterval(-900)
+        } else if let machine = machine {
+            notification.alertBody = "your laundry is done!"
+            notification.fireDate = machine.workEndDate
+        }
+        
+        print("notification created")
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+       }
 
     
 }
