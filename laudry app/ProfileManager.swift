@@ -73,7 +73,6 @@ class Profile {
     func updateUser(updatedUser: User, completion: (NSError?) -> Void) {
         DynamoDB.save(updatedUser) { (error) -> Void in
             if error == nil {
-                print("user will be updated")
                 self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(updatedUser), forKey: "currentUser")
                // self.currentUser = updatedUser
             }

@@ -166,18 +166,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             }
             if laundries.isEmpty || dryers.isEmpty {
             LocationManager.sharedLocations.getMachinesForLocation(user.locationId) { (allMachines, error) -> Void in
-                print("in closure...\(user.locationId)")
                 if !(allMachines!.isEmpty) {
-                    print("machines will be loaded...\(allMachines?.count)")
                     for eachMachine in allMachines! {
                         if eachMachine.machineType == .Washer {
                             self.laundries.append(eachMachine)
-                            print("laundry added")
                         } else {
                             self.dryers.append(eachMachine)
-                            print("dryer added")
                 }   }
-                print("finished")
                 
                 if self.laundries.count > 1 {
                 self.laundries = self.laundries.sort({ (laundry1: Machine, laundry2: Machine) -> Bool in
@@ -222,7 +217,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         let chosenTime = dataPicker.date
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
             if reservations!.isEmpty {
-                print("can be added right now")
                 ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                     if error != nil {
                         print("cannot add reservation: \(error?.localizedDescription)")
@@ -233,16 +227,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                 }
             } else {
             let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
-            print(conflictingTimeInterval)
             for each in reservations! {
                 let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
-                print(actualTimeInterval)
                 if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
                     ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                         if error != nil {
                             print("cannot add reservation: \(error?.localizedDescription)")
                         }
-                        print("ok")
                         self.waitingMachineCell.updateResaStatus()
                         self.pickTimeView.alpha = 0.0
                     }
@@ -252,11 +243,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                     alertController.message = "Chosen time has been reserved by another user. Please choose other convinient time."
                     alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                     self.presentViewController(alertController, animated: true, completion: nil)
-                    print("wrong time chosen")
 
                 }
                 } }
-            print("all checked")
         }
         
         

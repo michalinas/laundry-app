@@ -228,14 +228,12 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                 } else {
                     if Profile.userProfiles.registeringUser != nil {
                         Profile.userProfiles.registeringUser!.locationId = newLocation.locationId
-                        print("registering user new location added")
                     } else {
                         let user = Profile.userProfiles.getDefaultUser()
                         user.locationId = newLocation.locationId
                         self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "currentUser")
                         Profile.userProfiles.updateUser(user) { (error) -> Void in
                             if error == nil {
-                                print("current user updated new location")
                                 self.navigationController?.popViewControllerAnimated(true)
                             } else {
                                 self.serverAlert("Unable to change location", error: error!)

@@ -277,10 +277,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                         self.defaultUser.setObject(nil, forKey: "currentUser")
                         self.loggedView.alpha = 0.0
                         self.registerView.alpha = 1.0
-                        print("user deleted")
                         
                     } else {
-                        print("error, user cannot be deleted")
                         error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "cannot delete the user"])
         }   }   }   )   )
         

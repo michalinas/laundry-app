@@ -138,7 +138,6 @@ class MachineCell: UICollectionViewCell {
                         let resa = reservations![0]
                         if resa.reservedTime.compare(NSDate().dateByAddingTimeInterval(901)) == NSComparisonResult.OrderedAscending {
                             self.startedMachine(user)
-                            print("resa for user")
                             DynamoDB.delete(resa) { (error) in
                                 if error == nil {
                                     print("resa started and removed - done")
@@ -151,14 +150,12 @@ class MachineCell: UICollectionViewCell {
                         ReportManager.sharedInstance.getReservationForMachine(self.machine.machineId) { (reservations, error) in
                         if reservations!.isEmpty {
                             self.startedMachine(user)
-                            print("no resa")
                         } else {
                             var found = false
                             for each in reservations! {
                                 if NSDate().dateByAddingTimeInterval(Double(self.machine.counter) + 899).compare(each.reservedTime) == NSComparisonResult.OrderedAscending {
                                     found = true
                                     self.startedMachine(user)
-                                    print("other user resa")
                                 }
                             }
                             if !found {
