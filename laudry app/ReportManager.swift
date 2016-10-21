@@ -10,132 +10,131 @@ import Foundation
 
 class ReportManager {
     static let sharedInstance = ReportManager()
-    
-    // var reservationReports: [String: [Report]] = [:]
-    // var finishedReports: [String: [Report]] = [:]
-    
-    
+    let defaultUser = NSUserDefaults.standardUserDefaults()
     
     func addReservation(laundry: Machine, reservedTime: NSDate, completion: (NSError?) -> Void) {
         let reservation = Reservation()
         reservation.machineId = laundry.machineId
-        reservation.username = Profile.userProfiles.currentUser!.username
+        reservation.username = Profile.userProfiles.getDefaultUser().username
+            //Profile.userProfiles.currentUser!.username
         reservation.reservedTime = reservedTime
-        
+        reservation.orderNumber = laundry.orderNumber
         DynamoDB.save(reservation) { (error) -> Void in
+            if error != nil {
+                print("error in adding resa: \(error)")
+            } else {
+                self.saveNotification(reservation, machine: nil)
+            }
             completion(error)
         }
     }
     
-    func getResrvationsForUser(username: String, completion: ([Reservation]?, NSError?) -> Void) {
+    
+    func getReservationsForUser(username: String, completion: ([Reservation]?, NSError?) -> Void) {
         DynamoDB.search(Reservation.self, parameterName: "username", parameterValue: username, matchMode: .Exact) { (reservations, error) -> Void in
             //--------------------
+            if let reservations = reservations {
+                let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-900))
+                for each in reservations {
+                    if each.reservedTime.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
+                        DynamoDB.delete(each) { (error) -> Void in
+                            //-----------
+                }   }   }
+                
+                DynamoDB.search(Reservation.self, parameterName: "username", parameterValue: username, matchMode: .Exact) { (reservations, error) -> Void in
+                    //------------
+                
+                    if var reservations = reservations {
+                        reservations.sortInPlace({ (reservation1: Reservation, reservation2: Reservation) -> Bool in
+                            return reservation1.reservedTime.compare(reservation2.reservedTime) == NSComparisonResult.OrderedAscending
+            })   }   }   }
             completion(reservations, error)
         }
     }
     
+//    func reservationsForMachineId(machineId: String, username: String, completion: ([Reservation]?, NSError?) -> Void) {
+//        reservationsForMachineId:username:completion:
+//    }
+    
+    func getReservationForMachineAndUser(machineId: String, username: String, completion: ([Reservation]?, NSError?) -> Void) {
+        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "username": username, "cancel": 0], matchMode: .Exact){ (reservation, error) -> Void in
+            if reservation!.count != 1 {
+                var error = error
+                error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "too many reservations found"])
+            }
+            completion(reservation, error)
+        }
+    }
     
     
-    func getReservationForMachine(machineId: Int, completion: ([Reservation]?, NSError?) -> Void) {
-        DynamoDB.search(Reservation.self, parameterName: "machineId", parameterValue: machineId, matchMode: .Exact) { (reservations, error) -> Void in
+    func getReservationForMachine(machineId: String, completion: ([Reservation]?, NSError?) -> Void) {
+        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "cancel": 0], matchMode: .Exact) { (reservations, error) -> Void in
             //--------------------
-            completion(reservations, error)
-        }
-    }
-    
-    func addCancelledReservation(reservationToCxl: Reservation, completion: (NSError?) -> Void) {
-        reservationToCxl.cancel = true
-        DynamoDB.save(reservationToCxl) { (error) -> Void in
-            completion(error)
-        }
-    }
-    
-    func deleteOldReservations(username: String, completion: ([Reservation]?, NSError?) -> Void) {
-        DynamoDB.search(Reservation.self, parameterName: "username", parameterValue: username, matchMode: .Exact) { (reservations, error) -> Void in
-            //-----------
-            if let reservationsToDelete = reservations {
-                let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-86400))
-                for each in reservationsToDelete {
+            if let reservations = reservations {
+                let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-900))
+                for each in reservations {
                     if each.reservedTime.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
                         DynamoDB.delete(each) { (error) -> Void in
                             // ------------- ?
                         }
                     }
                 }
+                DynamoDB.search(Reservation.self, parameterName: "machineId", parameterValue: machineId, matchMode: .Exact) { (reservations, error) -> Void in
+                    //------------
+                }
             }
-            //-----------
             completion(reservations, error)
         }
     }
     
     
-//    func deleteOldReservationReports() {
-//        if let userReports = reservationReports[(Profile.userProfiles.currentUser?.username)!] {
-//            if userReports.count != 0 {
-//                let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-86400))
-//                var updatedUserReports = userReports
-//                for i in 0..<userReports.count {
-//                    if userReports[i].useTime.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
-//                        updatedUserReports.removeAtIndex(i)
-//                    }
-//                }
-//                reservationReports[(Profile.userProfiles.currentUser?.username)!]! = updatedUserReports
-//            }   }   }
-    
-    
-//    
-//    func addReservationToLaundry(laundry: Machine) {
-//        let report = Report()
-//        report.machineId = laundry.machineId
-//        report.actionType = .Reservation
-//        report.useTime = laundry.madeReservations[(Profile.userProfiles.currentUser?.username)!]!.reservedTime
-//        reservationReports[(Profile.userProfiles.currentUser?.username)!]?.insert(report, atIndex: 0)
-//    }
+    func addCancelledReservation(reservations: [Reservation], completion: (NSError?) -> Void) {
+        for reservation in reservations {
+            reservation.cancel = true
+            DynamoDB.save(reservation) { (error) -> Void in
+                completion(error)
+            }
+        }
+    }
     
     
     func addReport(machine: Machine, completion: (NSError?) -> Void) {
         //-----------
         let report = Report()
         report.machineId = machine.machineId
-        report.machineType = machine.type
+        report.machineType = machine.machineType
         report.timeFinished = NSDate()
-        report.username = machine.userNameForWorking!
+        report.username = machine.usernameUsing
+        report.orderNumber = machine.orderNumber
         DynamoDB.save(report) { (error) -> Void in
+            if error != nil {
+                print("cannot add report: \(error)")
+            }
             completion(error)
-        }
-
-    }
+    }   }
+    
     
     func getReporsForUser(username: String, completion: ([Report]?, NSError?) -> Void) {
         DynamoDB.search(Report.self, parameterName: "username", parameterValue: username, matchMode: .Exact) { (reports, error) -> Void in
             //--------------------
             completion(reports, error)
         }}
-    
-    
-//    func addWashingReport(machine: Machine) {
-//        let report = Report()
-//        report.machineId = machine.machineId
-//        report.machineType = machine.type
-//        report.actionType = .Finished
-//        report.useTime = NSDate()
-//        finishedReports[machine.userNameForWorking!]?.insert(report, atIndex: 0)
-//    }
-    
-//    func addCancellationReport(laundry: Machine) {
-//        let report = Report()
-//        report.machineId = laundry.machineId
-//        report.actionType = .Cancellation
-//        report.cancel = true
-//        reservationReports[(Profile.userProfiles.currentUser?.username)!]?.insert(report, atIndex: 0)
-//    }
 
-    
-    func addUserToReports(username: String) {
-       // reservationReports[username] = []
-       // finishedReports[username] = []
+    func saveNotification(reservation: Reservation?, machine: Machine?) {
+        let notification = UILocalNotification()
+        notification.alertAction = "ok"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        
+        if let reservation = reservation {
+            notification.alertBody = "machine # \(reservation.orderNumber) is reserved for you in 15 min"
+            notification.fireDate = reservation.reservedTime.dateByAddingTimeInterval(-900)
+        } else if let machine = machine {
+            notification.alertBody = "your laundry is done!"
+            notification.fireDate = machine.workEndDate
+        }
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
-    
 
     
 }

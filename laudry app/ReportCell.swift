@@ -31,29 +31,30 @@ class ReportCell: UITableViewCell {
         }
     }
 
-    
+    /* Load report label for done laundry section
+    */
     func loadCell() {
-//        let image = UIImage(named: "noun_161138_cc")
-        if let filePath = NSBundle.mainBundle().pathForResource("noun_161138_cc", ofType: "png"), image = UIImage(contentsOfFile: filePath) {
-            tableCellImage.contentMode = .ScaleAspectFit
-            tableCellImage.image = image
-        }
-
+        let image = UIImage(named: "noun_161138_cc")
+        tableCellImage.contentMode = .ScaleAspectFit
+        tableCellImage.image = image
+        
         if report.machineType == .Washer {
-            tableCellTitle.text! = "Washing mashine # \(report.machineId)"
+            tableCellTitle.text! = "Washing mashine # \(report.orderNumber)"
         
         } else {
-            tableCellTitle.text! = "Dryer # \(report.machineId)"
+            tableCellTitle.text! = "Dryer # \(report.orderNumber)"
         }
             tableCellImage.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
             tableCellSubtitle.text! = "Finished: \(dateFormat(report.timeFinished))"
     }
 
     
+    /* load report label for reservations
+    */
     func loadCellWithReservation() {
-        tableCellTitle.text! = "Washing mashine # \(resReport.machineId)"
+        tableCellTitle.text! = "Washing mashine # \(resReport.orderNumber)"
         if resReport.cancel {
-            tableCellSubtitle.text! = "Reservation cancelled"
+            tableCellSubtitle.text! = "Reservation: \(dateFormat(resReport.reservedTime)) was cancelled"
             tableCellImage.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
             let image = UIImage(named: "noun_161132_cc")
             tableCellImage.contentMode = .ScaleAspectFit

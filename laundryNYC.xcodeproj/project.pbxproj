@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A24F3BD1C570908007F8920 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24F3BC1C570908007F8920 /* AppDelegate.swift */; };
+		0A24F3BF1C570908007F8920 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24F3BE1C570908007F8920 /* ViewController.swift */; };
+		0A24F3C21C570908007F8920 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C01C570908007F8920 /* Main.storyboard */; };
+		0A24F3C41C570908007F8920 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C31C570908007F8920 /* Assets.xcassets */; };
+		0A24F3C71C570908007F8920 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */; };
+		0A3495081C89FCEA001ECFA7 /* roundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3495071C89FCEA001ECFA7 /* roundedButton.swift */; };
+		0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3495091C8A182A001ECFA7 /* errorLabel.swift */; };
+		0A34950E1C8A292A001ECFA7 /* machine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A34950D1C8A292A001ECFA7 /* machine.png */; };
+		0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */; };
+		0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */; };
+		0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42EC3E1C6D682500253A0C /* historyViewController.swift */; };
+		0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */; };
+		0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */; };
+		0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */; };
+		0A90345F1C8E45F700F9EDC6 /* zips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A90345E1C8E45F700F9EDC6 /* zips.txt */; };
+		0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB42DBB1C86118C0016F836 /* LocationManager.swift */; };
+		0AEA163C1C97870E00A2928A /* DynamoDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA163B1C97870E00A2928A /* DynamoDB.swift */; };
+		0AEBDE8F1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */; };
+		0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF036171C8FBF69002770CD /* UserExtension.swift */; };
+		0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */; };
+		0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */; };
+		0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE055B1C62DDEE00FDF0BB /* models.swift */; };
+		0AFE2C621C8DF473002D291B /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE2C611C8DF473002D291B /* ReportCell.swift */; };
+		0AFE2C641C8E158C002D291B /* noun_161138_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C631C8E158C002D291B /* noun_161138_cc.png */; };
+		0AFE2C661C8E15A1002D291B /* noun_161132_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */; };
+		C5A2FD8759934CBF46C00CA3 /* Pods_laundryNYC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_laundryNYC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A24F3B91C570908007F8920 /* laundry NYC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "laundry NYC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A24F3BC1C570908007F8920 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0A24F3BE1C570908007F8920 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A24F3C11C570908007F8920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0A24F3C31C570908007F8920 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A24F3C61C570908007F8920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0A24F3C81C570908007F8920 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A3495071C89FCEA001ECFA7 /* roundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = roundedButton.swift; sourceTree = "<group>"; };
+		0A3495091C8A182A001ECFA7 /* errorLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = errorLabel.swift; sourceTree = "<group>"; };
+		0A34950D1C8A292A001ECFA7 /* machine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = machine.png; sourceTree = "<group>"; };
+		0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_machine_copy.png; sourceTree = "<group>"; };
+		0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordViewControler.swift; sourceTree = "<group>"; };
+		0A42EC3E1C6D682500253A0C /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
+		0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
+		0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControler.swift; sourceTree = "<group>"; };
+		0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		0A90345E1C8E45F700F9EDC6 /* zips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zips.txt; sourceTree = "<group>"; };
+		0AA161421C962E33009B9584 /* laudry app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "laudry app-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AB42DBB1C86118C0016F836 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0AEA163B1C97870E00A2928A /* DynamoDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamoDB.swift; sourceTree = "<group>"; };
+		0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rsz_noun_93753_cc@2x.png"; sourceTree = "<group>"; };
+		0AF036171C8FBF69002770CD /* UserExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserExtension.swift; sourceTree = "<group>"; };
+		0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineCell.swift; sourceTree = "<group>"; };
+		0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		0AFE055B1C62DDEE00FDF0BB /* models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
+		0AFE2C611C8DF473002D291B /* ReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportCell.swift; sourceTree = "<group>"; };
+		0AFE2C631C8E158C002D291B /* noun_161138_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161138_cc.png; sourceTree = "<group>"; };
+		0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161132_cc.png; sourceTree = "<group>"; };
+		3933CA09C8AFA71A8D0197A9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryNYC.release.xcconfig"; path = "Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC.release.xcconfig"; sourceTree = "<group>"; };
+		EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryNYC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A24F3B61C570908007F8920 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A2FD8759934CBF46C00CA3 /* Pods_laundryNYC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A24F3B01C570908007F8920 = {
+			isa = PBXGroup;
+			children = (
+				0A24F3BB1C570908007F8920 /* laudry app */,
+				0A24F3BA1C570908007F8920 /* Products */,
+				47B8CBC55E4A46F89A710E23 /* Frameworks */,
+				E4944A88C3390A431C03F3BB /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		0A24F3BA1C570908007F8920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A24F3B91C570908007F8920 /* laundry NYC.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A24F3BB1C570908007F8920 /* laudry app */ = {
+			isa = PBXGroup;
+			children = (
+				0A90345E1C8E45F700F9EDC6 /* zips.txt */,
+				0A24F3D01C570F9C007F8920 /* image */,
+				0A24F3BC1C570908007F8920 /* AppDelegate.swift */,
+				0A24F3C81C570908007F8920 /* Info.plist */,
+				0A24F3C01C570908007F8920 /* Main.storyboard */,
+				0A24F3C31C570908007F8920 /* Assets.xcassets */,
+				0A24F3BE1C570908007F8920 /* ViewController.swift */,
+				0A42EC3E1C6D682500253A0C /* historyViewController.swift */,
+				0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */,
+				0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */,
+				0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */,
+				0AB42DBB1C86118C0016F836 /* LocationManager.swift */,
+				0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */,
+				0AFE2C611C8DF473002D291B /* ReportCell.swift */,
+				0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */,
+				0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */,
+				0AFE055B1C62DDEE00FDF0BB /* models.swift */,
+				0AF036171C8FBF69002770CD /* UserExtension.swift */,
+				0A3495091C8A182A001ECFA7 /* errorLabel.swift */,
+				0A3495071C89FCEA001ECFA7 /* roundedButton.swift */,
+				0AA161421C962E33009B9584 /* laudry app-Bridging-Header.h */,
+				0AEA163B1C97870E00A2928A /* DynamoDB.swift */,
+			);
+			path = "laudry app";
+			sourceTree = "<group>";
+		};
+		0A24F3D01C570F9C007F8920 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */,
+				0AEBDE8E1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png */,
+				0AFE2C631C8E158C002D291B /* noun_161138_cc.png */,
+				0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */,
+				0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */,
+				0A34950D1C8A292A001ECFA7 /* machine.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
+		47B8CBC55E4A46F89A710E23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3933CA09C8AFA71A8D0197A9 /* Pods.framework */,
+				043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4944A88C3390A431C03F3BB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */,
+				AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A24F3B81C570908007F8920 /* laundryNYC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laundryNYC" */;
+			buildPhases = (
+				CA050167A53FEA19FC8648C1 /* [CP] Check Pods Manifest.lock */,
+				0A24F3B51C570908007F8920 /* Sources */,
+				0A24F3B61C570908007F8920 /* Frameworks */,
+				0A24F3B71C570908007F8920 /* Resources */,
+				32CC950F843AD20BBB4E4354 /* [CP] Embed Pods Frameworks */,
+				CAA0B3657C92750A19658A76 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = laundryNYC;
+			productName = "laudry app";
+			productReference = 0A24F3B91C570908007F8920 /* laundry NYC.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A24F3B11C570908007F8920 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					machineLabel,
+				);
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Michalina Simik";
+				TargetAttributes = {
+					0A24F3B81C570908007F8920 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = QJDVATC5AZ;
+						LastSwiftMigration = 0800;
+					};
+				};
+			};
+			buildConfigurationList = 0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laundryNYC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A24F3B01C570908007F8920;
+			productRefGroup = 0A24F3BA1C570908007F8920 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A24F3B81C570908007F8920 /* laundryNYC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A24F3B71C570908007F8920 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AFE2C661C8E15A1002D291B /* noun_161132_cc.png in Resources */,
+				0A24F3C71C570908007F8920 /* LaunchScreen.storyboard in Resources */,
+				0A24F3C41C570908007F8920 /* Assets.xcassets in Resources */,
+				0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */,
+				0AEBDE8F1C8B7B1600C02196 /* rsz_noun_93753_cc@2x.png in Resources */,
+				0AFE2C641C8E158C002D291B /* noun_161138_cc.png in Resources */,
+				0A34950E1C8A292A001ECFA7 /* machine.png in Resources */,
+				0A90345F1C8E45F700F9EDC6 /* zips.txt in Resources */,
+				0A24F3C21C570908007F8920 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32CC950F843AD20BBB4E4354 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA050167A53FEA19FC8648C1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CAA0B3657C92750A19658A76 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A24F3B51C570908007F8920 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A24F3BF1C570908007F8920 /* ViewController.swift in Sources */,
+				0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */,
+				0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */,
+				0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */,
+				0A24F3BD1C570908007F8920 /* AppDelegate.swift in Sources */,
+				0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */,
+				0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */,
+				0AEA163C1C97870E00A2928A /* DynamoDB.swift in Sources */,
+				0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */,
+				0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */,
+				0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */,
+				0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */,
+				0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */,
+				0AFE2C621C8DF473002D291B /* ReportCell.swift in Sources */,
+				0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */,
+				0A3495081C89FCEA001ECFA7 /* roundedButton.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0A24F3C01C570908007F8920 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A24F3C11C570908007F8920 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0A24F3C51C570908007F8920 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A24F3C61C570908007F8920 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0A24F3C91C570908007F8920 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0A24F3CA1C570908007F8920 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A24F3CC1C570908007F8920 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "laudry app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
+				PRODUCT_NAME = "laundry NYC";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0A24F3CD1C570908007F8920 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Michalina Simik (QJDVATC5AZ)";
+				INFOPLIST_FILE = "laudry app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.msimik.laundry;
+				PRODUCT_NAME = "laundry NYC";
+				PROVISIONING_PROFILE = "b174234e-f4fc-41f3-acdf-a813c89b1aad";
+				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A24F3B41C570908007F8920 /* Build configuration list for PBXProject "laundryNYC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A24F3C91C570908007F8920 /* Debug */,
+				0A24F3CA1C570908007F8920 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laundryNYC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A24F3CC1C570908007F8920 /* Debug */,
+				0A24F3CD1C570908007F8920 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A24F3B11C570908007F8920 /* Project object */;
+}

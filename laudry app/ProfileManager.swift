@@ -16,19 +16,19 @@ class Profile {
     
     var profiles: [String:User] = [:]
     
-    var currentUser: User? = nil
+    // var currentUser: User? = nil
     
     var registeringUser: User? = nil
-
-   
+    
+    let defaultUser = NSUserDefaults.standardUserDefaults()   
+    
    func registerNewUser(newUser: User, completion: (NSError?) -> Void ) {
         DynamoDB.save(newUser) { (error) -> Void in
-            print("name: \(newUser.username)")
-            print("location: \(newUser.locationId)")
             if error != nil {
-                print("error in profilManger\(error)")
+                print("error in profilManger registerNewUser\(error)")
             } else {
-                self.currentUser = newUser
+                // self.currentUser = newUser
+                self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(newUser), forKey: "currentUser")
                 self.registeringUser = nil
             }
             completion(error)
@@ -36,15 +36,16 @@ class Profile {
     }
     
     
-    func checkUsername(username: String, completion: (NSError?) -> Void ) {
+    func checkUsername(username: String, completion: (User?, NSError?) -> Void ) {
         DynamoDB.get(User.self, key: username) { (user, error) -> Void in
             var error = error
-            if error != nil {
-                error = nil
+            if error == nil {
+                error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "username exists already"])
             } else {
-                error = NSError(domain: "laundry", code: 501, userInfo: [NSLocalizedDescriptionKey: "This username already exists."])
+                error = nil
             }
-        completion(error)
+            
+            completion(user, error)
         }
     }
 
@@ -52,13 +53,10 @@ class Profile {
     func trytoLogIn(username: String, password: String, completion: (NSError?) -> Void) {
         DynamoDB.get(User.self, key: username) { (user, error) -> Void in
             var error = error
-            
-            if error == nil {
-                if user!.username == username && user!.password == password {
-                    self.currentUser = user
-                } else {
-                    error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey: "Invalid username or password"])
-                }
+            if error == nil && user!.username == username && user!.password == password {
+                self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user!), forKey: "currentUser")
+            } else {
+                error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "uncorrect password"])
             }
             completion(error)
         }
@@ -74,76 +72,25 @@ class Profile {
     
     func updateUser(updatedUser: User, completion: (NSError?) -> Void) {
         DynamoDB.save(updatedUser) { (error) -> Void in
-             var error = error
-            
-            if error != nil {
-                error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey: "cannot save changes"])
-            } else {
-                print("user will be updated")
-                self.currentUser = updatedUser
-
+            if error == nil {
+                self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(updatedUser), forKey: "currentUser")
+               // self.currentUser = updatedUser
             }
             completion(error)
        }
     }
     
     
-    func getAllUsersForLocationId(locationId: Int, completion: ([User]?, NSError?) -> Void) {
+    func getAllUsersForLocationId(locationId: String, completion: ([User]?, NSError?) -> Void) {
         DynamoDB.search(User.self, parameterName: "locationId", parameterValue: locationId, matchMode: .Exact) { (users, error) -> Void in
             completion(users, error)
         }
     }
     
-    
-    func loadUsers() {
-        let user1 = User()
-        let user2 = User()
-        user1.username = "michalina"
-        user1.password = "csx500"
-        user1.locationId = 10024001
-        user2.username = "david"
-        user2.password = "thisis50"
-        user2.locationId = 10024001
-        profiles["michalina"] = user1
-        profiles["david"] = user2
-        ReportManager.sharedInstance.addUserToReports("michalina")
-        ReportManager.sharedInstance.addUserToReports("david")
-        
-        DynamoDB.search(User.self, parameterName: "username", parameterValue: "s", matchMode: .Contains) { (data, error) -> Void in
-            if let data = data {
-                for (index, user) in data.enumerate() {
-                    print("User #\(index): \(user.username)")
-                }
-            } else {
-                print("Error: \(error)")
-            }
-        }
-        
-        getAllUsersForLocationId(10024001) { (users, error) -> Void in
-            if let users = users {
-                for user in users {
-                    print("User with id 10024001: \(user.username)")
-                }
-            }
-            print("End displaying users for 10024001")
-        }
-        
-//        let dynamoDB = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-//        let queryExpression = AWSDynamoDBQueryExpression()
-//        queryExpression.hashKeyAttribute = "username"
-//        queryExpression.hashKeyValues = "michalina"
-//        dynamoDB.query(User.self, expression: queryExpression) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock:  { (task) -> AnyObject? in
-//            if task.error != nil {
-//                print("error from load users \(task.error)")
-//                
-//            } else {
-//                print("result from load users\(task.result)")
-//            }
-//            
-//            
-//            
-//            return nil
-//        })
+
+    func getDefaultUser() -> User {
+        let data = defaultUser.objectForKey("currentUser") as! NSData
+        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User
     }
     
 }
