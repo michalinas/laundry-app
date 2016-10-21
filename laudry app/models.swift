@@ -48,15 +48,15 @@ class Machine: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         set { workEndDatestamp = newValue.timeIntervalSince1970 }
     }
     
-    class func dynamoDBTableName() -> String! {
+    class func dynamoDBTableName() -> String {
         return "Machine"
     }
     
-    class func hashKeyAttribute() -> String! {
+    class func hashKeyAttribute() -> String {
         return "machineId"
     }
     
-    class func ignoreAttributes() -> [AnyObject]! {
+    class func ignoreAttributes() -> [String] {
         return ["machineType", "state", "workEndDate"]
     }
 }
@@ -75,15 +75,15 @@ class Reservation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         set { reservedTimestamp = newValue.timeIntervalSince1970 }
     }
     
-    class func dynamoDBTableName() -> String! {
+    class func dynamoDBTableName() -> String {
         return "Reservation"
     }
     
-    class func hashKeyAttribute() -> String! {
+    class func hashKeyAttribute() -> String {
         return "reservationId"
     }
     
-    class func ignoreAttributes() -> [AnyObject]! {
+    class func ignoreAttributes() -> [String] {
         return ["reservedTime"]
     }
 }
@@ -107,15 +107,15 @@ class Report: AWSDynamoDBObjectModel, AWSDynamoDBModeling  {
         set { finishedTimestamp = newValue.timeIntervalSince1970 }
     }
 
-    class func dynamoDBTableName() -> String! {
+    class func dynamoDBTableName() -> String {
         return "Report"
     }
     
-    class func hashKeyAttribute() -> String! {
+    class func hashKeyAttribute() -> String {
         return "reportId"
     }
     
-    class func ignoreAttributes() -> [AnyObject]! {
+    class func ignoreAttributes() -> [String] {
         return ["timeFinished", "machineType"]
     }
 }

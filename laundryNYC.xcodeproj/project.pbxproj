@@ -32,10 +32,11 @@
 		0AFE2C621C8DF473002D291B /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE2C611C8DF473002D291B /* ReportCell.swift */; };
 		0AFE2C641C8E158C002D291B /* noun_161138_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C631C8E158C002D291B /* noun_161138_cc.png */; };
 		0AFE2C661C8E15A1002D291B /* noun_161132_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */; };
-		7120F5329DA57195F063996A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3933CA09C8AFA71A8D0197A9 /* Pods.framework */; };
+		C5A2FD8759934CBF46C00CA3 /* Pods_laundryNYC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_laundryNYC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A24F3B91C570908007F8920 /* laundry NYC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "laundry NYC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A24F3BC1C570908007F8920 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A24F3BE1C570908007F8920 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,8 +66,8 @@
 		0AFE2C631C8E158C002D291B /* noun_161138_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161138_cc.png; sourceTree = "<group>"; };
 		0AFE2C651C8E15A1002D291B /* noun_161132_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_161132_cc.png; sourceTree = "<group>"; };
 		3933CA09C8AFA71A8D0197A9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39C53D81A14B3FB8D740035C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B1C5950BD7FCDB0712A2CC6A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryNYC.release.xcconfig"; path = "Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC.release.xcconfig"; sourceTree = "<group>"; };
+		EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryNYC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7120F5329DA57195F063996A /* Pods.framework in Frameworks */,
+				C5A2FD8759934CBF46C00CA3 /* Pods_laundryNYC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,8 +87,8 @@
 			children = (
 				0A24F3BB1C570908007F8920 /* laudry app */,
 				0A24F3BA1C570908007F8920 /* Products */,
-				E8519B1412FE308304371227 /* Pods */,
 				47B8CBC55E4A46F89A710E23 /* Frameworks */,
+				E4944A88C3390A431C03F3BB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,15 +146,16 @@
 			isa = PBXGroup;
 			children = (
 				3933CA09C8AFA71A8D0197A9 /* Pods.framework */,
+				043124E62EAB4FFD7AFEDB68 /* Pods_laundryNYC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E8519B1412FE308304371227 /* Pods */ = {
+		E4944A88C3390A431C03F3BB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				39C53D81A14B3FB8D740035C /* Pods.debug.xcconfig */,
-				B1C5950BD7FCDB0712A2CC6A /* Pods.release.xcconfig */,
+				EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */,
+				AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -165,12 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A24F3CB1C570908007F8920 /* Build configuration list for PBXNativeTarget "laundryNYC" */;
 			buildPhases = (
-				F4E717FB0D9BA3EF87559D58 /* Check Pods Manifest.lock */,
+				CA050167A53FEA19FC8648C1 /* [CP] Check Pods Manifest.lock */,
 				0A24F3B51C570908007F8920 /* Sources */,
 				0A24F3B61C570908007F8920 /* Frameworks */,
 				0A24F3B71C570908007F8920 /* Resources */,
-				2B3225C243687EA8CBB6293D /* Embed Pods Frameworks */,
-				71DF216F7E377A82B8DD15DB /* Copy Pods Resources */,
+				32CC950F843AD20BBB4E4354 /* [CP] Embed Pods Frameworks */,
+				CAA0B3657C92750A19658A76 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,6 +199,7 @@
 					0A24F3B81C570908007F8920 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = QJDVATC5AZ;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -238,49 +241,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2B3225C243687EA8CBB6293D /* Embed Pods Frameworks */ = {
+		32CC950F843AD20BBB4E4354 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		71DF216F7E377A82B8DD15DB /* Copy Pods Resources */ = {
+		CA050167A53FEA19FC8648C1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F4E717FB0D9BA3EF87559D58 /* Check Pods Manifest.lock */ = {
+		CAA0B3657C92750A19658A76 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-laundryNYC/Pods-laundryNYC-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -414,7 +417,7 @@
 		};
 		0A24F3CC1C570908007F8920 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39C53D81A14B3FB8D740035C /* Pods.debug.xcconfig */;
+			baseConfigurationReference = EC05BC4B927B1C9F229C7685 /* Pods-laundryNYC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -428,13 +431,14 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		0A24F3CD1C570908007F8920 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1C5950BD7FCDB0712A2CC6A /* Pods.release.xcconfig */;
+			baseConfigurationReference = AF2FF0E19F6A94BE918B2DE9 /* Pods-laundryNYC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -447,6 +451,7 @@
 				PRODUCT_NAME = "laundry NYC";
 				PROVISIONING_PROFILE = "b174234e-f4fc-41f3-acdf-a813c89b1aad";
 				SWIFT_OBJC_BRIDGING_HEADER = "laudry app/laudry app-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
