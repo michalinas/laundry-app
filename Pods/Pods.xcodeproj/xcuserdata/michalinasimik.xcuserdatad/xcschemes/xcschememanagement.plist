@@ -8,61 +8,41 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>AWSCore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>AWSDynamoDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
-		<key>Pods-laudry app.xcscheme</key>
+		<key>Pods-laundryNYC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2424F3B8426EC2E6A0EEA813BFA12ACD</key>
+		<key>2DB2440E9FA2A7EDF63907320807D8AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D5E797AC948C7289DD2427EED7850E8</key>
+		<key>74CC32C58E7AE782A588581C72E199BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D93A8C948B13767EFDA624AD8424088</key>
+		<key>BAA396C4D689A02A15029B49E076FAF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>383ABB0D550E383C833300C72086A789</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A79E4DFDB520AC579CEA22EC6DE9ECD7</key>
+		<key>EE3581548F9CB729555328780D0E3DA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -1,17 +1,19 @@
 PODS:
-  - AWSCognito (2.3.5):
-    - AWSCore (= 2.3.5)
-  - AWSCore (2.3.5)
-  - AWSDynamoDB (2.3.5):
-    - AWSCore (= 2.3.5)
+  - AWSCognito (2.4.11):
+    - AWSCore (= 2.4.11)
+  - AWSCore (2.4.11)
+  - AWSDynamoDB (2.4.11):
+    - AWSCore (= 2.4.11)
 
 DEPENDENCIES:
   - AWSCognito
   - AWSDynamoDB
 
 SPEC CHECKSUMS:
-  AWSCognito: f12700b4781897b2913544b36d6283f04ae72a44
-  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
-  AWSDynamoDB: 00123cb4cc540768dc4aef89f41b36a474de9363
+  AWSCognito: e086ad6f499e309dbf0030170cffc65a0bfd27c6
+  AWSCore: e66b0f50d68f9897cc9e68471062f0cb5379eec5
+  AWSDynamoDB: 1d54c63fe63c2afcd0caea5ce709d1a0b213213f
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 0ac34999c0fff163b2362f9d0159b2678f16790b
+
+COCOAPODS: 1.1.0.rc.2

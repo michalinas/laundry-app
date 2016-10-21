@@ -6,7 +6,7 @@ use_frameworks!
 pod 'AWSDynamoDB'
 pod 'AWSCognito'
 
-target 'laudry app' do
+target 'laundryNYC' do
 
 
 end

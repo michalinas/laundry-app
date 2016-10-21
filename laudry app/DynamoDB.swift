@@ -26,7 +26,7 @@ class DynamoDB {
         })
     }
     
-    class func get<T: AWSDynamoDBModeling>(type: T.Type, key: AnyObject, completion: (T?, NSError?) -> Void) {
+    class func get<T where T: AWSDynamoDBModeling, T: AWSDynamoDBObjectModel>(type: T.Type, key: AnyObject, completion: (T?, NSError?) -> Void) {
         AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(type, hashKey: key, rangeKey: nil).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: {(task) in
             let data: T? = task.result as? T
             var error = task.error
@@ -54,16 +54,16 @@ class DynamoDB {
     }
     
     
-    class func search<T: AWSDynamoDBModeling>(type: T.Type, parameterName: String, parameterValue: AnyObject, matchMode: DynamoDBSearchMatchMode, completion: ([T]?, NSError?) -> Void) {
+    class func search<T where T: AWSDynamoDBModeling, T: AWSDynamoDBObjectModel>(type: T.Type, parameterName: String, parameterValue: AnyObject, matchMode: DynamoDBSearchMatchMode, completion: ([T]?, NSError?) -> Void) {
         self.search(type, parameters: [parameterName: parameterValue], matchMode: matchMode, completion: completion)
     }
     
     
-    class func search<T: AWSDynamoDBModeling>(type: T.Type, parameters: [String: AnyObject], matchMode: DynamoDBSearchMatchMode, completion: ([T]?, NSError?) -> Void) {
+    class func search<T where T: AWSDynamoDBModeling, T: AWSDynamoDBObjectModel>(type: T.Type, parameters: [String: AnyObject], matchMode: DynamoDBSearchMatchMode, completion: ([T]?, NSError?) -> Void) {
         let scanExpression = AWSDynamoDBScanExpression()
         
         var filterExpression = ""
-        var expressionAttributesValues: [NSObject: AnyObject] = [:]
+        var expressionAttributesValues: [String: AnyObject] = [:]
         for (parameterName, parameterValue) in parameters {
             if !filterExpression.isEmpty {
                 filterExpression += " AND "
