@@ -28,6 +28,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var streetLabel: UILabel!
     @IBOutlet weak var newLocationVeiw: UIView!
     @IBOutlet weak var errorLabel: ErrorLabel!
+    @IBOutlet weak var newLocationViewConstraint: NSLayoutConstraint!
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
@@ -59,7 +60,8 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         acceptButton.setTitle("save", forState: .Normal)
         locationTableView.delegate = self
         locationTableView.dataSource = self
-        newLocationVeiw.hidden = true
+        newLocationViewConstraint.constant = 0
+        //newLocationVeiw.hidden = true
         errorLabel.alpha = 0.0
     }
     
@@ -145,11 +147,14 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                 user.locationId = locationResults[indexPath.row - 1].locationId
                 defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "currentUser")
             }
-            newLocationVeiw.hidden = true
+           // newLocationVeiw.hidden = true
+            newLocationViewConstraint.constant = 0
         } else {
-            newLocationVeiw.hidden = false
+//            newLocationVeiw.hidden = false
+            newLocationViewConstraint.constant = 152
             acceptButton.setTitle("save", forState: .Normal)
         }
+        self.view.layoutIfNeeded()
     }
     
     
