@@ -36,6 +36,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     var cityName: String = ""
     
     override func viewDidLoad() {
+        self.view.layoutIfNeeded()
         super.viewDidLoad()
         zipField.placeholder = "zip code:"
         zipField.keyboardType = UIKeyboardType.NumberPad
@@ -61,7 +62,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         locationTableView.delegate = self
         locationTableView.dataSource = self
         newLocationViewConstraint.constant = 0
-        //newLocationVeiw.hidden = true
+        newLocationVeiw.hidden = true
         errorLabel.alpha = 0.0
     }
     
@@ -147,10 +148,10 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                 user.locationId = locationResults[indexPath.row - 1].locationId
                 defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "currentUser")
             }
-           // newLocationVeiw.hidden = true
+            newLocationVeiw.hidden = true
             newLocationViewConstraint.constant = 0
         } else {
-//            newLocationVeiw.hidden = false
+            newLocationVeiw.hidden = false
             newLocationViewConstraint.constant = 152
             acceptButton.setTitle("save", forState: .Normal)
         }
@@ -198,9 +199,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         if zipField.text!.characters.count != 5 {
             errorLabel.text = "Please enter 5-digit zip code."
             errorLabel.alpha = 1.0
-        } else if zipField.text!.characters.count == 5 && locationResults.isEmpty {
-            errorLabel.text = "Zip code is incorrect."
-            errorLabel.alpha = 1.0
+//        } else if cityName != "" {
+//            errorLabel.text = "Zip code is incorrect."
+//            errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
             errorLabel.text = "All fields are mandatory."
             errorLabel.alpha = 1.0
