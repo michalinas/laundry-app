@@ -89,9 +89,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
 
     func MachineCellDidChangeState(machineCell: MachineCell) {
         waitingMachineCell = machineCell
-        // --- alert removed ---
         if machineCell.machine.state == .Working {
-            
             NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer(_:))), userInfo: machineCell.machine, repeats: true)
         }
     }

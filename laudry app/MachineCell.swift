@@ -42,15 +42,6 @@ class MachineCell: UICollectionViewCell {
     
     func updateState() {
         machineLabel.text = String(machine.orderNumber)
-//        let remainingCounter = machine.workEndDate.timeIntervalSinceNow
-//        if remainingCounter > 0 {
-//            machine.state = .Working
-//        } else if remainingCounter <= 0 && machine.usernameUsing != "?" {
-//            machine.state = .Finished
-//        } else {
-//            machine.state = .Empty
-//        }
-//        
         switch machine.state {
         case .Empty:
             startButton.setTitle("start", forState: .Normal)
@@ -94,6 +85,10 @@ class MachineCell: UICollectionViewCell {
             startButton.setTitle("done!", forState: .Normal)
             machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
             timerLabel.text = "00:00:00"
+            if machine.machineType == .Dryer {
+                dryerStepper.hidden = true
+                dryerTime.hidden = true
+            }
         }
         LocationManager.sharedLocations.updateMachine(machine) { (error) in
             if error != nil {
