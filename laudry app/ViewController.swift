@@ -11,11 +11,8 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, MachineCellDelegate {
     
 
-    
     @IBOutlet weak var laundryCollectionView: UICollectionView!
     @IBOutlet weak var washerDryerSwitch: UISegmentedControl!
-    // notif: "Finished": "your laundry is done", "reserved": "your reservation of machine # starts in 10 min"
-    //
     var waitingMachineCell: MachineCell!
     var laundries: [Machine] = []
     var dryers: [Machine] = []
@@ -28,11 +25,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         super.viewDidAppear(animated)
         machineLoad()
     }
-    
-    // Do any additional setup after loading the view, typically from a nib.
-    override func viewDidLoad() {
-        super.viewDidLoad()
-            }
     
     
     @IBAction func LDswitchTapped(sender: AnyObject) {
@@ -95,11 +87,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     }
     
     func StartButtonShowAlert(machineCell: MachineCell) {
-        let alertController = UIAlertController()
-        alertController.title = "Not available"
-        alertController.message = "Another user has made a reservation for this time. Please come back later."
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+        LaundryAlert.presentCustomAlert("Not available", alertMessage: "Another user has made a reservation for this time. Please come back later.", toController: self)
     }
      
     /* count down laundry machine timer when it's working;
@@ -123,7 +111,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         }   }
         let counter = Int(machine.workEndDate.timeIntervalSinceNow)
         let counterText = String(format:"%02d:%02d:%02d", counter/3600, counter/60, counter%60)
-        print(counter, counterText)
         if counter > 0 {
             machineCell?.timerLabel.text = counterText
         } else if counter <= 0 {
@@ -132,7 +119,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             
             ReportManager.sharedInstance.addReport(machine) { (error) -> Void in
                 if error != nil {
-                    print("no finished report added: \(error?.localizedDescription)")
+                    LaundryAlert.presentErrorAlert(error: error!, toController: self)
                 }
             }
             
@@ -163,48 +150,36 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                 dryers.removeAll()
             }
             if laundries.isEmpty || dryers.isEmpty {
-            LocationManager.sharedLocations.getMachinesForLocation(user.locationId) { (allMachines, error) -> Void in
-                print("in closure...\(user.locationId)")
-                if !(allMachines!.isEmpty) {
-                    print("machines will be loaded...\(allMachines?.count)")
-                    for eachMachine in allMachines! {
-                        if eachMachine.machineType == .Washer {
-                            self.laundries.append(eachMachine)
-                            print("laundry added")
-                        } else {
-                            self.dryers.append(eachMachine)
-                            print("dryer added")
-                }   }
-                print("finished")
-                
-                if self.laundries.count > 1 {
-                self.laundries = self.laundries.sort({ (laundry1: Machine, laundry2: Machine) -> Bool in
-                    return laundry1.orderNumber < laundry2.orderNumber
-                })
+                LocationManager.sharedLocations.getMachinesForLocation(user.locationId) { (allMachines, error) -> Void in
+                    if !(allMachines!.isEmpty) {
+                        for eachMachine in allMachines! {
+                            if eachMachine.machineType == .Washer {
+                                self.laundries.append(eachMachine)
+                            } else {
+                                self.dryers.append(eachMachine)
+                            }
+                        }
+                        
+                        if self.laundries.count > 1 {
+                            self.laundries = self.laundries.sort({ (laundry1: Machine, laundry2: Machine) -> Bool in
+                                return laundry1.orderNumber < laundry2.orderNumber
+                            })
+                        }
+                        if self.dryers.count > 1 {
+                            self.dryers.sortInPlace({ (dryer1: Machine, dryer2: Machine) -> Bool in
+                                return dryer1.orderNumber < dryer2.orderNumber
+                            })
+                        }
+                    }
+                    self.laundryCollectionView.reloadData()
+                    self.dryerCollectionView.reloadData()
                 }
-                if self.dryers.count > 1 {
-                self.dryers.sortInPlace({ (dryer1: Machine, dryer2: Machine) -> Bool in
-                    return dryer1.orderNumber < dryer2.orderNumber
-                })
-                }}
-                self.laundryCollectionView.reloadData()
-                self.dryerCollectionView.reloadData()
-            
-        }   }   }
-
+            }
+        }
     }
     
 
-    
     // MARK: - Data picker for laundry
-    
-    @IBAction func reserveTimeChosen(sender: UIDatePicker) {
-       
-        
-        
-        
-   }
-    
     
     @IBOutlet weak var pickTimeView: UIView!
     @IBOutlet weak var validateReservation: UIButton!
@@ -220,52 +195,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         let chosenTime = dataPicker.date
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
             if reservations!.isEmpty {
-                print("can be added right now")
                 ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                     if error != nil {
-                        print("cannot add reservation: \(error?.localizedDescription)")
+                        LaundryAlert.presentErrorAlert(error: error!, toController: self)
                     }
-                self.waitingMachineCell.updateResaStatus()
-                self.pickTimeView.alpha = 0.0
+                    self.waitingMachineCell.updateResaStatus()
+                    self.pickTimeView.alpha = 0.0
                 }
             } else {
-            let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
-            print(conflictingTimeInterval)
-            for each in reservations! {
-                let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
-                print(actualTimeInterval)
-                if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
-                    ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
-                        if error != nil {
-                            print("cannot add reservation: \(error?.localizedDescription)")
+                let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
+                for each in reservations! {
+                    let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
+                    print(actualTimeInterval)
+                    if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
+                        ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
+                            if error != nil {
+                                LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                            }
+                            self.waitingMachineCell.updateResaStatus()
+                            self.pickTimeView.alpha = 0.0
                         }
-                        print("ok")
-                        self.waitingMachineCell.updateResaStatus()
-                        self.pickTimeView.alpha = 0.0
+                    } else {
+                        LaundryAlert.presentCustomAlert("Time not available", alertMessage: "Chosen time has been reserved by another user. Please choose other convinient time.", toController: self)
                     }
-                } else {
-                    let alertController = UIAlertController()
-                    alertController.title = "Time not available"
-                    alertController.message = "Chosen time has been reserved by another user. Please choose other convinient time."
-                    alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    print("wrong time chosen")
-
                 }
-                } }
-            print("all checked")
+            }
         }
-        
-        
-//        ReportManager.sharedInstance.addReservation(waitingMachineCell.machine, reservedTime: dataPicker.date) { (error) -> Void in
-//            if error != nil {
-//                print("cannot add reservation: \(error?.localizedDescription)")
-//            }
-//            self.waitingMachineCell.updateResaStatus()
-//            self.pickTimeView.alpha = 0.0
-//        }
-        
-        // -- reserved alert removed --
     }
     
 // set a datepicker with Cancel,Done buttons and opens the datapicekr view
@@ -277,6 +232,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         validateReservation.setTitle("Done", forState: .Normal)
         cancelReservation.setTitle("Cancel", forState: .Normal)
         pickTimeView.backgroundColor = UIColor.whiteColor()
+        
         UIView.animateWithDuration(0.3) { () -> Void in
             self.pickTimeView.alpha = 1.0
         }

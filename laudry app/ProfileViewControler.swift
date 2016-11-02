@@ -67,7 +67,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             loginErrorLabel.alpha = 0.0
             Profile.userProfiles.trytoLogIn(nameField.text!, password: passwordField.text!, completion: {(error) in
                 if error == nil {
-                    print("opening logged view\(error)")
                     self.loginView.alpha = 0.0
                     self.registerView.alpha = 0.0
                     self.loggedViewOpen()
@@ -76,13 +75,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
                     self.loginErrorLabel.alpha = 1.0
-
-                    let alertController = UIAlertController()
-                    alertController.title = "Unable to login"
-                    alertController.message = error!.localizedDescription
-                    alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    self.presentViewController(alertController, animated: true, completion: nil)
-        }   })  }
+                }
+            })
+        }
     }
     
     
@@ -184,11 +179,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                                 self.loggedView.alpha = 1.0
                                 self.tabBarController?.selectedIndex = 0
                             } else {
-                                let alertController = UIAlertController()
-                                alertController.title = "Unable to register"
-                                alertController.message = error!.localizedDescription
-                                alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                                self.presentViewController(alertController, animated: true, completion: nil)
+                                LaundryAlert.presentErrorAlert("Unable to register", error: error!, toController: self)
                             }
                         }
                     } else {
@@ -246,43 +237,57 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     @IBAction func delateProfileButtonTapped(sender: AnyObject) {
         let alert = UIAlertController(title: "delete", message: "You will delete your profile permamently and loose all your data.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive, handler: { (UIAlertAction) -> Void in
+            
             let userToDelete = Profile.userProfiles.getDefaultUser()
-                DynamoDB.delete(userToDelete) { (error) -> Void in
-                    var error = error
-                    if error == nil {
-                        ReportManager.sharedInstance.getReservationsForUser(userToDelete.username) { (userReservations, error) -> Void in
-                            if userReservations != nil {
-                                for eachReservation in userReservations! {
-                                    DynamoDB.delete(eachReservation) { (error) -> Void in
-                                        //---------
-                                        print("reservations deleted")
-                        }   }   }  }
-                        ReportManager.sharedInstance.getReporsForUser(userToDelete.username) { (userReports, error) -> Void in
-                            if userReports != nil {
-                                for eachReport in userReports! {
-                                    DynamoDB.delete(eachReport) { (error) -> Void in
-                                        //--------------
-                                        print("reports deleted")
-                        }   }   }   }
-                        LocationManager.sharedLocations.getMachinesForLocation(userToDelete.locationId) { (machines, error) -> Void in
-                            if machines != nil {
-                                for eachMachine in machines! {
-                                    if eachMachine.usernameUsing == userToDelete.username {
-                                        eachMachine.usernameUsing = "?"
-                                        LocationManager.sharedLocations.updateMachine(eachMachine) { (error) -> Void in
-                                            //----------
-                                            print("machines updated")
-                        }   }   }   }   }
-                        
-                        self.defaultUser.setObject(nil, forKey: "currentUser")
-                        self.loggedView.alpha = 0.0
-                        self.registerView.alpha = 1.0
-                        print("user deleted")
-                        
-                    } else {
-                        print("error, user cannot be deleted")
-                        error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "cannot delete the user"])
-        }   }   }   )   )
+            DynamoDB.delete(userToDelete) { (error) -> Void in
+                var error = error
+                if error == nil {
+                    ReportManager.sharedInstance.getReservationsForUser(userToDelete.username) { (userReservations, error) -> Void in
+                        if userReservations != nil {
+                            for eachReservation in userReservations! {
+                                DynamoDB.delete(eachReservation) { (error) -> Void in
+                                    if error != nil {
+                                        LaundryAlert.presentCustomAlert("Error", alertMessage: "Unable to delete your account. Try again later", toController: self)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ReportManager.sharedInstance.getReporsForUser(userToDelete.username) { (userReports, error) -> Void in
+                        if userReports != nil {
+                            for eachReport in userReports! {
+                                DynamoDB.delete(eachReport) { (error) -> Void in
+                                    if error != nil {
+                                        LaundryAlert.presentCustomAlert("Server error", alertMessage: "Cannot delete your past activity", toController: self)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    LocationManager.sharedLocations.getMachinesForLocation(userToDelete.locationId) { (machines, error) -> Void in
+                        if machines != nil {
+                            for eachMachine in machines! {
+                                if eachMachine.usernameUsing == userToDelete.username {
+                                    eachMachine.usernameUsing = "?"
+                                    LocationManager.sharedLocations.updateMachine(eachMachine) { (error) -> Void in
+                                        if error != nil {
+                                            print("cannot update machine after deleted user\(error!.localizedDescription)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    self.defaultUser.setObject(nil, forKey: "currentUser")
+                    self.loggedView.alpha = 0.0
+                    self.registerView.alpha = 1.0
+                    
+                } else {
+                    print("error, user cannot be deleted")
+                    error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "cannot delete the user"])
+                }
+            }
+        }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
