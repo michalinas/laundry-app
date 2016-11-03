@@ -19,6 +19,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     @IBOutlet weak var dryerCollectionView: UICollectionView!
     @IBOutlet weak var noMachineLabel: UILabel!
     
+    
+    @IBOutlet weak var pickTimeView: UIView!
+    @IBOutlet weak var validateReservation: UIButton!
+    @IBOutlet weak var cancelReservation: UIButton!
+    @IBOutlet weak var dataPicker: UIDatePicker!
+    
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidAppear(animated: Bool) {
@@ -173,18 +179,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                     }
                     self.laundryCollectionView.reloadData()
                     self.dryerCollectionView.reloadData()
+
                 }
             }
         }
     }
+
+    
     
 
     // MARK: - Data picker for laundry
-    
-    @IBOutlet weak var pickTimeView: UIView!
-    @IBOutlet weak var validateReservation: UIButton!
-    @IBOutlet weak var cancelReservation: UIButton!
-    @IBOutlet weak var dataPicker: UIDatePicker!
     
     @IBAction func cancellButtonTapped(sender: UIButton) {
         pickTimeView.alpha = 0.0
@@ -206,11 +210,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                 let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
                 for each in reservations! {
                     let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
-                    print(actualTimeInterval)
                     if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
                         ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                             if error != nil {
-                                LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                                LaundryAlert.presentCustomAlert("Server error", alertMessage: "Laundry app was unable to make your reservation. Please try again", toController: self)
                             }
                             self.waitingMachineCell.updateResaStatus()
                             self.pickTimeView.alpha = 0.0

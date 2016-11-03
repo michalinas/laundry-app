@@ -289,6 +289,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }))
+
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)

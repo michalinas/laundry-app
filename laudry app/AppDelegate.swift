@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = defaultServiceConfiguration
         
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil))
+        
+
         return true
     }
 

@@ -23,7 +23,7 @@ class ReportManager {
             if error != nil {
                 print("error in adding resa: \(error)")
             } else {
-                print("reserv id: \(reservation.reservationId)")
+                self.saveNotification(reservation, machine: nil)
             }
             completion(error)
         }
@@ -34,7 +34,6 @@ class ReportManager {
         DynamoDB.search(Reservation.self, parameterName: "username", parameterValue: username, matchMode: .Exact) { (reservations, error) -> Void in
             //--------------------
             if let reservations = reservations {
-                print("reservations to check: \(reservations.count)")
                 let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-900))
                 for each in reservations {
                     if each.reservedTime.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
@@ -47,8 +46,6 @@ class ReportManager {
                 
                     if var reservations = reservations {
                         reservations.sortInPlace({ (reservation1: Reservation, reservation2: Reservation) -> Bool in
-                            print("sorting in progress...")
-                            print(reservation1, reservation2)
                             return reservation1.reservedTime.compare(reservation2.reservedTime) == NSComparisonResult.OrderedAscending
             })   }   }   }
             completion(reservations, error)
@@ -123,7 +120,21 @@ class ReportManager {
             completion(reports, error)
         }}
 
-    
+    func saveNotification(reservation: Reservation?, machine: Machine?) {
+        let notification = UILocalNotification()
+        notification.alertAction = "ok"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        
+        if let reservation = reservation {
+            notification.alertBody = "machine # \(reservation.orderNumber) is reserved for you in 15 min"
+            notification.fireDate = reservation.reservedTime.dateByAddingTimeInterval(-900)
+        } else if let machine = machine {
+            notification.alertBody = "your laundry is done!"
+            notification.fireDate = machine.workEndDate
+        }
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    }
 
     
 }
