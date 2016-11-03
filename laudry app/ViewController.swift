@@ -60,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             cell = dryerCollectionView.dequeueReusableCellWithReuseIdentifier("dryerCell", forIndexPath: indexPath) as? MachineCell
             cell!.machine = dryers[indexPath.item]
         } else {
-            cell = laundryCollectionView.dequeueReusableCellWithReuseIdentifier("laundryCell" , forIndexPath: indexPath) as? MachineCell
+            cell = laundryCollectionView.dequeueReusableCellWithReuseIdentifier("laundryCell", forIndexPath: indexPath) as? MachineCell
             cell!.machine = laundries[indexPath.item]
         }
         cell!.delegate = self

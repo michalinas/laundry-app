@@ -151,7 +151,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         passwordErrorLabel.alpha = 0.0
         newUsernameErrorLabel.alpha = 0.0
         if (newUsernameField.text!.isEmpty || newPasswordField.text!.isEmpty || confirmPasswordField.text!.isEmpty) {
-            newUsernameErrorLabel.text = " Please fill all fields "
+            newUsernameErrorLabel.text = "Please fill all fields"
             newUsernameErrorLabel.alpha = 1.0
         } else {
             newUsernameErrorLabel.alpha = 0.0
@@ -160,11 +160,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             
             Profile.userProfiles.checkUsername(newUsernameField.text!) {(user, error) -> Void in
                 if user != nil {
-                    self.newUsernameErrorLabel.text = " This username is not available. "
+                    self.newUsernameErrorLabel.text = "This username is not available."
                     print(error)
                     self.newUsernameErrorLabel.alpha = 1.0
                 } else if self.newPasswordField.text!.characters.count < 6 {
-                    self.passwordErrorLabel.text = " Password length: min. 6 characters "
+                    self.passwordErrorLabel.text = "Password length: min. 6 characters"
                     self.passwordErrorLabel.alpha = 1.0
                 } else if self.newPasswordField.text == self.confirmPasswordField.text {
                     let newUser = Profile.userProfiles.registeringUser
@@ -184,11 +184,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                     } else {
-                        self.locationErrorLabel.text = " Please select a location. "
+                        self.locationErrorLabel.text = "Please select a location."
                         self.locationErrorLabel.alpha = 1.0
                     }
                 } else {
-                        self.passwordErrorLabel.text = " Your passwords must match. "
+                        self.passwordErrorLabel.text = "Your passwords must match."
                         self.passwordErrorLabel.alpha = 1.0
                 }
             }
