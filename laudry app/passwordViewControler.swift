@@ -15,10 +15,11 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newPasswordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var errorLabel: ErrorLabel!
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
+        view.layoutIfNeeded()
         super.viewDidLoad()
         newPasswordField.placeholder = "new password"
         newPasswordField.secureTextEntry = true

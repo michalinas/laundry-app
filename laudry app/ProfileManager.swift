@@ -39,9 +39,9 @@ class Profile {
     func checkUsername(username: String, completion: (User?, NSError?) -> Void ) {
         DynamoDB.get(User.self, key: username) { (user, error) -> Void in
             var error = error
-            if error != nil {
+            if user != nil {
                 error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "username exists already"])
-            } else {
+            } else if error != nil {
                 error = nil
             }
             
