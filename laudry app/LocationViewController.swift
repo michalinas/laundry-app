@@ -28,6 +28,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var streetLabel: UILabel!
     @IBOutlet weak var newLocationVeiw: UIView!
     @IBOutlet weak var errorLabel: ErrorLabel!
+    @IBOutlet weak var newLocationViewConstraint: NSLayoutConstraint!
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
@@ -35,6 +36,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     var cityName: String = ""
     
     override func viewDidLoad() {
+        self.view.layoutIfNeeded()
         super.viewDidLoad()
         zipField.placeholder = "zip code:"
         zipField.keyboardType = UIKeyboardType.NumberPad
@@ -59,6 +61,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         acceptButton.setTitle("save", forState: .Normal)
         locationTableView.delegate = self
         locationTableView.dataSource = self
+        newLocationViewConstraint.constant = 0
         newLocationVeiw.hidden = true
         errorLabel.alpha = 0.0
     }
@@ -134,7 +137,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //------------- load existing location or open create new location optional view
         if indexPath.row != 0 {
             acceptButton.setTitle("confirm", forState: .Normal)
             
@@ -146,10 +148,13 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                 defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "currentUser")
             }
             newLocationVeiw.hidden = true
+            newLocationViewConstraint.constant = 0
         } else {
             newLocationVeiw.hidden = false
+            newLocationViewConstraint.constant = 152
             acceptButton.setTitle("save", forState: .Normal)
         }
+        self.view.layoutIfNeeded()
     }
     
     
@@ -171,8 +176,10 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                         print("error in get loc for zip: \(error?.localizedDescription, error?.localizedFailureReason, error?.localizedRecoverySuggestion)")
                     }
                 self.locationTableView.reloadData()
-                    
-    }   }   }   }
+                }
+            }
+        }
+    }
     
     
     @IBAction func LaundryStepperChanged(sender: UIStepper) {
@@ -193,9 +200,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         if zipField.text!.characters.count != 5 {
             errorLabel.text = "Please enter 5-digit zip code."
             errorLabel.alpha = 1.0
-        } else if zipField.text!.characters.count == 5 && locationResults.isEmpty {
-            errorLabel.text = "Zip code is incorrect."
-            errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
             errorLabel.text = "All fields are mandatory."
             errorLabel.alpha = 1.0
@@ -207,8 +211,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                     if error == nil {
                         self.navigationController?.popViewControllerAnimated(true)
                     } else {
-                        self.serverAlert("Unable to change location", error: error!)
-                }   }
+                        LaundryAlert.presentErrorAlert("Unable to change location", error: error!, toController: self)
+                    }
+                }
             } else {
                 navigationController?.popViewControllerAnimated(true)
             }
@@ -224,7 +229,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             
             DynamoDB.save(newLocation) { (error) -> Void in
                 if error != nil {
-                    self.serverAlert("Unable to create a new location", error: error!)
+                    LaundryAlert.presentErrorAlert("Unable to create a new location", error: error!, toController: self)
                 } else {
                     if Profile.userProfiles.registeringUser != nil {
                         Profile.userProfiles.registeringUser!.locationId = newLocation.locationId
@@ -236,8 +241,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                             if error == nil {
                                 self.navigationController?.popViewControllerAnimated(true)
                             } else {
-                                self.serverAlert("Unable to change location", error: error!)
-                        }   }
+                                LaundryAlert.presentErrorAlert("Unable to change location", error: error!, toController: self)
+                            }
+                        }
                     }
                     let washers = Int(newLocation.numWashers)!
                     if washers > 0 {
@@ -253,9 +259,12 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                         
                             LocationManager.sharedLocations.addMachine(newMachine) { (error) -> Void in
                                 if error != nil {
-                                    print("Unable to add a washing machine to db: \(error)")
-                                    self.serverAlert("Unable to add a washing machine to db", error: error!)
-                                }   }   }   }
+                                    print("Unable to add a washing machine to database \(error!.localizedDescription)")
+                                    LaundryAlert.presentCustomAlert("Server error", alertMessage: "Unable to add a washing machine to database. Please try again later.", toController: self)
+                                }
+                            }
+                        }
+                    }
                     
                     let dryers = Int(newLocation.numDryers)!
                     if dryers > 0 {
@@ -270,32 +279,20 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                         
                             LocationManager.sharedLocations.addMachine(newDryer) { (error) -> Void in
                                 if error != nil {
-                                    self.serverAlert("Unable to add a dryer to db", error: error!)
-                    }   }   }   }
-                    
+                                    print("Unable to add a dryer machine to database \(error!.localizedDescription)")
+                                    LaundryAlert.presentCustomAlert("Server error", alertMessage: "Unable to add a dryer to database. Please try again later", toController: self)
+                                }
+                            }
+                        }
+                    }
                     self.navigationController?.popViewControllerAnimated(true)
                 }
             }
         }
     }
     
+
     
-    
-    func serverAlert(title:String, error: NSError) {
-        let alertController = UIAlertController()
-        alertController.title = title
-        alertController.message = error.localizedDescription
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
-    
-    func fieldAlert(alertMessage: String) {
-        let alert = UIAlertController(title: "error", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
     
     
 }

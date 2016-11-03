@@ -63,7 +63,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var machineReservation: Reservation?
         
         if defaultUser.objectForKey("currentUser") != nil {
-        // if Profile.userProfiles.currentUser != nil {
             if indexPath.section == 0 {
                 machineReservation = reservationReports[indexPath.row]
                 cell.resReport = machineReservation
@@ -79,7 +78,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if defaultUser.objectForKey("currentUser") == nil {
-        //if Profile.userProfiles.currentUser == nil {
             noUserLabel.hidden = false
             noUserLabel.text = "Please log in to see your history."
             return 0
@@ -112,10 +110,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         return reservation1.reservedTime.compare(reservation2.reservedTime) == NSComparisonResult.OrderedAscending
                     })
                 } else {
-                    print("error in loadContent for reservations: \(error)")
+                    LaundryAlert.presentErrorAlert(error: error!, toController: self)
                 }
-    
-            self.HistoryTableView.reloadData()
+            
+                self.HistoryTableView.reloadData()
             }
             ReportManager.sharedInstance.getReporsForUser(user.username) { (reports, error) -> Void in
                 if error == nil {
@@ -124,7 +122,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         return report1.timeFinished.compare(report2.timeFinished) == NSComparisonResult.OrderedDescending
                     })
                 } else {
-                    print("error in loadContent for reports: \(error)")
+                    LaundryAlert.presentErrorAlert(error: error!, toController: self)
                 }
             self.HistoryTableView.reloadData()
             }
