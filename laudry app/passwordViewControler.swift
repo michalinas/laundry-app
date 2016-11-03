@@ -15,10 +15,11 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newPasswordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var errorLabel: ErrorLabel!
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
+        view.layoutIfNeeded()
         super.viewDidLoad()
         newPasswordField.placeholder = "new password"
         newPasswordField.secureTextEntry = true
@@ -41,7 +42,6 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
     @IBAction func saveButtonTapped(sender: AnyObject) {
         if (newPasswordField.text!.isEmpty) || (confirmPasswordField.text!.isEmpty) {
             errorLabel.text = "please enter and confirm your password"
@@ -57,18 +57,15 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
             let updatedUser = Profile.userProfiles.getDefaultUser()
             updatedUser.password = newPasswordField.text!
             
-                Profile.userProfiles.updateUser(updatedUser) {(error) -> Void in
-                    if error == nil {
-                        self.navigationController?.popViewControllerAnimated(true)
-                    } else {
-                        let alertController = UIAlertController()
-                        alertController.title = "Unable to change password"
-                        alertController.message = error!.localizedDescription
-                        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                        self.presentViewController(alertController, animated: true, completion: nil)
-    }   }   }   }
-    
-    
+            Profile.userProfiles.updateUser(updatedUser) {(error) -> Void in
+                if error == nil {
+                    self.navigationController?.popViewControllerAnimated(true)
+                } else {
+                    LaundryAlert.presentErrorAlert("Unable to change password", error: error!, toController: self)
+                }
+            }
+        }
+    }
     
     
 

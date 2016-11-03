@@ -39,7 +39,10 @@ class DynamoDB {
                         if let stringValue = child.value as? String where stringValue == "" {
                             error = NSError(domain: "dynamodb", code: 403, userInfo: [NSLocalizedDescriptionKey: "Item not found"])
                             break
-            }   }   }   }
+                        }
+                    }
+                }
+            }
             completion(data, error)
             return nil
         })

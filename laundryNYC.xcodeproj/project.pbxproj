@@ -18,6 +18,7 @@
 		0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */; };
 		0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */; };
 		0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42EC3E1C6D682500253A0C /* historyViewController.swift */; };
+		0A7A12781DC9581A00B2A995 /* LaundryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A12771DC9581A00B2A995 /* LaundryAlert.swift */; };
 		0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */; };
 		0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */; };
 		0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */; };
@@ -50,6 +51,7 @@
 		0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_machine_copy.png; sourceTree = "<group>"; };
 		0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordViewControler.swift; sourceTree = "<group>"; };
 		0A42EC3E1C6D682500253A0C /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
+		0A7A12771DC9581A00B2A995 /* LaundryAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaundryAlert.swift; sourceTree = "<group>"; };
 		0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControler.swift; sourceTree = "<group>"; };
 		0A8DA8001C7BC8DB000C0D9E /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */,
 				0AFE055B1C62DDEE00FDF0BB /* models.swift */,
 				0AF036171C8FBF69002770CD /* UserExtension.swift */,
+				0A7A12771DC9581A00B2A995 /* LaundryAlert.swift */,
 				0A3495091C8A182A001ECFA7 /* errorLabel.swift */,
 				0A3495071C89FCEA001ECFA7 /* roundedButton.swift */,
 				0AA161421C962E33009B9584 /* laudry app-Bridging-Header.h */,
@@ -193,7 +196,7 @@
 					machineLabel,
 				);
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Michalina Simik";
 				TargetAttributes = {
 					0A24F3B81C570908007F8920 = {
@@ -297,6 +300,7 @@
 				0A24F3BF1C570908007F8920 /* ViewController.swift in Sources */,
 				0A8DA7FF1C77AE4F000C0D9E /* ProfileViewControler.swift in Sources */,
 				0AFA7BB41C8526F7007E0718 /* LocationViewController.swift in Sources */,
+				0A7A12781DC9581A00B2A995 /* LaundryAlert.swift in Sources */,
 				0AF036181C8FBF69002770CD /* UserExtension.swift in Sources */,
 				0A24F3BD1C570908007F8920 /* AppDelegate.swift in Sources */,
 				0AFE055C1C62DDEE00FDF0BB /* models.swift in Sources */,
@@ -348,8 +352,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -396,8 +402,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -420,6 +428,7 @@
 				PROVISIONING_PROFILE = "f5fce107-e320-40a0-9d98-3fa86c3dc61c";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
