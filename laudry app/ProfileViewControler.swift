@@ -73,6 +73,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     self.loggedView.alpha = 1.0
                     self.tabBarController?.selectedIndex = 0
                 } else {
+                    print("error found in login \(error?.localizedDescription)")
                     self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
                     self.loginErrorLabel.alpha = 1.0
                 }

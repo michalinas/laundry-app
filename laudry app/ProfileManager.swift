@@ -53,9 +53,16 @@ class Profile {
     func trytoLogIn(username: String, password: String, completion: (NSError?) -> Void) {
         DynamoDB.get(User.self, key: username) { (user, error) -> Void in
             var error = error
-            if error == nil && user!.username == username && user!.password == password {
-                self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user!), forKey: "currentUser")
+            guard let user = user else {
+                error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "user not found"])
+                completion(error)
+                return 
+            }
+            
+            if error == nil && user.username == username && user.password == password {
+                self.defaultUser.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "currentUser")
             } else {
+                print(" error in func \(error?.localizedDescription)")
                 error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "uncorrect password"])
             }
             completion(error)

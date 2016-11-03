@@ -92,7 +92,7 @@ class MachineCell: UICollectionViewCell {
         }
         LocationManager.sharedLocations.updateMachine(machine) { (error) in
             if error != nil {
-                LaundryAlert.presentCustomAlert("Server error", alertMessage: <#T##String#>, toController: <#T##UIViewController#>)
+                //LaundryAlert.presentCustomAlert("Server error", alertMessage: "machine update cannot be saved on server", toController: self)
                 print("machine update cannot be saved on server")
             }
         }

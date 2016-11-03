@@ -34,22 +34,6 @@
                                     <action selector="LDswitchTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="IrZ-Ml-Acj"/>
                                 </connections>
                             </segmentedControl>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJF-BL-PoS" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
-                                <color key="backgroundColor" red="1" green="0.60557595060000002" blue="0.58519717709999997" alpha="0.70374461210000006" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Jw2-SK-t84"/>
-                                    <constraint firstAttribute="width" constant="200" id="d3q-mY-jvq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5zc-83-z6Q">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Zn-ru-5nP">
@@ -295,6 +279,22 @@
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="WUr-gy-xoa"/>
                                 </connections>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJF-BL-PoS" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                <color key="backgroundColor" red="1" green="0.60557595060000002" blue="0.58519717709999997" alpha="0.70374461210000006" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Jw2-SK-t84"/>
+                                    <constraint firstAttribute="width" constant="200" id="d3q-mY-jvq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.74775463342666626" green="0.93910729885101318" blue="0.91278451681137085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -438,6 +438,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7p-UE-sLG" userLabel="Login Page">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foB-Lj-7gx" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="QyH-Xc-Btx"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -511,6 +514,9 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKc-lw-fqb" userLabel="Register Page">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViV-3B-4iA" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="twT-Tm-qLR"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -526,7 +532,7 @@
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVD-ax-TeH" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="Gus-JF-vnc"/>
+                                            <constraint firstAttribute="height" constant="20" id="Gus-JF-vnc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -596,30 +602,33 @@
                                 <color key="backgroundColor" red="0.74775463342666626" green="0.93910729885101318" blue="0.91278451681137085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ttj-O7-goL" secondAttribute="trailing" constant="50" id="1pz-d4-1uf"/>
+                                    <constraint firstItem="MPX-Go-4bg" firstAttribute="centerX" secondItem="mKc-lw-fqb" secondAttribute="centerX" id="33Q-Sd-0lW"/>
                                     <constraint firstItem="kuI-fe-3Mv" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="5tL-Mg-9BH"/>
                                     <constraint firstItem="mRt-NW-E32" firstAttribute="top" secondItem="ViV-3B-4iA" secondAttribute="bottom" constant="4" id="7oh-PG-Lrb"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4bU-NN-2da" secondAttribute="bottom" constant="12" id="8hd-rX-7Bb"/>
                                     <constraint firstItem="kyK-3J-rIQ" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="98e-8Q-VhX"/>
-                                    <constraint firstItem="SOa-Ru-346" firstAttribute="top" secondItem="uVD-ax-TeH" secondAttribute="bottom" constant="4" id="E4Z-vb-zOe"/>
+                                    <constraint firstItem="SOa-Ru-346" firstAttribute="top" secondItem="uVD-ax-TeH" secondAttribute="bottom" constant="2" id="E4Z-vb-zOe"/>
                                     <constraint firstAttribute="trailing" secondItem="kyK-3J-rIQ" secondAttribute="trailing" constant="50" id="FcG-NU-kfq"/>
+                                    <constraint firstItem="ViV-3B-4iA" firstAttribute="centerX" secondItem="mKc-lw-fqb" secondAttribute="centerX" id="Fjq-w2-bx0"/>
                                     <constraint firstItem="4bU-NN-2da" firstAttribute="top" secondItem="ttj-O7-goL" secondAttribute="bottom" constant="20" id="Jy2-xS-W0F"/>
-                                    <constraint firstItem="MPX-Go-4bg" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="LUL-bb-lXI"/>
-                                    <constraint firstItem="uVD-ax-TeH" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="M3j-BS-ZCD"/>
+                                    <constraint firstItem="MPX-Go-4bg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="LUL-bb-lXI"/>
+                                    <constraint firstItem="uVD-ax-TeH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="M3j-BS-ZCD"/>
                                     <constraint firstItem="ttj-O7-goL" firstAttribute="top" secondItem="kuI-fe-3Mv" secondAttribute="bottom" constant="50" id="P82-IL-BXB"/>
                                     <constraint firstAttribute="trailing" secondItem="SOa-Ru-346" secondAttribute="trailing" constant="50" id="QDh-yf-tmU"/>
                                     <constraint firstAttribute="trailing" secondItem="kuI-fe-3Mv" secondAttribute="trailing" constant="50" id="RQi-l1-zPL"/>
-                                    <constraint firstItem="kuI-fe-3Mv" firstAttribute="top" secondItem="MPX-Go-4bg" secondAttribute="bottom" constant="4" id="SYU-Tb-JsX"/>
-                                    <constraint firstItem="ViV-3B-4iA" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="WLA-Cn-XXO"/>
+                                    <constraint firstItem="kuI-fe-3Mv" firstAttribute="top" secondItem="MPX-Go-4bg" secondAttribute="bottom" constant="3" id="SYU-Tb-JsX"/>
+                                    <constraint firstItem="ViV-3B-4iA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="WLA-Cn-XXO"/>
                                     <constraint firstItem="ttj-O7-goL" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="WMd-bb-cAv"/>
-                                    <constraint firstItem="uVD-ax-TeH" firstAttribute="top" secondItem="mRt-NW-E32" secondAttribute="bottom" constant="7" id="Y3a-q5-s82"/>
-                                    <constraint firstAttribute="trailing" secondItem="MPX-Go-4bg" secondAttribute="trailing" constant="50" id="baY-ga-6rd"/>
+                                    <constraint firstItem="uVD-ax-TeH" firstAttribute="top" secondItem="mRt-NW-E32" secondAttribute="bottom" constant="4" id="Y3a-q5-s82"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MPX-Go-4bg" secondAttribute="trailing" constant="50" id="baY-ga-6rd"/>
+                                    <constraint firstItem="uVD-ax-TeH" firstAttribute="centerX" secondItem="mKc-lw-fqb" secondAttribute="centerX" id="dur-Vj-9Ts"/>
                                     <constraint firstItem="kyK-3J-rIQ" firstAttribute="top" secondItem="SOa-Ru-346" secondAttribute="bottom" constant="25" id="fWb-z5-O2W"/>
-                                    <constraint firstAttribute="trailing" secondItem="uVD-ax-TeH" secondAttribute="trailing" constant="50" id="mij-ZM-6eV"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uVD-ax-TeH" secondAttribute="trailing" constant="50" id="mij-ZM-6eV"/>
                                     <constraint firstAttribute="trailing" secondItem="mRt-NW-E32" secondAttribute="trailing" constant="50" id="oSW-w9-aRG"/>
                                     <constraint firstItem="kyK-3J-rIQ" firstAttribute="bottom" secondItem="mKc-lw-fqb" secondAttribute="centerY" id="pLs-jV-oJr"/>
                                     <constraint firstAttribute="trailing" secondItem="4bU-NN-2da" secondAttribute="trailing" constant="50" id="phz-Ns-aLI"/>
-                                    <constraint firstAttribute="trailing" secondItem="ViV-3B-4iA" secondAttribute="trailing" constant="50" id="pne-wV-ROw"/>
-                                    <constraint firstItem="MPX-Go-4bg" firstAttribute="top" secondItem="kyK-3J-rIQ" secondAttribute="bottom" constant="7" id="tiH-wg-kk2"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ViV-3B-4iA" secondAttribute="trailing" constant="50" id="pne-wV-ROw"/>
+                                    <constraint firstItem="MPX-Go-4bg" firstAttribute="top" secondItem="kyK-3J-rIQ" secondAttribute="bottom" constant="3" id="tiH-wg-kk2"/>
                                     <constraint firstItem="mRt-NW-E32" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="v1Z-9y-808"/>
                                     <constraint firstItem="SOa-Ru-346" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="wPS-UV-4P9"/>
                                     <constraint firstItem="4bU-NN-2da" firstAttribute="leading" secondItem="mKc-lw-fqb" secondAttribute="leading" constant="50" id="wwB-cP-OSd"/>
@@ -703,6 +712,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2C-Mg-7lK" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="uiR-1t-uzO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ck9-qG-dhb">
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ke8-dQ-O9I">
@@ -831,20 +848,12 @@
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2C-Mg-7lK" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="uiR-1t-uzO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-cN-k6t">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="locationCell" textLabel="f9v-Qe-feu" detailTextLabel="NIJ-A2-MbT" rowHeight="34" style="IBUITableViewCellStyleSubtitle" id="M2S-bw-BHe">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="locationCell" textLabel="f9v-Qe-feu" detailTextLabel="NIJ-A2-MbT" rowHeight="34" style="IBUITableViewCellStyleSubtitle" id="M2S-bw-BHe">
                                         <rect key="frame" x="0.0" y="28" width="351" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M2S-bw-BHe" id="dv5-2V-Ryd">
@@ -1047,7 +1056,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="noun_161138_cc.png" translatesAutoresizingMaskIntoConstraints="NO" id="LWQ-vm-9kd">
-                                                    <frame key="frameInset" minY="17" width="25" height="24" maxX="16"/>
+                                                    <frame key="frameInset" minY="17" width="26" height="24" maxX="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1076,6 +1085,10 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ng3-Fn-6NG" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
                                 <color key="backgroundColor" red="1" green="0.61725074053499729" blue="0.60016660328325888" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="em7-Zn-k8S"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="sAX-ag-7km"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1106,12 +1119,10 @@
                             <constraint firstItem="aUj-q6-fcr" firstAttribute="top" secondItem="4Kd-Jd-rp9" secondAttribute="bottom" constant="12" id="8mA-Ni-Ogt"/>
                             <constraint firstItem="OBo-RH-8gC" firstAttribute="top" secondItem="aUj-q6-fcr" secondAttribute="bottom" constant="16" id="HWp-ag-xWF"/>
                             <constraint firstItem="cW5-Vg-UVD" firstAttribute="top" secondItem="OBo-RH-8gC" secondAttribute="bottom" id="RHZ-z1-ShK"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="ng3-Fn-6NG" secondAttribute="trailing" constant="40" id="Vbc-43-n8v"/>
                             <constraint firstAttribute="trailing" secondItem="aUj-q6-fcr" secondAttribute="trailing" id="X7i-we-Vpq"/>
                             <constraint firstItem="ng3-Fn-6NG" firstAttribute="centerX" secondItem="k6G-x6-nw9" secondAttribute="centerX" id="bRr-1B-XgP"/>
                             <constraint firstItem="OBo-RH-8gC" firstAttribute="leading" secondItem="k6G-x6-nw9" secondAttribute="leading" id="bsp-sp-Mk0"/>
                             <constraint firstAttribute="trailing" secondItem="OBo-RH-8gC" secondAttribute="trailing" id="lPT-Ga-kCW"/>
-                            <constraint firstItem="ng3-Fn-6NG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k6G-x6-nw9" secondAttribute="leadingMargin" constant="40" id="x3u-fm-MR7"/>
                             <constraint firstItem="aUj-q6-fcr" firstAttribute="leading" secondItem="k6G-x6-nw9" secondAttribute="leading" id="yHL-VB-WXF"/>
                         </constraints>
                     </view>
