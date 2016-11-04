@@ -52,9 +52,6 @@ class ReportManager {
         }
     }
     
-//    func reservationsForMachineId(machineId: String, username: String, completion: ([Reservation]?, NSError?) -> Void) {
-//        reservationsForMachineId:username:completion:
-//    }
     
     func getReservationForMachineAndUser(machineId: String, username: String, completion: ([Reservation]?, NSError?) -> Void) {
         DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "username": username, "cancel": 0], matchMode: .Exact){ (reservation, error) -> Void in

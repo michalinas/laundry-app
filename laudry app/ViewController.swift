@@ -157,7 +157,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             }
             if laundries.isEmpty || dryers.isEmpty {
                 LocationManager.sharedLocations.getMachinesForLocation(user.locationId) { (allMachines, error) -> Void in
-                    if !(allMachines!.isEmpty) {
+                    if error != nil || (allMachines?.isEmpty)! {
+                        LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                    } else if !(allMachines!.isEmpty) {
                         for eachMachine in allMachines! {
                             if eachMachine.machineType == .Washer {
                                 self.laundries.append(eachMachine)

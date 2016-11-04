@@ -13,6 +13,7 @@ import AWSDynamoDB
 class Profile {
     
     static let userProfiles = Profile()
+    let emptyUsernameConstant = "_empty_username_"
     
     var profiles: [String:User] = [:]
     
@@ -71,10 +72,12 @@ class Profile {
     
     
     
-    func startNewUser() {
+    func startNewUser() -> User {
         if registeringUser == nil {
             registeringUser = User()
         }
+        
+        return registeringUser!
     }
     
     func updateUser(updatedUser: User, completion: (NSError?) -> Void) {

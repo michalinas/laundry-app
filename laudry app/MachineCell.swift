@@ -169,7 +169,7 @@ class MachineCell: UICollectionViewCell {
         case .Finished:
             if machine.usernameUsing == user.username {
                 machine.state = .Empty
-                machine.usernameUsing = "?"
+                machine.usernameUsing = Profile.userProfiles.emptyUsernameConstant
                 updateState()
                 machine.workEndDate = NSDate()
                 delegate?.MachineCellDidChangeState(self)

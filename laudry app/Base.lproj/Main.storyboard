@@ -52,7 +52,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="machine.png" translatesAutoresizingMaskIntoConstraints="NO" id="3DG-w1-yj1">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="86" id="bbO-CT-4gx"/>
+                                                        <constraint firstAttribute="width" constant="85" id="bbO-CT-4gx"/>
                                                         <constraint firstAttribute="height" constant="120" id="npw-bA-O8B"/>
                                                     </constraints>
                                                 </imageView>
@@ -63,7 +63,7 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <real key="value" value="24.5"/>
+                                                            <real key="value" value="28.5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
@@ -104,12 +104,13 @@
                                             <constraint firstItem="3DG-w1-yj1" firstAttribute="top" secondItem="VCi-ug-PfT" secondAttribute="topMargin" constant="6" id="1df-Jw-OB6"/>
                                             <constraint firstItem="fGJ-k0-LI9" firstAttribute="centerX" secondItem="VCi-ug-PfT" secondAttribute="centerX" id="2AC-6U-Z8p"/>
                                             <constraint firstItem="P0v-hq-TBI" firstAttribute="centerX" secondItem="VCi-ug-PfT" secondAttribute="centerX" id="G3f-Nw-d7H"/>
-                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="leading" secondItem="3DG-w1-yj1" secondAttribute="leading" constant="15" id="LDO-dK-Wci"/>
+                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="leading" secondItem="3DG-w1-yj1" secondAttribute="leading" constant="14" id="LDO-dK-Wci"/>
                                             <constraint firstItem="jhB-lt-JAa" firstAttribute="centerX" secondItem="VCi-ug-PfT" secondAttribute="centerX" id="MfC-F9-YX8"/>
-                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="bottom" secondItem="3DG-w1-yj1" secondAttribute="bottom" constant="-23" id="NkE-ti-uWV"/>
+                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="bottom" secondItem="3DG-w1-yj1" secondAttribute="bottom" constant="-22" id="NkE-ti-uWV"/>
                                             <constraint firstItem="P0v-hq-TBI" firstAttribute="top" secondItem="fGJ-k0-LI9" secondAttribute="bottom" constant="8" id="Tai-Gs-BaG"/>
-                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="trailing" secondItem="3DG-w1-yj1" secondAttribute="trailing" constant="-15" id="XQ9-cV-OtX"/>
-                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="top" secondItem="3DG-w1-yj1" secondAttribute="top" constant="43" id="Yis-BG-D3D"/>
+                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="trailing" secondItem="3DG-w1-yj1" secondAttribute="trailing" constant="-14" id="XQ9-cV-OtX"/>
+                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="top" secondItem="3DG-w1-yj1" secondAttribute="top" constant="42" id="Yis-BG-D3D"/>
+                                            <constraint firstItem="kL9-Da-v9f" firstAttribute="centerX" secondItem="3DG-w1-yj1" secondAttribute="centerX" id="gC3-7R-Elb"/>
                                             <constraint firstItem="3DG-w1-yj1" firstAttribute="centerX" secondItem="VCi-ug-PfT" secondAttribute="centerX" id="hR0-Ht-Ojg"/>
                                             <constraint firstItem="fGJ-k0-LI9" firstAttribute="top" secondItem="jhB-lt-JAa" secondAttribute="bottom" constant="8" id="tva-2Y-5um"/>
                                             <constraint firstItem="jhB-lt-JAa" firstAttribute="top" secondItem="3DG-w1-yj1" secondAttribute="bottom" constant="16" id="zXU-6U-vS2"/>
@@ -184,7 +185,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dryerCell" id="DNy-Iq-JWQ" customClass="MachineCell" customModule="laundry_NYC" customModuleProvider="target">
-                                        <rect key="frame" x="90" y="0.0" width="194" height="231"/>
+                                        <rect key="frame" x="91" y="0.0" width="194" height="231"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="194" height="231"/>
@@ -206,7 +207,7 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="25"/>
+                                                            <real key="value" value="28.5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
@@ -256,11 +257,11 @@
                                             <constraint firstItem="a21-t6-T3Q" firstAttribute="height" secondItem="Vv3-tQ-iRY" secondAttribute="height" id="O6g-ij-W6x"/>
                                             <constraint firstItem="yJO-ND-BVK" firstAttribute="centerX" secondItem="DNy-Iq-JWQ" secondAttribute="centerX" id="PCc-8o-lg3"/>
                                             <constraint firstItem="Vv3-tQ-iRY" firstAttribute="leading" secondItem="DNy-Iq-JWQ" secondAttribute="centerX" constant="-17" id="Q7t-96-97i"/>
-                                            <constraint firstItem="fRO-ku-gcC" firstAttribute="bottom" secondItem="Zwg-kj-gp5" secondAttribute="bottom" constant="-23" id="QdW-eQ-AyR"/>
+                                            <constraint firstItem="fRO-ku-gcC" firstAttribute="bottom" secondItem="Zwg-kj-gp5" secondAttribute="bottom" constant="-22" id="QdW-eQ-AyR"/>
                                             <constraint firstItem="Vv3-tQ-iRY" firstAttribute="leading" secondItem="a21-t6-T3Q" secondAttribute="trailing" constant="10" id="cay-dv-bMy"/>
                                             <constraint firstItem="Zwg-kj-gp5" firstAttribute="top" secondItem="DNy-Iq-JWQ" secondAttribute="topMargin" constant="6" id="ish-zq-pBM"/>
                                             <constraint firstItem="rZt-rB-Zyr" firstAttribute="top" secondItem="Zwg-kj-gp5" secondAttribute="bottom" constant="16" id="j3b-oA-NQ2"/>
-                                            <constraint firstItem="fRO-ku-gcC" firstAttribute="top" secondItem="Zwg-kj-gp5" secondAttribute="top" constant="43" id="jgV-oa-vbd"/>
+                                            <constraint firstItem="fRO-ku-gcC" firstAttribute="top" secondItem="Zwg-kj-gp5" secondAttribute="top" constant="42" id="jgV-oa-vbd"/>
                                             <constraint firstItem="fRO-ku-gcC" firstAttribute="trailing" secondItem="Zwg-kj-gp5" secondAttribute="trailing" constant="-14" id="mdB-dA-lO7"/>
                                             <constraint firstItem="Zwg-kj-gp5" firstAttribute="centerX" secondItem="DNy-Iq-JWQ" secondAttribute="centerX" id="nWD-e0-JbA"/>
                                             <constraint firstItem="yJO-ND-BVK" firstAttribute="top" secondItem="rZt-rB-Zyr" secondAttribute="bottom" constant="8" id="xYG-zr-SBx"/>
@@ -513,7 +514,7 @@
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKc-lw-fqb" userLabel="Register Page">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViV-3B-4iA" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViV-3B-4iA" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="twT-Tm-qLR"/>
                                         </constraints>
@@ -530,7 +531,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVD-ax-TeH" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVD-ax-TeH" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="Gus-JF-vnc"/>
                                         </constraints>
@@ -556,7 +557,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="MPX-Go-4bg" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="MPX-Go-4bg" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1056,7 +1057,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="noun_161138_cc.png" translatesAutoresizingMaskIntoConstraints="NO" id="LWQ-vm-9kd">
-                                                    <frame key="frameInset" minY="17" width="27" height="24" maxX="16"/>
+                                                    <frame key="frameInset" minY="17" width="28" height="24" maxX="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
