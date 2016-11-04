@@ -10,10 +10,9 @@ import Foundation
 
 class LaundryAlert {
 
-    class func presentErrorAlert(title: String = "Server error", error: NSError, toController viewController: UIViewController ) {
-        let alertController = UIAlertController()
-        alertController.title = title
-        alertController.message = error.localizedDescription
+    class func presentErrorAlert(title: String = "Error", error: NSError, toController viewController: UIViewController ) {
+        let message = error.localizedDescription
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         viewController.presentViewController(alertController, animated: true, completion: nil)
     }

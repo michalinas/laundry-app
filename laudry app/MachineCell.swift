@@ -12,7 +12,7 @@ import UIKit
 protocol MachineCellDelegate {
     func MachineCellDidChangeState(machineCell: MachineCell)
     func MachineCellDidTapReserve(machineCell: MachineCell)
-    func StartButtonShowAlert(machineCell: MachineCell)
+    func MachineCellPresentError(machineCell: MachineCell, error: NSError)
 }
 
 
@@ -92,8 +92,7 @@ class MachineCell: UICollectionViewCell {
         }
         LocationManager.sharedLocations.updateMachine(machine) { (error) in
             if error != nil {
-                //LaundryAlert.presentCustomAlert("Server error", alertMessage: "machine update cannot be saved on server", toController: self)
-                print("machine update cannot be saved on server")
+                self.delegate?.MachineCellPresentError(self, error: error!)
             }
         }
     }
@@ -104,7 +103,9 @@ class MachineCell: UICollectionViewCell {
             let user = Profile.userProfiles.getDefaultUser()
             
             ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservation, error) -> Void in
-                if !reservation!.isEmpty {
+                if error != nil {
+                    self.delegate?.MachineCellPresentError(self, error: error!)
+                } else if !reservation!.isEmpty {
                     for _ in reservation! {
                         self.reserveButton.setTitle("cancel", forState: .Normal)
                         if self.machine.state == .Empty {
@@ -114,7 +115,10 @@ class MachineCell: UICollectionViewCell {
                     self.reserveButton.setTitle("reserve", forState: .Normal)
                     if self.machine.state == .Empty {
                         self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
-        }   }   }   }
+                    }
+                }
+            }
+        }
     }
 
     /* start/empty machine
@@ -130,42 +134,42 @@ class MachineCell: UICollectionViewCell {
                 startedMachine(user)
             } else {
                 ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: username) { (reservations, error) in
-                    if !reservations!.isEmpty {
+                    if error != nil {
+                        self.delegate?.MachineCellPresentError(self, error: error!)
+                    } else if !reservations!.isEmpty {
                         let resa = reservations![0]
                         if resa.reservedTime.compare(NSDate().dateByAddingTimeInterval(901)) == NSComparisonResult.OrderedAscending {
                             self.startedMachine(user)
                             DynamoDB.delete(resa) { (error) in
                                 if error != nil {
-                                    print(error)
+                                    self.delegate?.MachineCellPresentError(self, error: error!)
                                 }
                             }
                         }
                     } else {
                         ReportManager.sharedInstance.getReservationForMachine(self.machine.machineId) { (reservations, error) in
-                        if reservations!.isEmpty {
-                            self.startedMachine(user)
-                        } else {
-                            var found = false
-                            for each in reservations! {
-                                if NSDate().dateByAddingTimeInterval(Double(self.machine.counter) + 899).compare(each.reservedTime) == NSComparisonResult.OrderedAscending {
-                                    found = true
-                                    self.startedMachine(user)
+                            if error != nil  {
+                                self.delegate?.MachineCellPresentError(self, error: error!)
+                            } else if reservations!.isEmpty {
+                                self.startedMachine(user)
+                            } else {
+                                var available = true
+                                for each in reservations! {
+                                    if NSDate().dateByAddingTimeInterval(Double(self.machine.counter) + 899).compare(each.reservedTime) == NSComparisonResult.OrderedAscending {
+                                        available = false
+                                        self.startedMachine(user)
+                                    }
                                 }
-                            }
-                            if !found {
-                                self.delegate?.StartButtonShowAlert(self)
+                                if available {
+                                    let error = NSError(domain: "reservation", code: 666, userInfo: [NSLocalizedDescriptionKey : "Another user has already made a reservation for this time."])
+                                    self.delegate?.MachineCellPresentError(self, error: error)
+                                }
                             }
                         }
                     }
                 }
-                }
             }
-//            
-//            machine.state = .Working
-//            updateState()
-//            machine.usernameUsing = user.username
-//            machine.workEndDate = NSDate().dateByAddingTimeInterval(Double(machine.counter))
-//            delegate?.MachineCellDidChangeState(self)
+
         case .Finished:
             if machine.usernameUsing == user.username {
                 machine.state = .Empty
@@ -187,15 +191,15 @@ class MachineCell: UICollectionViewCell {
         machine.usernameUsing = user.username
         machine.workEndDate = NSDate().dateByAddingTimeInterval(Double(machine.counter))
         LocationManager.sharedLocations.updateMachine(machine) { (error) in
-            if error == nil {
-                self.delegate?.MachineCellDidChangeState(self)
+            if error != nil {
+                self.machine.state = .Empty
+                self.updateState()
+                self.delegate?.MachineCellPresentError(self, error: error!)
             } else {
-                print(error?.localizedDescription)
+                self.delegate?.MachineCellDidChangeState(self)
+                ReportManager.sharedInstance.saveNotification(nil, machine: self.machine)
             }
         }
-        
-        ReportManager.sharedInstance.saveNotification(nil, machine: machine)
-
     }
     
     
@@ -206,22 +210,29 @@ class MachineCell: UICollectionViewCell {
             sender.enabled = true
             if machine.state == .Empty {
                 machine.workEndDate = NSDate()
+                delegate?.MachineCellDidTapReserve(self)
             }
             if reserveButton.titleLabel?.text! == "cancel" {
                 let user = Profile.userProfiles.getDefaultUser()
                 ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservations, error) -> Void in
-                    if let reservations = reservations {
+                    if error != nil {
+                        self.delegate?.MachineCellPresentError(self, error: error!)
+                    } else if let reservations = reservations {
                         ReportManager.sharedInstance.addCancelledReservation(reservations) { (error) -> Void in
-                            if error == nil {
+                            if error != nil {
+                                self.delegate?.MachineCellPresentError(self, error: error!)
+                            } else {
                                 self.updateResaStatus()
-                        }   }
-                    } else {
-                        print("impossible to cxl reservation")
-            }   }   }
-            delegate?.MachineCellDidTapReserve(self)
+                                self.delegate?.MachineCellDidTapReserve(self)
+                            }
+                        }
+                    }
+                }
+            }
         } else {
             sender.enabled = false
         }
+    
     }
     
     
