@@ -11,6 +11,10 @@ import UIKit
 
 
 class ErrorLabel: UILabel {
+    private var topInset: CGFloat = 2.0
+    private var bottomInset: CGFloat = 2.0
+    private var leftInset: CGFloat = 5.0
+    private var rightInset: CGFloat = 5.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,17 +24,6 @@ class ErrorLabel: UILabel {
         clipsToBounds = true
         backgroundColor = .None
     }
-    
-//    func adjustSize() -> Void {
-//        let width = bounds.width
-//        frame.size.width = width + 6
-//        layoutIfNeeded()
-//    }
-    
-    private var topInset: CGFloat = 2.0
-    private var bottomInset: CGFloat = 2.0
-    private var leftInset: CGFloat = 7.0
-    private var rightInset: CGFloat = 7.0
     
     override func drawTextInRect(rect: CGRect) {
         let insets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)

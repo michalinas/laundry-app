@@ -92,9 +92,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         }
     }
     
-    func StartButtonShowAlert(machineCell: MachineCell) {
-        LaundryAlert.presentCustomAlert("Not available", alertMessage: "Another user has made a reservation for this time. Please come back later.", toController: self)
+    
+    func MachineCellPresentError(machineCell: MachineCell, error: NSError) {
+        LaundryAlert.presentErrorAlert(error: error, toController: self)
     }
+
      
     /* count down laundry machine timer when it's working;
     finds a laudry which is passed as a timer.userInfo and start couting and
@@ -157,7 +159,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
             }
             if laundries.isEmpty || dryers.isEmpty {
                 LocationManager.sharedLocations.getMachinesForLocation(user.locationId) { (allMachines, error) -> Void in
-                    if !(allMachines!.isEmpty) {
+                    if error != nil || (allMachines?.isEmpty)! {
+                        LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                    } else if !(allMachines!.isEmpty) {
                         for eachMachine in allMachines! {
                             if eachMachine.machineType == .Washer {
                                 self.laundries.append(eachMachine)
@@ -198,7 +202,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     @IBAction func validateButtonTapped(sender: UIButton) {
         let chosenTime = dataPicker.date
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
-            if reservations!.isEmpty {
+            if error != nil {
+                LaundryAlert.presentErrorAlert(error: error!, toController: self)
+            } else if reservations!.isEmpty {
                 ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                     if error != nil {
                         LaundryAlert.presentErrorAlert(error: error!, toController: self)
@@ -219,7 +225,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                             self.pickTimeView.alpha = 0.0
                         }
                     } else {
-                        LaundryAlert.presentCustomAlert("Time not available", alertMessage: "Chosen time has been reserved by another user. Please choose other convinient time.", toController: self)
+                        LaundryAlert.presentCustomAlert("Time slot not available", alertMessage: "Chosen time has been reserved by another user. Please choose other convinient time.", toController: self)
                     }
                 }
             }

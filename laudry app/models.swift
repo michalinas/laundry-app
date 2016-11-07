@@ -30,7 +30,7 @@ class Machine: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var workEndDatestamp: NSNumber = 0
     var counter: Int = 5
     var machineTypeInt: Int = 0
-    var usernameUsing: String = "?"
+    var usernameUsing: String = Profile.userProfiles.emptyUsernameConstant
     var orderNumber: Int = 0
     
     var state: LaundryState {

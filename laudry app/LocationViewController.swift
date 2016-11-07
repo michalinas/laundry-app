@@ -141,7 +141,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             acceptButton.setTitle("confirm", forState: .Normal)
             
             if defaultUser.objectForKey("currentUser") == nil {
-                Profile.userProfiles.registeringUser?.locationId = locationResults[indexPath.row - 1].locationId
+                Profile.userProfiles.startNewUser().locationId = locationResults[indexPath.row - 1].locationId
             } else {
                 let user = Profile.userProfiles.getDefaultUser()
                 user.locationId = locationResults[indexPath.row - 1].locationId
