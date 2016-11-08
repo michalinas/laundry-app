@@ -204,25 +204,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
             if error != nil {
                 LaundryAlert.presentErrorAlert(error: error!, toController: self)
-            } else if reservations!.isEmpty {
+            } else if reservations == nil || reservations!.isEmpty {
                 ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                     if error != nil {
                         LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                    } else {
+                        self.waitingMachineCell.updateResaStatus()
+                        self.pickTimeView.alpha = 0.0
                     }
-                    self.waitingMachineCell.updateResaStatus()
-                    self.pickTimeView.alpha = 0.0
                 }
             } else {
-                let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
+                let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 600)
                 for each in reservations! {
                     let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
                     if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
                         ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                             if error != nil {
                                 LaundryAlert.presentCustomAlert("Server error", alertMessage: "Laundry app was unable to make your reservation. Please try again", toController: self)
+                            } else {
+                                self.waitingMachineCell.updateResaStatus()
+                                self.pickTimeView.alpha = 0.0
                             }
-                            self.waitingMachineCell.updateResaStatus()
-                            self.pickTimeView.alpha = 0.0
                         }
                     } else {
                         LaundryAlert.presentCustomAlert("Time slot not available", alertMessage: "Chosen time has been reserved by another user. Please choose other convinient time.", toController: self)
@@ -236,7 +238,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     func pickTime(laundryCell: MachineCell) {
         let maxDate = NSDate().dateByAddingTimeInterval(86400)
         dataPicker.maximumDate = maxDate
-        dataPicker.minimumDate = (laundryCell.machine.workEndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) ? laundryCell.machine.workEndDate: NSDate()
+        dataPicker.minimumDate = (laundryCell.machine.state == .Working) ? laundryCell.machine.workEndDate : NSDate()
+            //(laundryCell.machine.workEndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) ? laundryCell.machine.workEndDate : NSDate()
         dataPicker.minuteInterval = 30
         validateReservation.setTitle("Done", forState: .Normal)
         cancelReservation.setTitle("Cancel", forState: .Normal)

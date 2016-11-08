@@ -99,7 +99,7 @@ class ReportManager {
         let report = Report()
         report.machineId = machine.machineId
         report.machineType = machine.machineType
-        report.timeFinished = NSDate()
+        report.timeFinished = machine.workEndDate
         report.username = machine.usernameUsing
         report.orderNumber = machine.orderNumber
         DynamoDB.save(report) { (error) -> Void in
