@@ -13,7 +13,8 @@ import AWSDynamoDB
 enum LaundryState: Int {
     case Empty = 0
     case Working = 1
-    case Finished = 2
+    case SavingReport = 2
+    case Finished = 3
 }
 
 

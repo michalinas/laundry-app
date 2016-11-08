@@ -24,7 +24,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     @IBOutlet weak var validateReservation: UIButton!
     @IBOutlet weak var cancelReservation: UIButton!
     @IBOutlet weak var dataPicker: UIDatePicker!
-    
+
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidAppear(animated: Bool) {
@@ -89,7 +89,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         waitingMachineCell = machineCell
         if machineCell.machine.state == .Working {
             NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer(_:))), userInfo: machineCell.machine, repeats: true)
-        }
+        } 
     }
     
     
@@ -104,6 +104,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     update state when finished 
     */
     func updateTimer(timer: NSTimer) {
+        
         let machine = timer.userInfo as! Machine
         var machineCell: MachineCell?
         var machineCells: [MachineCell]
@@ -112,33 +113,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         } else {
             machineCells = (dryerCollectionView.visibleCells() as? [MachineCell])!
         }
-            for cell in machineCells {
-                if cell.machine === machine {
-                    machineCell = cell
-                    break
-        }   }
+        for cell in machineCells {
+            if cell.machine === machine {
+                machineCell = cell
+                break
+            }
+        }
         let counter = Int(machine.workEndDate.timeIntervalSinceNow)
         let counterText = String(format:"%02d:%02d:%02d", counter/3600, counter/60, counter%60)
         if counter > 0 {
             machineCell?.timerLabel.text = counterText
-        } else if counter <= 0 {
-            machineCell?.timerLabel.text = "00:00:00"
-            machine.state = .Finished
-            
+        } else if counter <= 0 && machine.state == .Working {
+            machine.state = .SavingReport
             ReportManager.sharedInstance.addReport(machine) { (error) -> Void in
                 if error != nil {
+                    machine.state = .Working
                     LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                } else {
+                    machine.state = .Finished
+                    timer.invalidate()
                 }
             }
-            
             machineCell?.updateState()
-            
-            if let _ = machineCell {
-               MachineCellDidChangeState(machineCell!)
-            }
-            timer.invalidate()
+
         }
     }
+    
     
     
     func machineLoad() {
@@ -204,25 +204,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
             if error != nil {
                 LaundryAlert.presentErrorAlert(error: error!, toController: self)
-            } else if reservations!.isEmpty {
+            } else if reservations == nil || reservations!.isEmpty {
                 ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                     if error != nil {
                         LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                    } else {
+                        self.waitingMachineCell.updateResaStatus()
+                        self.pickTimeView.alpha = 0.0
                     }
-                    self.waitingMachineCell.updateResaStatus()
-                    self.pickTimeView.alpha = 0.0
                 }
             } else {
-                let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 900)
+                let conflictingTimeInterval = Double(self.waitingMachineCell.machine.counter + 600)
                 for each in reservations! {
                     let actualTimeInterval = chosenTime.timeIntervalSinceDate(each.reservedTime)
                     if actualTimeInterval > conflictingTimeInterval || actualTimeInterval < (-1 * conflictingTimeInterval) {
                         ReportManager.sharedInstance.addReservation(self.waitingMachineCell.machine, reservedTime: chosenTime) { (error) -> Void in
                             if error != nil {
                                 LaundryAlert.presentCustomAlert("Server error", alertMessage: "Laundry app was unable to make your reservation. Please try again", toController: self)
+                            } else {
+                                self.waitingMachineCell.updateResaStatus()
+                                self.pickTimeView.alpha = 0.0
                             }
-                            self.waitingMachineCell.updateResaStatus()
-                            self.pickTimeView.alpha = 0.0
                         }
                     } else {
                         LaundryAlert.presentCustomAlert("Time slot not available", alertMessage: "Chosen time has been reserved by another user. Please choose other convinient time.", toController: self)
@@ -236,7 +238,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     func pickTime(laundryCell: MachineCell) {
         let maxDate = NSDate().dateByAddingTimeInterval(86400)
         dataPicker.maximumDate = maxDate
-        dataPicker.minimumDate = (laundryCell.machine.workEndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) ? laundryCell.machine.workEndDate: NSDate()
+        dataPicker.minimumDate = (laundryCell.machine.state == .Working) ? laundryCell.machine.workEndDate : NSDate()
+            //(laundryCell.machine.workEndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending) ? laundryCell.machine.workEndDate : NSDate()
         dataPicker.minuteInterval = 30
         validateReservation.setTitle("Done", forState: .Normal)
         cancelReservation.setTitle("Cancel", forState: .Normal)

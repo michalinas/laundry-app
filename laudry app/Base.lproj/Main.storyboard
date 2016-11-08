@@ -81,15 +81,15 @@
                                                         <constraint firstAttribute="width" constant="120" id="gk8-wH-ceW"/>
                                                         <constraint firstAttribute="height" constant="30" id="rPZ-Kg-qJL"/>
                                                     </constraints>
-                                                    <state key="normal" title="reserveBut">
+                                                    <state key="normal" title="reserve">
                                                         <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="reserveButtonTapped:" destination="VCi-ug-PfT" eventType="touchUpInside" id="Dhs-qk-SLP"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:39:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0v-hq-TBI">
-                                                    <rect key="frame" x="62.5" y="226" width="57.5" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0v-hq-TBI">
+                                                    <rect key="frame" x="57.5" y="226" width="67.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -101,7 +101,7 @@
                                                         <constraint firstAttribute="width" constant="120" id="Jgu-LC-G66"/>
                                                         <constraint firstAttribute="height" constant="30" id="s0m-Lv-DN5"/>
                                                     </constraints>
-                                                    <state key="normal" title="startButton">
+                                                    <state key="normal" title="start">
                                                         <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
@@ -200,7 +200,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dryerCell" id="DNy-Iq-JWQ" customClass="MachineCell" customModule="laundry_NYC" customModuleProvider="target">
-                                        <rect key="frame" x="90.5" y="0.0" width="194" height="231"/>
+                                        <rect key="frame" x="90" y="0.0" width="194" height="231"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="194" height="231"/>
@@ -234,14 +234,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="95T-kj-5k8"/>
                                                     </constraints>
-                                                    <state key="normal" title="startButton">
+                                                    <state key="normal" title="start ">
                                                         <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="startButtonTApped:" destination="DNy-Iq-JWQ" eventType="touchUpInside" id="OyZ-eY-70B"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimerLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJO-ND-BVK">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJO-ND-BVK">
                                                     <rect key="frame" x="47" y="188" width="100" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="xUy-eP-wsf"/>
@@ -920,18 +920,18 @@
                                         <rect key="frame" x="0.0" y="28" width="351" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M2S-bw-BHe" id="dv5-2V-Ryd">
-                                            <rect key="frame" x="0.0" y="0.0" width="351" height="33.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="351" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f9v-Qe-feu">
-                                                    <rect key="frame" x="15" y="2" width="28.5" height="17"/>
+                                                    <rect key="frame" x="15" y="1" width="29" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NIJ-A2-MbT">
-                                                    <rect key="frame" x="15" y="19" width="40.5" height="13.5"/>
+                                                    <rect key="frame" x="15" y="18" width="41" height="14"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1102,14 +1102,14 @@
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" textLabel="xwX-F8-sXl" detailTextLabel="d86-qD-EQf" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="igj-ik-zKt" customClass="ReportCell" customModule="laundry_NYC" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="igj-ik-zKt" id="9bo-6H-q7A">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xwX-F8-sXl">
-                                                    <rect key="frame" x="15" y="14" width="31.5" height="19.5"/>
+                                                    <rect key="frame" x="15" y="13" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1117,14 +1117,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d86-qD-EQf">
-                                                    <rect key="frame" x="15" y="33.5" width="30.5" height="13.5"/>
+                                                    <rect key="frame" x="15" y="33" width="31" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="noun_161138_cc.png" translatesAutoresizingMaskIntoConstraints="NO" id="LWQ-vm-9kd">
-                                                    <rect key="frame" x="330" y="17" width="29" height="24"/>
+                                                    <rect key="frame" x="330" y="17" width="24" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>

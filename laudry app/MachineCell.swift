@@ -42,10 +42,10 @@ class MachineCell: UICollectionViewCell {
     
     func updateState() {
         machineLabel.text = String(machine.orderNumber)
+        timerLabel!.text = "00:00:00"
         switch machine.state {
         case .Empty:
             startButton.setTitle("start", forState: .Normal)
-            timerLabel!.text = "00:00:00"
             if machine.machineType == .Washer && reserveButton.titleLabel?.text == "cancel" {
                 machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
             } else {
@@ -81,10 +81,19 @@ class MachineCell: UICollectionViewCell {
             } else {
                delegate?.MachineCellDidChangeState(self)
             }
+        case .SavingReport:
+            if machine.machineType == .Washer {
+                startButton.setTitle("washing...", forState: .Normal)
+            } else {
+                startButton.setTitle("drying...", forState: .Normal)
+                timerLabel.hidden = false
+                dryerStepper.hidden = true
+                dryerTime.hidden = true
+            }
+            machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
         case .Finished:
             startButton.setTitle("done!", forState: .Normal)
             machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
-            timerLabel.text = "00:00:00"
             if machine.machineType == .Dryer {
                 dryerStepper.hidden = true
                 dryerTime.hidden = true
@@ -99,23 +108,25 @@ class MachineCell: UICollectionViewCell {
     
     
     func updateResaStatus() {
-        if machine.machineType == .Washer {
-            let user = Profile.userProfiles.getDefaultUser()
-            
-            ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservation, error) -> Void in
-                if error != nil {
-                    self.delegate?.MachineCellPresentError(self, error: error!)
-                } else if !reservation!.isEmpty {
-                    for _ in reservation! {
-                        self.reserveButton.setTitle("cancel", forState: .Normal)
-                        if self.machine.state == .Empty {
-                            self.machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
-                    }   }
-                } else {
-                    self.reserveButton.setTitle("reserve", forState: .Normal)
+        guard machine.machineType == .Washer else {
+            return
+        }
+        
+        let user = Profile.userProfiles.getDefaultUser()
+        ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservation, error) -> Void in
+            if error != nil {
+                self.delegate?.MachineCellPresentError(self, error: error!)
+            } else if !reservation!.isEmpty {
+                for _ in reservation! {
+                    self.reserveButton.setTitle("cancel", forState: .Normal)
                     if self.machine.state == .Empty {
-                        self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                        self.machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
                     }
+                }
+            } else {
+                self.reserveButton.setTitle("reserve", forState: .Normal)
+                if self.machine.state == .Empty {
+                    self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
                 }
             }
         }
@@ -127,41 +138,36 @@ class MachineCell: UICollectionViewCell {
      */
     @IBAction func startButtonTApped(sender: UIButton) {
         let user = Profile.userProfiles.getDefaultUser()
+        let currentUserUsername = user.username
         switch machine.state {
         case .Empty:
-            let username = Profile.userProfiles.getDefaultUser().username
             if machine.machineType == .Dryer {
                 startedMachine(user)
             } else {
-                ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: username) { (reservations, error) in
+                
+                ReportManager.sharedInstance.getReservationForMachine(self.machine.machineId) { (reservations, error) in
                     if error != nil {
                         self.delegate?.MachineCellPresentError(self, error: error!)
-                    } else if !reservations!.isEmpty {
-                        let resa = reservations![0]
-                        if resa.reservedTime.compare(NSDate().dateByAddingTimeInterval(901)) == NSComparisonResult.OrderedAscending {
+                    } else if let reservations = reservations {
+                        if reservations.isEmpty {
                             self.startedMachine(user)
-                            DynamoDB.delete(resa) { (error) in
-                                if error != nil {
-                                    self.delegate?.MachineCellPresentError(self, error: error!)
-                                }
-                            }
-                        }
-                    } else {
-                        ReportManager.sharedInstance.getReservationForMachine(self.machine.machineId) { (reservations, error) in
-                            if error != nil  {
-                                self.delegate?.MachineCellPresentError(self, error: error!)
-                            } else if reservations!.isEmpty {
-                                self.startedMachine(user)
-                            } else {
-                                var available = true
-                                for each in reservations! {
-                                    if NSDate().dateByAddingTimeInterval(Double(self.machine.counter) + 899).compare(each.reservedTime) == NSComparisonResult.OrderedAscending {
-                                        available = false
-                                        self.startedMachine(user)
+                        } else {
+                            var available = true
+                            for singleReservation in reservations {
+                                if NSDate().dateByAddingTimeInterval(Double(self.machine.counter) + 300).compare(singleReservation.reservedTime) == NSComparisonResult.OrderedAscending {
+                                    if singleReservation.username == currentUserUsername {
+                                        DynamoDB.delete(singleReservation) { (error) in
+                                            if error != nil {
+                                                self.delegate?.MachineCellPresentError(self, error: error!)
+                                            }
+                                        }
                                     }
+                                    available = singleReservation.username == currentUserUsername
                                 }
                                 if available {
-                                    let error = NSError(domain: "reservation", code: 666, userInfo: [NSLocalizedDescriptionKey : "Another user has already made a reservation for this time."])
+                                    self.startedMachine(user)
+                                } else {
+                                    let error = NSError(domain: "reservation", code: 501, userInfo: [NSLocalizedDescriptionKey : "Another user has already made a reservation for this time."])
                                     self.delegate?.MachineCellPresentError(self, error: error)
                                 }
                             }
@@ -169,17 +175,16 @@ class MachineCell: UICollectionViewCell {
                     }
                 }
             }
-
+            
         case .Finished:
-            if machine.usernameUsing == user.username {
+            if machine.usernameUsing == currentUserUsername {
                 machine.state = .Empty
                 machine.usernameUsing = Profile.userProfiles.emptyUsernameConstant
                 updateState()
                 machine.workEndDate = NSDate()
                 delegate?.MachineCellDidChangeState(self)
-            } else {
             }
-        case .Working:
+        default:
             break
         }
     }
@@ -189,11 +194,10 @@ class MachineCell: UICollectionViewCell {
         machine.state = .Working
         updateState()
         machine.usernameUsing = user.username
-        machine.workEndDate = NSDate().dateByAddingTimeInterval(Double(machine.counter))
+        let endDate = NSDate()
+        machine.workEndDate = endDate.dateByAddingTimeInterval(Double(machine.counter))
         LocationManager.sharedLocations.updateMachine(machine) { (error) in
             if error != nil {
-                self.machine.state = .Empty
-                self.updateState()
                 self.delegate?.MachineCellPresentError(self, error: error!)
             } else {
                 self.delegate?.MachineCellDidChangeState(self)
@@ -206,13 +210,8 @@ class MachineCell: UICollectionViewCell {
 
     
     @IBAction func reserveButtonTapped(sender: UIButton) {
-        if defaultUser.objectForKey("currentUser") != nil {
-            sender.enabled = true
-            if machine.state == .Empty {
-                machine.workEndDate = NSDate()
-                delegate?.MachineCellDidTapReserve(self)
-            }
-            if reserveButton.titleLabel?.text! == "cancel" {
+        
+        if reserveButton.titleLabel?.text! == "cancel" {
                 let user = Profile.userProfiles.getDefaultUser()
                 ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservations, error) -> Void in
                     if error != nil {
@@ -228,10 +227,10 @@ class MachineCell: UICollectionViewCell {
                         }
                     }
                 }
-            }
         } else {
-            sender.enabled = false
+            delegate?.MachineCellDidTapReserve(self)
         }
+        
     
     }
     
