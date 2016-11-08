@@ -96,7 +96,6 @@ class ReportManager {
     
     
     func addReport(machine: Machine, completion: (NSError?) -> Void) {
-        //-----------
         let report = Report()
         report.machineId = machine.machineId
         report.machineType = machine.machineType

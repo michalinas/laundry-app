@@ -42,10 +42,10 @@ class MachineCell: UICollectionViewCell {
     
     func updateState() {
         machineLabel.text = String(machine.orderNumber)
+        timerLabel!.text = "00:00:00"
         switch machine.state {
         case .Empty:
             startButton.setTitle("start", forState: .Normal)
-            timerLabel!.text = "00:00:00"
             if machine.machineType == .Washer && reserveButton.titleLabel?.text == "cancel" {
                 machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
             } else {
@@ -81,10 +81,19 @@ class MachineCell: UICollectionViewCell {
             } else {
                delegate?.MachineCellDidChangeState(self)
             }
+        case .SavingReport:
+            if machine.machineType == .Washer {
+                startButton.setTitle("washing...", forState: .Normal)
+            } else {
+                startButton.setTitle("drying...", forState: .Normal)
+                timerLabel.hidden = false
+                dryerStepper.hidden = true
+                dryerTime.hidden = true
+            }
+            machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
         case .Finished:
             startButton.setTitle("done!", forState: .Normal)
             machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
-            timerLabel.text = "00:00:00"
             if machine.machineType == .Dryer {
                 dryerStepper.hidden = true
                 dryerTime.hidden = true
@@ -179,7 +188,7 @@ class MachineCell: UICollectionViewCell {
                 delegate?.MachineCellDidChangeState(self)
             } else {
             }
-        case .Working:
+        default:
             break
         }
     }

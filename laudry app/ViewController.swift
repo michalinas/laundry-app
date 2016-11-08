@@ -24,7 +24,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     @IBOutlet weak var validateReservation: UIButton!
     @IBOutlet weak var cancelReservation: UIButton!
     @IBOutlet weak var dataPicker: UIDatePicker!
-    
+
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidAppear(animated: Bool) {
@@ -89,7 +89,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         waitingMachineCell = machineCell
         if machineCell.machine.state == .Working {
             NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer(_:))), userInfo: machineCell.machine, repeats: true)
-        }
+        } 
     }
     
     
@@ -104,6 +104,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
     update state when finished 
     */
     func updateTimer(timer: NSTimer) {
+        
         let machine = timer.userInfo as! Machine
         var machineCell: MachineCell?
         var machineCells: [MachineCell]
@@ -112,33 +113,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         } else {
             machineCells = (dryerCollectionView.visibleCells() as? [MachineCell])!
         }
-            for cell in machineCells {
-                if cell.machine === machine {
-                    machineCell = cell
-                    break
-        }   }
+        for cell in machineCells {
+            if cell.machine === machine {
+                machineCell = cell
+                break
+            }
+        }
         let counter = Int(machine.workEndDate.timeIntervalSinceNow)
         let counterText = String(format:"%02d:%02d:%02d", counter/3600, counter/60, counter%60)
         if counter > 0 {
             machineCell?.timerLabel.text = counterText
-        } else if counter <= 0 {
-            machineCell?.timerLabel.text = "00:00:00"
-            machine.state = .Finished
-            
+        } else if counter <= 0 && machine.state == .Working {
+            machine.state = .SavingReport
             ReportManager.sharedInstance.addReport(machine) { (error) -> Void in
                 if error != nil {
+                    machine.state = .Working
                     LaundryAlert.presentErrorAlert(error: error!, toController: self)
+                } else {
+                    machine.state = .Finished
+                    timer.invalidate()
                 }
             }
-            
             machineCell?.updateState()
-            
-            if let _ = machineCell {
-               MachineCellDidChangeState(machineCell!)
-            }
-            timer.invalidate()
+
         }
     }
+    
     
     
     func machineLoad() {
