@@ -200,7 +200,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dryerCell" id="DNy-Iq-JWQ" customClass="MachineCell" customModule="laundry_NYC" customModuleProvider="target">
-                                        <rect key="frame" x="90" y="0.0" width="194" height="231"/>
+                                        <rect key="frame" x="91" y="0.0" width="194" height="231"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="194" height="231"/>
@@ -768,7 +768,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ck9-qG-dhb">
-                                <rect key="frame" x="0.0" y="546" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="558" width="375" height="0.0"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ke8-dQ-O9I">
                                         <rect key="frame" x="187.5" y="0.0" width="175.5" height="30"/>
@@ -883,8 +883,8 @@
                                     <constraint firstAttribute="trailing" secondItem="FUc-0H-ZPH" secondAttribute="trailing" constant="12" id="xtw-F6-8a1"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLv-bD-8WL" customClass="RoundedButton" customModule="laundry_NYC" customModuleProvider="target">
-                                <rect key="frame" x="86" y="566" width="203" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLv-bD-8WL">
+                                <rect key="frame" x="0.0" y="578" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="xOM-er-S2c"/>
@@ -911,7 +911,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-cN-k6t">
-                                <rect key="frame" x="12" y="134" width="351" height="400"/>
+                                <rect key="frame" x="12" y="134" width="351" height="412"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -950,20 +950,20 @@
                         <constraints>
                             <constraint firstItem="EhH-OC-s9E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tY3-Wf-neq" secondAttribute="leading" constant="12" id="0hH-OI-VWt"/>
                             <constraint firstAttribute="trailing" secondItem="PFd-cN-k6t" secondAttribute="trailing" constant="12" id="7mt-Qw-Cz5"/>
-                            <constraint firstItem="aLv-bD-8WL" firstAttribute="leading" secondItem="tY3-Wf-neq" secondAttribute="leadingMargin" constant="70" id="9V0-7Q-3Xq"/>
+                            <constraint firstItem="aLv-bD-8WL" firstAttribute="leading" secondItem="tY3-Wf-neq" secondAttribute="leading" id="9V0-7Q-3Xq"/>
                             <constraint firstItem="PFd-cN-k6t" firstAttribute="leading" secondItem="tY3-Wf-neq" secondAttribute="leading" constant="12" id="9jR-dX-ndG"/>
                             <constraint firstItem="4SD-qS-zUo" firstAttribute="leading" secondItem="tY3-Wf-neq" secondAttribute="centerX" id="EiM-uv-w7T"/>
-                            <constraint firstItem="8Kv-eT-yMb" firstAttribute="top" secondItem="aLv-bD-8WL" secondAttribute="bottom" constant="12" id="J6G-1X-XjD"/>
                             <constraint firstItem="Q2C-Mg-7lK" firstAttribute="top" secondItem="SUl-36-3bU" secondAttribute="bottom" constant="4" id="KRs-Nz-k9U"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Q2C-Mg-7lK" secondAttribute="trailing" constant="50" id="KbC-Nu-Qkt"/>
                             <constraint firstAttribute="trailing" secondItem="ck9-qG-dhb" secondAttribute="trailing" id="LPj-MD-gya"/>
+                            <constraint firstAttribute="bottom" secondItem="aLv-bD-8WL" secondAttribute="bottom" constant="49" id="VGG-BP-gQe"/>
                             <constraint firstAttribute="trailing" secondItem="4SD-qS-zUo" secondAttribute="trailing" constant="12" id="VoG-td-Pzk"/>
                             <constraint firstItem="4SD-qS-zUo" firstAttribute="leading" secondItem="EhH-OC-s9E" secondAttribute="trailing" constant="20" id="f0K-KZ-cq6"/>
                             <constraint firstItem="aLv-bD-8WL" firstAttribute="top" secondItem="ck9-qG-dhb" secondAttribute="bottom" constant="20" id="gaV-P6-zUl"/>
                             <constraint firstItem="EhH-OC-s9E" firstAttribute="centerY" secondItem="4SD-qS-zUo" secondAttribute="centerY" id="iwd-hs-yQH"/>
                             <constraint firstItem="Q2C-Mg-7lK" firstAttribute="centerX" secondItem="tY3-Wf-neq" secondAttribute="centerX" id="m5M-gR-93f"/>
                             <constraint firstItem="ck9-qG-dhb" firstAttribute="leading" secondItem="tY3-Wf-neq" secondAttribute="leading" id="nRd-MH-zRD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aLv-bD-8WL" secondAttribute="trailing" constant="70" id="puh-64-Ht9"/>
+                            <constraint firstAttribute="trailing" secondItem="aLv-bD-8WL" secondAttribute="trailing" id="puh-64-Ht9"/>
                             <constraint firstItem="PFd-cN-k6t" firstAttribute="top" secondItem="4SD-qS-zUo" secondAttribute="bottom" constant="12" id="rCU-rm-e1z"/>
                             <constraint firstItem="Q2C-Mg-7lK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tY3-Wf-neq" secondAttribute="leadingMargin" constant="50" id="tx1-5i-7zr"/>
                             <constraint firstItem="4SD-qS-zUo" firstAttribute="top" secondItem="Q2C-Mg-7lK" secondAttribute="bottom" constant="4" id="uet-B7-0Ud"/>
@@ -976,6 +976,7 @@
                         <outlet property="NumLaundryField" destination="L5s-PF-baq" id="7jy-fO-6y0"/>
                         <outlet property="WashingTimeField" destination="4Qf-US-gRO" id="J9o-WW-9Df"/>
                         <outlet property="acceptButton" destination="aLv-bD-8WL" id="Yik-rP-phM"/>
+                        <outlet property="acceptButtonBottonConstraint" destination="VGG-BP-gQe" id="fmu-eq-Rb2"/>
                         <outlet property="errorLabel" destination="Q2C-Mg-7lK" id="8ak-bZ-n22"/>
                         <outlet property="locationTableView" destination="PFd-cN-k6t" id="i6W-9l-pVI"/>
                         <outlet property="newLocationVeiw" destination="ck9-qG-dhb" id="dT7-El-Y9N"/>

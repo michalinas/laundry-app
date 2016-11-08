@@ -29,6 +29,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var newLocationVeiw: UIView!
     @IBOutlet weak var errorLabel: ErrorLabel!
     @IBOutlet weak var newLocationViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var acceptButtonBottonConstraint: NSLayoutConstraint!
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
@@ -64,6 +65,20 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         newLocationViewConstraint.constant = 0
         newLocationVeiw.hidden = true
         errorLabel.alpha = 0.0
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -292,7 +307,19 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     }
     
 
+    func keyboardWillShowNotification(notification: NSNotification) {
+        let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        updateBottomLayoutConstraint(withHeight: keyboardFrame.height)
+    }
     
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraint(withHeight: 49)
+    }
     
-    
+    func updateBottomLayoutConstraint(withHeight height: CGFloat) {
+        acceptButtonBottonConstraint.constant = height
+        view.layoutIfNeeded()
+    }
 }
+
+
