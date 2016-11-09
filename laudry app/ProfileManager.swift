@@ -100,7 +100,8 @@ class Profile {
 
     func getDefaultUser() -> User {
         let data = defaultUser.objectForKey("currentUser") as! NSData
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User
+        return (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User)
+        
     }
     
 }
