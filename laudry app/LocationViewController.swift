@@ -166,8 +166,10 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             newLocationViewConstraint.constant = 0
         } else {
             newLocationVeiw.hidden = false
-            newLocationViewConstraint.constant = 152
+            newLocationViewConstraint.constant = 156
             acceptButton.setTitle("save", forState: .Normal)
+            
+            
         }
         self.view.layoutIfNeeded()
     }
