@@ -15,6 +15,8 @@ class Profile {
     static let userProfiles = Profile()
     let emptyUsernameConstant = "_empty_username_"
     
+    let screenHeight = UIScreen.mainScreen().bounds.size.height
+    
     var profiles: [String:User] = [:]
     
     // var currentUser: User? = nil
@@ -100,7 +102,8 @@ class Profile {
 
     func getDefaultUser() -> User {
         let data = defaultUser.objectForKey("currentUser") as! NSData
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User
+        return (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User)
+        
     }
     
 }

@@ -54,7 +54,6 @@ class MachineCell: UICollectionViewCell {
             if machine.machineType == .Dryer {
                 timerLabel.hidden = true
                 dryerTime.hidden = false
-                dryerTime.keyboardType = UIKeyboardType.NumberPad
                 dryerTime.placeholder = "0 min"
                 dryerTime.text = nil
                 dryerStepper.hidden = false

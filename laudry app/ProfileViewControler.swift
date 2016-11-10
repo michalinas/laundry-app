@@ -14,18 +14,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     let defaultUser = NSUserDefaults.standardUserDefaults()
     var username: String = ""
     var password: String = ""
+    private let screenHeight = Profile.userProfiles.screenHeight
     
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var logButton: UIButton!
     @IBOutlet weak var loginErrorLabel: ErrorLabel!
+    @IBOutlet weak var loginViewBottomConstraint: NSLayoutConstraint!
     
-
-    
-    
+  
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
         loginErrorLabel.hidden = true
         if defaultUser.objectForKey("currentUser") != nil {
             loginView.alpha = 0.0
@@ -39,6 +39,19 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             passwordField.placeholder = "enter your password"
             passwordField.delegate = self
             passwordField.secureTextEntry = true
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        }
+  
+    }
+    
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if defaultUser.objectForKey("currentUser") == nil {
+            NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+            NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         }
     }
     
@@ -72,6 +85,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     self.loggedViewOpen()
                     self.loggedView.alpha = 1.0
                     self.tabBarController?.selectedIndex = 0
+                    self.resignFirstResponder()
                 } else {
                     print("error found in login \(error?.localizedDescription)")
                     self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
@@ -98,15 +112,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         locationButton.setTitle("choose your location", forState: .Normal)
         sendToRegisterButton.setTitle("register", forState: .Normal)
         backToLoginButton.setTitle("back to log in", forState: .Normal)
-        newUsernameErrorLabel.hidden = true
-        passwordErrorLabel.hidden = true
-        locationErrorLabel.hidden = true
+        registerErrorLabel.hidden = true
         
         Profile.userProfiles.startNewUser()
         
-        UIView.animateWithDuration(0.3) { () -> Void in
+       //UIView.animateWithDuration(0.3) { () -> Void in
             self.registerView.alpha = 1.0
-        }
+       // }
     }
     
     
@@ -129,9 +141,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var sendToRegisterButton: UIButton!
     @IBOutlet weak var backToLoginButton: UIButton!
     @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var passwordErrorLabel: UILabel!
-    @IBOutlet weak var newUsernameErrorLabel: UILabel!
-    @IBOutlet weak var locationErrorLabel: UILabel!
+    @IBOutlet weak var registerErrorLabel: UILabel!
+    @IBOutlet weak var registerViewBottomConstraint: NSLayoutConstraint!
     
     @IBAction func backToLoginTapped(sender: AnyObject) {
         UIView.animateWithDuration(0.3) {() -> Void in
@@ -147,25 +158,21 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     change alpha of login view to 0 and logged view to 1, so next time the user see his profile info.
     */
     @IBAction func sendToRegisterButtonTapped(sender: AnyObject) {
-        locationErrorLabel.hidden = true
-        passwordErrorLabel.hidden = true
-        newUsernameErrorLabel.hidden = true
+        registerErrorLabel.hidden = true
         if (newUsernameField.text!.isEmpty || newPasswordField.text!.isEmpty || confirmPasswordField.text!.isEmpty) {
-            newUsernameErrorLabel.text = "Please fill all fields"
-            newUsernameErrorLabel.hidden = false
+            registerErrorLabel.text = "Please fill all fields"
+            registerErrorLabel.hidden = false
         } else {
-            newUsernameErrorLabel.hidden = true
-            passwordErrorLabel.hidden = true
-            locationErrorLabel.hidden = true
+            registerErrorLabel.hidden = true
             
             Profile.userProfiles.checkUsername(newUsernameField.text!) {(user, error) -> Void in
                 if user != nil {
-                    self.newUsernameErrorLabel.text = "This username is not available."
+                    self.registerErrorLabel.text = "This username is not available."
                     print(error)
-                    self.newUsernameErrorLabel.hidden = false
+                    self.registerErrorLabel.hidden = false
                 } else if self.newPasswordField.text!.characters.count < 6 {
-                    self.passwordErrorLabel.text = "Password length: min. 6 characters"
-                    self.passwordErrorLabel.hidden = false
+                    self.registerErrorLabel.text = "Password length: min. 6 characters"
+                    self.registerErrorLabel.hidden = false
                 } else if self.newPasswordField.text == self.confirmPasswordField.text {
                     let newUser = Profile.userProfiles.startNewUser()
                     newUser.password = self.newPasswordField.text!
@@ -179,17 +186,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                                 self.loggedViewOpen()
                                 self.loggedView.alpha = 1.0
                                 self.tabBarController?.selectedIndex = 0
+                                self.resignFirstResponder()
                             } else {
                                 LaundryAlert.presentErrorAlert("Unable to register", error: error!, toController: self)
                             }
                         }
                     } else {
-                        self.locationErrorLabel.text = "Please select a location."
-                        self.locationErrorLabel.hidden = false
+                        self.registerErrorLabel.text = "Please select a location."
+                        self.registerErrorLabel.hidden = false
                     }
                 } else {
-                        self.passwordErrorLabel.text = "Your passwords must match."
-                        self.passwordErrorLabel.hidden = false
+                        self.registerErrorLabel.text = "Your passwords must match."
+                        self.registerErrorLabel.hidden = false
                 }
             }
         }
@@ -296,10 +304,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                 }
                 
             }
-            
 
-            
-        
         }))
 
         
@@ -307,5 +312,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func keyboardWillShowNotification(notification: NSNotification) {
+        let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        updateViewForKeyboard(keyboardFrame.height)
+    }
     
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateViewForKeyboard(0)
+    }
+    
+    func updateViewForKeyboard(height: CGFloat) {
+        UIView.animateWithDuration(0.3) { () -> Void in
+            if self.loginView.alpha == 1.0 {
+                self.loginViewBottomConstraint.constant = height
+            }
+            if self.registerView.alpha == 1.0 {
+                if self.screenHeight <= 480 && height > 0 {
+                    self.registerViewBottomConstraint.constant = height - 84
+                } else {
+                    self.registerViewBottomConstraint.constant = height
+                }
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+
 }

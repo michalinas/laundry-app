@@ -16,7 +16,7 @@
 		0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3495091C8A182A001ECFA7 /* errorLabel.swift */; };
 		0A34950E1C8A292A001ECFA7 /* machine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A34950D1C8A292A001ECFA7 /* machine.png */; };
 		0A34951A1C8A45D9001ECFA7 /* rsz_machine_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */; };
-		0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */; };
+		0A3FEE301C88A80D00CD840A /* PasswordViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FEE2F1C88A80D00CD840A /* PasswordViewControler.swift */; };
 		0A42EC3F1C6D682500253A0C /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42EC3E1C6D682500253A0C /* historyViewController.swift */; };
 		0A7A12781DC9581A00B2A995 /* LaundryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A12771DC9581A00B2A995 /* LaundryAlert.swift */; };
 		0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */; };
@@ -49,7 +49,7 @@
 		0A3495091C8A182A001ECFA7 /* errorLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = errorLabel.swift; sourceTree = "<group>"; };
 		0A34950D1C8A292A001ECFA7 /* machine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = machine.png; sourceTree = "<group>"; };
 		0A3495191C8A45D9001ECFA7 /* rsz_machine_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_machine_copy.png; sourceTree = "<group>"; };
-		0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordViewControler.swift; sourceTree = "<group>"; };
+		0A3FEE2F1C88A80D00CD840A /* PasswordViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordViewControler.swift; sourceTree = "<group>"; };
 		0A42EC3E1C6D682500253A0C /* historyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
 		0A7A12771DC9581A00B2A995 /* LaundryAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaundryAlert.swift; sourceTree = "<group>"; };
 		0A8DA7FC1C753AA4000C0D9E /* ReportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				0A24F3BE1C570908007F8920 /* ViewController.swift */,
 				0A42EC3E1C6D682500253A0C /* historyViewController.swift */,
 				0AFA7BB31C8526F7007E0718 /* LocationViewController.swift */,
-				0A3FEE2F1C88A80D00CD840A /* passwordViewControler.swift */,
+				0A3FEE2F1C88A80D00CD840A /* PasswordViewControler.swift */,
 				0A8DA7FE1C77AE4F000C0D9E /* ProfileViewControler.swift */,
 				0AB42DBB1C86118C0016F836 /* LocationManager.swift */,
 				0AFA7BAF1C80E08D007E0718 /* MachineCell.swift */,
@@ -307,7 +307,7 @@
 				0A8DA7FD1C753AA4000C0D9E /* ReportManager.swift in Sources */,
 				0AEA163C1C97870E00A2928A /* DynamoDB.swift in Sources */,
 				0A8DA8011C7BC8DB000C0D9E /* ProfileManager.swift in Sources */,
-				0A3FEE301C88A80D00CD840A /* passwordViewControler.swift in Sources */,
+				0A3FEE301C88A80D00CD840A /* PasswordViewControler.swift in Sources */,
 				0A34950A1C8A182A001ECFA7 /* errorLabel.swift in Sources */,
 				0AB42DBC1C86118C0016F836 /* LocationManager.swift in Sources */,
 				0AFA7BB01C80E08D007E0718 /* MachineCell.swift in Sources */,

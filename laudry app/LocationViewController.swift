@@ -11,7 +11,7 @@ import UIKit
 
 class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    
+    @IBOutlet weak var zipCodeLabel: UILabel!
     @IBOutlet weak var zipField: UITextField!
     @IBOutlet weak var streetField: UITextField!
     @IBOutlet weak var NumLaundryField: UITextField!
@@ -29,6 +29,13 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var newLocationVeiw: UIView!
     @IBOutlet weak var errorLabel: ErrorLabel!
     @IBOutlet weak var newLocationViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var acceptButtonBottonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var newLocationViewTopLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var newLocationViewTopTableViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var errorLabelHeightConstraint: NSLayoutConstraint!
+
+    
+    private let screenSizeHeight = Profile.userProfiles.screenHeight
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
@@ -64,6 +71,24 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         newLocationViewConstraint.constant = 0
         newLocationVeiw.hidden = true
         errorLabel.alpha = 0.0
+        
+        if screenSizeHeight <= 568 {
+            errorLabelHeightConstraint.constant = 0
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -72,6 +97,13 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         return true
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == zipField {
+            newLocationVeiw.hidden = true
+            newLocationViewConstraint.constant = 0
+        }
+        return true
+    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
@@ -151,7 +183,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             newLocationViewConstraint.constant = 0
         } else {
             newLocationVeiw.hidden = false
-            newLocationViewConstraint.constant = 152
+            newLocationViewConstraint.constant = 156
             acceptButton.setTitle("save", forState: .Normal)
         }
         self.view.layoutIfNeeded()
@@ -201,8 +233,12 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             errorLabel.text = "Please enter 5-digit zip code."
             errorLabel.alpha = 1.0
         } else if acceptButton.titleLabel?.text == "save" && (zipField.text!.isEmpty || streetField.text!.isEmpty || NumLaundryField.text!.isEmpty || WashingTimeField.text!.isEmpty || NumDryerField.text!.isEmpty) {
-            errorLabel.text = "All fields are mandatory."
-            errorLabel.alpha = 1.0
+            if screenSizeHeight <= 568 {
+                LaundryAlert.presentCustomAlert("Error", alertMessage: "All fields are mandatory", toController: self)
+            } else {
+                errorLabel.text = "All fields are mandatory."
+                errorLabel.alpha = 1.0
+            }
         } else if acceptButton.titleLabel?.text == "confirm" {
             
             if defaultUser.objectForKey("currentUser") != nil {
@@ -292,7 +328,44 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     }
     
 
+    func keyboardWillShowNotification(notification: NSNotification) {
+        let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        updateBottomLayoutConstraint(withHeight: keyboardFrame.height)
+        updateNewLocationTopConstraint(true)
+
+        
+    }
     
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraint(withHeight: 49)
+        updateNewLocationTopConstraint(false)
+        
+    }
     
+    func updateBottomLayoutConstraint(withHeight height: CGFloat) {
+        acceptButtonBottonConstraint.constant = height
+    }
     
+    func updateNewLocationTopConstraint(keyboardOpen: Bool) {
+        UIView.animateWithDuration(0.3) { () -> Void in
+            if self.screenSizeHeight <= 480 {
+                if keyboardOpen && !self.newLocationVeiw.hidden {
+                    self.zipField.hidden = true
+                    self.zipCodeLabel.hidden = true
+                    self.errorLabel.hidden = true
+                    self.newLocationViewTopTableViewConstraint.priority = 250
+                    self.newLocationViewTopLayoutConstraint.priority = 999
+                } else {
+                    self.newLocationViewTopLayoutConstraint.priority = 250
+                    self.newLocationViewTopTableViewConstraint.priority = 999
+                    self.zipField.hidden = false
+                    self.zipCodeLabel.hidden = false
+                    self.errorLabel.hidden = false
+                }
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
 }
+
+

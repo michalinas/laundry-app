@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
-class passwordViewController: UIViewController, UITextFieldDelegate {
+class PasswordViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var newPasswordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var errorLabel: ErrorLabel!
+    @IBOutlet weak var savePasswordButtonBottomConstraint: NSLayoutConstraint!
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
@@ -27,7 +28,22 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
         confirmPasswordField.secureTextEntry = true
         saveButton.setTitle("change password", forState: .Normal)
         errorLabel.hidden = true
+        savePasswordButtonBottomConstraint.constant = Profile.userProfiles.screenHeight / 3
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PasswordViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PasswordViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -67,6 +83,22 @@ class passwordViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func keyboardWillShowNotification(notification: NSNotification) {
+        let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        updateBottomViewWithKeyboard(keyboardFrame.height)
+    }
     
-
+    func keyboardWillHideNotification(notification: NSNotification) {
+        let height = Profile.userProfiles.screenHeight / 3
+        updateBottomViewWithKeyboard(height)
+    }
+    
+    func updateBottomViewWithKeyboard(height: CGFloat) {
+        UIView.animateWithDuration(0.3) { () -> Void in
+            let height = height + 20
+            self.savePasswordButtonBottomConstraint.constant = height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
