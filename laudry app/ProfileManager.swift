@@ -15,6 +15,8 @@ class Profile {
     static let userProfiles = Profile()
     let emptyUsernameConstant = "_empty_username_"
     
+    let screenHeight = UIScreen.mainScreen().bounds.size.height
+    
     var profiles: [String:User] = [:]
     
     // var currentUser: User? = nil

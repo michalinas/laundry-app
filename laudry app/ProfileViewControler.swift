@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     let defaultUser = NSUserDefaults.standardUserDefaults()
     var username: String = ""
     var password: String = ""
-    private let screenHeight = UIScreen.mainScreen().bounds.size.height
+    private let screenHeight = Profile.userProfiles.screenHeight
     
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var nameField: UITextField!
@@ -85,6 +85,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     self.loggedViewOpen()
                     self.loggedView.alpha = 1.0
                     self.tabBarController?.selectedIndex = 0
+                    self.resignFirstResponder()
                 } else {
                     print("error found in login \(error?.localizedDescription)")
                     self.loginErrorLabel.text = "Username or password are incorrect. Please try again"
@@ -185,6 +186,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                                 self.loggedViewOpen()
                                 self.loggedView.alpha = 1.0
                                 self.tabBarController?.selectedIndex = 0
+                                self.resignFirstResponder()
                             } else {
                                 LaundryAlert.presentErrorAlert("Unable to register", error: error!, toController: self)
                             }

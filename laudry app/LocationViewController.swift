@@ -35,7 +35,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var errorLabelHeightConstraint: NSLayoutConstraint!
 
     
-    private let screenSizeHeight = UIScreen.mainScreen().bounds.size.height
+    private let screenSizeHeight = Profile.userProfiles.screenHeight
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
     

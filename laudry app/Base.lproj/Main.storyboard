@@ -736,8 +736,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2C-Mg-7lK" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
-                                <rect key="frame" x="171.5" y="68" width="31" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2C-Mg-7lK" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                <rect key="frame" x="174" y="68" width="26.5" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="uiR-1t-uzO"/>
                                 </constraints>
@@ -982,7 +982,7 @@
         <!--Password View Controller-->
         <scene sceneID="pQW-86-Pe7">
             <objects>
-                <viewController id="jzl-2j-Ucd" customClass="passwordViewController" customModule="laundry_NYC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jzl-2j-Ucd" customClass="PasswordViewController" customModule="laundry_NYC" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="au3-yn-4cd"/>
                         <viewControllerLayoutGuide type="bottom" id="uBl-RS-JK2"/>
@@ -991,32 +991,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bN-G7-4GC" customClass="RoundedButton" customModule="laundry_NYC" customModuleProvider="target">
-                                <rect key="frame" x="86" y="383.5" width="203" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zXG-8K-pQA"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveButtonTapped:" destination="jzl-2j-Ucd" eventType="touchUpInside" id="QIS-Nf-WrH"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uos-HG-Ddn">
-                                <rect key="frame" x="66" y="303.5" width="243" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gba-P3-uwF">
-                                <rect key="frame" x="66" y="253.5" width="243" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUU-hh-n2Z" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
-                                <rect key="frame" x="172" y="223.5" width="31" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUU-hh-n2Z" customClass="ErrorLabel" customModule="laundry_NYC" customModuleProvider="target">
+                                <rect key="frame" x="173" y="252" width="28" height="20"/>
                                 <color key="backgroundColor" red="1" green="0.60557595060000002" blue="0.58519717709999997" alpha="0.70374461210000006" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="c2D-Gs-kKp"/>
@@ -1031,36 +1007,60 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gba-P3-uwF">
+                                <rect key="frame" x="50" y="276" width="275" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uos-HG-Ddn">
+                                <rect key="frame" x="50" y="318" width="275" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bN-G7-4GC" customClass="RoundedButton" customModule="laundry_NYC" customModuleProvider="target">
+                                <rect key="frame" x="70" y="378" width="235" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zXG-8K-pQA"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="jzl-2j-Ucd" eventType="touchUpInside" id="QIS-Nf-WrH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.74775463342666626" green="0.93910729885101318" blue="0.91278451681137085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uos-HG-Ddn" firstAttribute="bottom" secondItem="mVT-fO-P4a" secondAttribute="centerY" id="0vK-AJ-1Z1"/>
-                            <constraint firstItem="6bN-G7-4GC" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leadingMargin" constant="70" id="3YF-tM-jaF"/>
-                            <constraint firstItem="gba-P3-uwF" firstAttribute="top" secondItem="rUU-hh-n2Z" secondAttribute="bottom" constant="10" id="52P-mc-hw1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6bN-G7-4GC" secondAttribute="trailing" constant="70" id="5Sa-nq-OmO"/>
-                            <constraint firstItem="uos-HG-Ddn" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leadingMargin" constant="50" id="5Zt-n7-9Jw"/>
-                            <constraint firstItem="rUU-hh-n2Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mVT-fO-P4a" secondAttribute="leadingMargin" constant="50" id="Mc0-zJ-zyM"/>
-                            <constraint firstItem="gba-P3-uwF" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leadingMargin" constant="50" id="W0b-fk-gRv"/>
+                            <constraint firstItem="6bN-G7-4GC" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leading" constant="70" id="3YF-tM-jaF"/>
+                            <constraint firstItem="gba-P3-uwF" firstAttribute="top" secondItem="rUU-hh-n2Z" secondAttribute="bottom" constant="4" id="52P-mc-hw1"/>
+                            <constraint firstAttribute="trailing" secondItem="6bN-G7-4GC" secondAttribute="trailing" constant="70" id="5Sa-nq-OmO"/>
+                            <constraint firstItem="uos-HG-Ddn" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leading" constant="50" id="5Zt-n7-9Jw"/>
+                            <constraint firstItem="rUU-hh-n2Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mVT-fO-P4a" secondAttribute="leading" constant="50" id="Mc0-zJ-zyM"/>
+                            <constraint firstAttribute="bottom" secondItem="6bN-G7-4GC" secondAttribute="bottom" constant="249" id="Q2W-Gm-3cC"/>
+                            <constraint firstItem="gba-P3-uwF" firstAttribute="leading" secondItem="mVT-fO-P4a" secondAttribute="leading" constant="50" id="W0b-fk-gRv"/>
                             <constraint firstItem="uos-HG-Ddn" firstAttribute="centerX" secondItem="mVT-fO-P4a" secondAttribute="centerX" id="XNw-5i-AvR"/>
                             <constraint firstItem="6bN-G7-4GC" firstAttribute="centerX" secondItem="mVT-fO-P4a" secondAttribute="centerX" id="Zmz-AQ-GFj"/>
                             <constraint firstItem="rUU-hh-n2Z" firstAttribute="centerX" secondItem="mVT-fO-P4a" secondAttribute="centerX" id="cQS-EX-ugM"/>
                             <constraint firstItem="gba-P3-uwF" firstAttribute="centerX" secondItem="mVT-fO-P4a" secondAttribute="centerX" id="d8h-h5-Riq"/>
-                            <constraint firstItem="6bN-G7-4GC" firstAttribute="top" secondItem="uos-HG-Ddn" secondAttribute="bottom" constant="50" id="hrY-u5-Boc"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="rUU-hh-n2Z" secondAttribute="trailing" constant="50" id="iU1-XC-O6P"/>
-                            <constraint firstItem="uBl-RS-JK2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6bN-G7-4GC" secondAttribute="bottom" constant="20" id="ws9-WP-9Np"/>
+                            <constraint firstItem="6bN-G7-4GC" firstAttribute="top" secondItem="uos-HG-Ddn" secondAttribute="bottom" constant="30" id="hrY-u5-Boc"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rUU-hh-n2Z" secondAttribute="trailing" constant="50" id="iU1-XC-O6P"/>
                             <constraint firstItem="rUU-hh-n2Z" firstAttribute="centerX" secondItem="mVT-fO-P4a" secondAttribute="centerX" id="xiw-f3-UXo"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gba-P3-uwF" secondAttribute="trailing" constant="50" id="xlX-Dm-Wrh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="uos-HG-Ddn" secondAttribute="trailing" constant="50" id="ych-xe-T1x"/>
-                            <constraint firstItem="uos-HG-Ddn" firstAttribute="top" secondItem="gba-P3-uwF" secondAttribute="bottom" constant="20" id="zLw-jn-CIz"/>
+                            <constraint firstAttribute="trailing" secondItem="gba-P3-uwF" secondAttribute="trailing" constant="50" id="xlX-Dm-Wrh"/>
+                            <constraint firstAttribute="trailing" secondItem="uos-HG-Ddn" secondAttribute="trailing" constant="50" id="ych-xe-T1x"/>
+                            <constraint firstItem="uos-HG-Ddn" firstAttribute="top" secondItem="gba-P3-uwF" secondAttribute="bottom" constant="12" id="zLw-jn-CIz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PLv-uo-GkZ"/>
                     <connections>
-                        <outlet property="confirmPasswordField" destination="uos-HG-Ddn" id="YjX-B9-UzO"/>
+                        <outlet property="confirmPasswordField" destination="uos-HG-Ddn" id="4ov-fs-Teq"/>
                         <outlet property="errorLabel" destination="rUU-hh-n2Z" id="0el-mk-QKP"/>
                         <outlet property="newPasswordField" destination="gba-P3-uwF" id="miV-wF-vuV"/>
                         <outlet property="saveButton" destination="6bN-G7-4GC" id="OIi-M1-Yvi"/>
+                        <outlet property="savePasswordButtonBottomConstraint" destination="Q2W-Gm-3cC" id="CkB-a9-Maw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="az1-yK-amI" userLabel="First Responder" sceneMemberID="firstResponder"/>
