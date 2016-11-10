@@ -322,15 +322,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateViewForKeyboard(height: CGFloat) {
-        if loginView.alpha == 1.0 {
-            loginViewBottomConstraint.constant = height
-        }
-        if registerView.alpha == 1.0 {
-            if screenHeight <= 480 && height > 0 {
-                registerViewBottomConstraint.constant = height - 84
-            } else {
-                registerViewBottomConstraint.constant = height
+        UIView.animateWithDuration(0.3) { () -> Void in
+            if self.loginView.alpha == 1.0 {
+                self.loginViewBottomConstraint.constant = height
             }
+            if self.registerView.alpha == 1.0 {
+                if self.screenHeight <= 480 && height > 0 {
+                    self.registerViewBottomConstraint.constant = height - 84
+                } else {
+                    self.registerViewBottomConstraint.constant = height
+                }
+            }
+            self.view.layoutIfNeeded()
         }
     }
     

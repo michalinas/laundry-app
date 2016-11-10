@@ -344,27 +344,28 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     
     func updateBottomLayoutConstraint(withHeight height: CGFloat) {
         acceptButtonBottonConstraint.constant = height
-        view.layoutIfNeeded()
     }
     
     func updateNewLocationTopConstraint(keyboardOpen: Bool) {
-        if screenSizeHeight <= 480 {
-            if keyboardOpen && !newLocationVeiw.hidden {
-                zipField.hidden = true
-                zipCodeLabel.hidden = true
-                errorLabel.hidden = true
-                newLocationViewTopTableViewConstraint.priority = 250
-                newLocationViewTopLayoutConstraint.priority = 999
-            } else {
-                newLocationViewTopLayoutConstraint.priority = 250
-                newLocationViewTopTableViewConstraint.priority = 999
-                zipField.hidden = false
-                zipCodeLabel.hidden = false
-                errorLabel.hidden = false
+        UIView.animateWithDuration(0.3) { () -> Void in
+            if self.screenSizeHeight <= 480 {
+                if keyboardOpen && !self.newLocationVeiw.hidden {
+                    self.zipField.hidden = true
+                    self.zipCodeLabel.hidden = true
+                    self.errorLabel.hidden = true
+                    self.newLocationViewTopTableViewConstraint.priority = 250
+                    self.newLocationViewTopLayoutConstraint.priority = 999
+                } else {
+                    self.newLocationViewTopLayoutConstraint.priority = 250
+                    self.newLocationViewTopTableViewConstraint.priority = 999
+                    self.zipField.hidden = false
+                    self.zipCodeLabel.hidden = false
+                    self.errorLabel.hidden = false
+                }
             }
+            self.view.layoutIfNeeded()
         }
     }
-    
 }
 
 

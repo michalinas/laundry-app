@@ -94,8 +94,11 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateBottomViewWithKeyboard(height: CGFloat) {
-        let height = height + 20
-        savePasswordButtonBottomConstraint.constant = height
+        UIView.animateWithDuration(0.3) { () -> Void in
+            let height = height + 20
+            self.savePasswordButtonBottomConstraint.constant = height
+            self.view.layoutIfNeeded()
+        }
     }
     
 }
