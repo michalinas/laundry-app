@@ -200,7 +200,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dryerCell" id="DNy-Iq-JWQ" customClass="MachineCell" customModule="laundry_NYC" customModuleProvider="target">
-                                        <rect key="frame" x="91" y="0.0" width="194" height="231"/>
+                                        <rect key="frame" x="90" y="0.0" width="194" height="231"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="194" height="231"/>
@@ -508,7 +508,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="logButtonTapped:" destination="MIV-5Y-esX" eventType="touchUpInside" id="5nk-GR-bXQ"/>
+                                            <action selector="logInButtonTapped:" destination="MIV-5Y-esX" eventType="touchUpInside" id="H69-lC-ArW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVh-jT-nq2">
@@ -1108,7 +1108,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="noun_161138_cc.png" translatesAutoresizingMaskIntoConstraints="NO" id="LWQ-vm-9kd">
-                                                    <rect key="frame" x="330" y="17" width="24" height="24"/>
+                                                    <rect key="frame" x="329" y="17" width="23" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
