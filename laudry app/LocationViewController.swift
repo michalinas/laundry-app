@@ -332,14 +332,11 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         updateBottomLayoutConstraint(withHeight: keyboardFrame.height)
         updateNewLocationTopConstraint(true)
-
-        
     }
     
     func keyboardWillHideNotification(notification: NSNotification) {
         updateBottomLayoutConstraint(withHeight: 49)
         updateNewLocationTopConstraint(false)
-        
     }
     
     func updateBottomLayoutConstraint(withHeight height: CGFloat) {
@@ -366,6 +363,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             self.view.layoutIfNeeded()
         }
     }
+    
+    
+    
 }
 
 
