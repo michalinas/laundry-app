@@ -34,7 +34,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBOutlet weak var newLocationViewTopTableViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var errorLabelHeightConstraint: NSLayoutConstraint!
 
-    
     private let screenSizeHeight = Profile.userProfiles.screenHeight
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
@@ -43,7 +42,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     var cityName: String = ""
     
     override func viewDidLoad() {
-        self.view.layoutIfNeeded()
         super.viewDidLoad()
         zipField.placeholder = "zip code:"
         zipField.keyboardType = UIKeyboardType.NumberPad
@@ -79,7 +77,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
@@ -91,9 +88,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        view.layoutIfNeeded()
         return true
     }
     
@@ -108,10 +105,10 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         resignFirstResponder()
+        view.layoutIfNeeded()
         self.view.endEditing(true)
     }
 
-    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if string.characters.count == 0 {
             return true
@@ -132,8 +129,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         }
     }
     
-    // MARK: - tableView setup
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cityName != "" {
             return locationResults.count + 1
@@ -141,7 +136,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             return 0
         }
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath)
@@ -167,7 +161,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         return cell
     }
     
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row != 0 {
             acceptButton.setTitle("confirm", forState: .Normal)
@@ -186,10 +179,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
             newLocationViewConstraint.constant = 156
             acceptButton.setTitle("save", forState: .Normal)
         }
-        self.view.layoutIfNeeded()
     }
-    
-    
     
     @IBAction func zipEntered(sender: UITextField) {
         if sender.text!.characters.count < 5 {
@@ -213,7 +203,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         }
     }
     
-    
     @IBAction func LaundryStepperChanged(sender: UIStepper) {
         self.NumLaundryField.text = String(Int(sender.value))
     }
@@ -225,7 +214,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     @IBAction func DryerStepperChanged(sender: UIStepper) {
         self.NumDryerField.text = String(Int(sender.value))
     }
-    
     
     @IBAction func acceptButtonTapped(sender: AnyObject) {
         errorLabel.alpha = 0.0
@@ -301,7 +289,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                             }
                         }
                     }
-                    
                     let dryers = Int(newLocation.numDryers)!
                     if dryers > 0 {
                         for id in 1...dryers {
@@ -327,7 +314,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
         }
     }
     
-
     func keyboardWillShowNotification(notification: NSNotification) {
         let keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         updateBottomLayoutConstraint(withHeight: keyboardFrame.height)
@@ -344,7 +330,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
     }
     
     func updateNewLocationTopConstraint(keyboardOpen: Bool) {
-        UIView.animateWithDuration(0.3) { () -> Void in
             if self.screenSizeHeight <= 480 {
                 if keyboardOpen && !self.newLocationVeiw.hidden {
                     self.zipField.hidden = true
@@ -361,10 +346,8 @@ class LocationViewController: UIViewController, UITextFieldDelegate, UISearchBar
                 }
             }
             self.view.layoutIfNeeded()
-        }
     }
-    
-    
+ 
     
 }
 

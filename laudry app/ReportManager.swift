@@ -53,19 +53,19 @@ class ReportManager {
     }
     
     
-    func getReservationForMachineAndUser(machineId: String, username: String, completion: ([Reservation]?, NSError?) -> Void) {
-        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "username": username, "cancel": 0], matchMode: .Exact){ (reservation, error) -> Void in
+    func getReservationForMachineAndUser(machineId: String, username: String, completion: (Reservation?, NSError?) -> Void) {
+        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "username": username, "cancel": false], matchMode: .Exact){ (reservations, error) -> Void in
             var error = error
-            if error == nil && reservation?.count > 1 {
+            if error == nil && reservations?.count > 1 {
                 error = NSError(domain: "laundry", code: 500, userInfo: [NSLocalizedDescriptionKey : "too many reservations found"])
             }
-            completion(reservation, error)
+            completion(reservations?.first, error)
         }
     }
     
     
     func getReservationForMachine(machineId: String, completion: ([Reservation]?, NSError?) -> Void) {
-        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "cancel": 0], matchMode: .Exact) { (reservations, error) -> Void in
+        DynamoDB.search(Reservation.self, parameters: ["machineId": machineId, "cancel": false], matchMode: .Exact) { (reservations, error) -> Void in
             //--------------------
             if let reservations = reservations {
                 let dateToCompare = NSDate().dateByAddingTimeInterval(Double(-900))
@@ -85,12 +85,10 @@ class ReportManager {
     }
     
     
-    func addCancelledReservation(reservations: [Reservation], completion: (NSError?) -> Void) {
-        for reservation in reservations {
-            reservation.cancel = true
-            DynamoDB.save(reservation) { (error) -> Void in
-                completion(error)
-            }
+    func addCancelledReservation(reservation: Reservation, completion: (NSError?) -> Void) {
+        reservation.cancel = true
+        DynamoDB.save(reservation) { (error) -> Void in
+            completion(error)
         }
     }
     

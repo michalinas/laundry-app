@@ -25,9 +25,13 @@ class MachineCell: UICollectionViewCell {
     @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var dryerStepper: UIStepper!
     @IBOutlet weak var dryerTime: UITextField!
+    
+    private let greenMachineColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+    private let redMachineColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
+    private let yellowMachineColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
       
     var reports: Report!
-    let defaultUser = NSUserDefaults.standardUserDefaults()
+    let defaultUser = Profile.userProfiles.getDefaultUser() //NSUserDefaults.standardUserDefaults()
     
     var machine: Machine! {
         didSet {
@@ -47,9 +51,9 @@ class MachineCell: UICollectionViewCell {
         case .Empty:
             startButton.setTitle("start", forState: .Normal)
             if machine.machineType == .Washer && reserveButton.titleLabel?.text == "cancel" {
-                machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
+                machineLabel.backgroundColor = yellowMachineColor
             } else {
-                machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                machineLabel.backgroundColor = greenMachineColor
             } 
             if machine.machineType == .Dryer {
                 timerLabel.hidden = true
@@ -70,7 +74,7 @@ class MachineCell: UICollectionViewCell {
                 dryerStepper.hidden = true
                 dryerTime.hidden = true
             }
-            machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
+            machineLabel.backgroundColor = redMachineColor
             let counter = Int(machine.workEndDate.timeIntervalSinceNow)
             
             if counter > 0 {
@@ -89,10 +93,10 @@ class MachineCell: UICollectionViewCell {
                 dryerStepper.hidden = true
                 dryerTime.hidden = true
             }
-            machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
+            machineLabel.backgroundColor = redMachineColor
         case .Finished:
             startButton.setTitle("done!", forState: .Normal)
-            machineLabel.backgroundColor = UIColor(red: 1, green: 102/255, blue: 105/255, alpha:1)
+            machineLabel.backgroundColor = redMachineColor
             if machine.machineType == .Dryer {
                 dryerStepper.hidden = true
                 dryerTime.hidden = true
@@ -107,25 +111,26 @@ class MachineCell: UICollectionViewCell {
     
     
     func updateResaStatus() {
-        guard machine.machineType == .Washer else {
-            return
-        }
+        guard machine.machineType == .Washer else { return }
         
         let user = Profile.userProfiles.getDefaultUser()
-        ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservation, error) -> Void in
+        
+        ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (defaultUser.username)) { (reservation, error) -> Void in
             if error != nil {
                 self.delegate?.MachineCellPresentError(self, error: error!)
-            } else if !reservation!.isEmpty {
-                for _ in reservation! {
+            } else if reservation != nil {
+                print("found reservation: /(reservation)")
                     self.reserveButton.setTitle("cancel", forState: .Normal)
                     if self.machine.state == .Empty {
-                        self.machineLabel.backgroundColor = UIColor(red: 1, green: 204/255, blue: 102/255, alpha: 1)
+                        self.machineLabel.backgroundColor = self.yellowMachineColor
+                        print("yellow")
                     }
-                }
+                
             } else {
                 self.reserveButton.setTitle("reserve", forState: .Normal)
                 if self.machine.state == .Empty {
-                    self.machineLabel.backgroundColor = UIColor(red: 45/255, green: 188/255, blue: 80/255, alpha: 1)
+                    self.machineLabel.backgroundColor = self.greenMachineColor
+                    print("green")
                 }
             }
         }
@@ -212,11 +217,11 @@ class MachineCell: UICollectionViewCell {
         
         if reserveButton.titleLabel?.text! == "cancel" {
                 let user = Profile.userProfiles.getDefaultUser()
-                ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservations, error) -> Void in
+                ReportManager.sharedInstance.getReservationForMachineAndUser(machine.machineId, username: (user.username)) { (reservation, error) -> Void in
                     if error != nil {
                         self.delegate?.MachineCellPresentError(self, error: error!)
-                    } else if let reservations = reservations {
-                        ReportManager.sharedInstance.addCancelledReservation(reservations) { (error) -> Void in
+                    } else if let reservation = reservation {
+                        ReportManager.sharedInstance.addCancelledReservation(reservation) { (error) -> Void in
                             if error != nil {
                                 self.delegate?.MachineCellPresentError(self, error: error!)
                             } else {
