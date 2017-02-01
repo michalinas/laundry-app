@@ -8,30 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, MachineCellDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource {
     
-
     @IBOutlet weak var laundryCollectionView: UICollectionView!
     @IBOutlet weak var washerDryerSwitch: UISegmentedControl!
-    var waitingMachineCell: MachineCell!
-    var laundries: [Machine] = []
-    var dryers: [Machine] = []
     @IBOutlet weak var dryerCollectionView: UICollectionView!
     @IBOutlet weak var noMachineLabel: UILabel!
-    
-    
     @IBOutlet weak var pickTimeView: UIView!
     @IBOutlet weak var validateReservation: UIButton!
     @IBOutlet weak var cancelReservation: UIButton!
     @IBOutlet weak var dataPicker: UIDatePicker!
 
     let defaultUser = NSUserDefaults.standardUserDefaults()
+    var waitingMachineCell: MachineCell!
+    var laundries: [Machine] = []
+    var dryers: [Machine] = []
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         machineLoad()
     }
-    
     
     @IBAction func LDswitchTapped(sender: AnyObject) {
         switch washerDryerSwitch.selectedSegmentIndex {
@@ -48,9 +44,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
            break
         }
     }
-    
-    
-    // MARK: - CollectionView
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if washerDryerSwitch.selectedSegmentIndex == 0 {
@@ -72,39 +65,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         cell!.delegate = self
         return cell!
     }
-    
-    
-    //MARK: - delegates
-    
-    func MachineCellDidTapReserve(laundryCell: MachineCell) {
-        waitingMachineCell = laundryCell
-        if laundryCell.reserveButton.titleLabel!.text == "reserve" {
-            self.pickTime(laundryCell)
-        }
-        laundryCell.updateResaStatus()
-    }
-    
 
-    func MachineCellDidChangeState(machineCell: MachineCell) {
-        waitingMachineCell = machineCell
-        if machineCell.machine.state == .Working {
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer(_:))), userInfo: machineCell.machine, repeats: true)
-        } 
-    }
-    
-    
-    func MachineCellPresentError(machineCell: MachineCell, error: NSError) {
-        LaundryAlert.presentErrorAlert(error: error, toController: self)
-    }
-
-     
     /* count down laundry machine timer when it's working;
     finds a laudry which is passed as a timer.userInfo and start couting and
     updating timerLabel;
     update state when finished 
     */
     func updateTimer(timer: NSTimer) {
-        
         let machine = timer.userInfo as! Machine
         var machineCell: MachineCell?
         var machineCells: [MachineCell]
@@ -132,14 +99,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                 } else {
                     machine.state = .Finished
                     timer.invalidate()
+                    machineCell?.updateState()
                 }
             }
-            machineCell?.updateState()
-
         }
     }
-    
-    
     
     func machineLoad() {
         if defaultUser.objectForKey("currentUser") == nil {
@@ -169,7 +133,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                                 self.dryers.append(eachMachine)
                             }
                         }
-                        
+
                         if self.laundries.count > 1 {
                             self.laundries = self.laundries.sort({ (laundry1: Machine, laundry2: Machine) -> Bool in
                                 return laundry1.orderNumber < laundry2.orderNumber
@@ -183,22 +147,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
                     }
                     self.laundryCollectionView.reloadData()
                     self.dryerCollectionView.reloadData()
-
                 }
             }
         }
     }
 
-    
-    
-
     // MARK: - Data picker for laundry
-    
     @IBAction func cancellButtonTapped(sender: UIButton) {
         pickTimeView.alpha = 0.0
     }
     
-//add reservation time to laundryCell when validate button on datapicker view is tapped
+    //add reservation time to laundryCell when validate button on datapicker view is tapped
     @IBAction func validateButtonTapped(sender: UIButton) {
         let chosenTime = dataPicker.date
         ReportManager.sharedInstance.getReservationForMachine(waitingMachineCell.machine.machineId) { (reservations, error) in
@@ -234,7 +193,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         }
     }
     
-// set a datepicker with Cancel,Done buttons and opens the datapicekr view
+    // set a datepicker with Cancel,Done buttons and opens the datapicekr view
     func pickTime(laundryCell: MachineCell) {
         let maxDate = NSDate().dateByAddingTimeInterval(86400)
         dataPicker.maximumDate = maxDate
@@ -250,7 +209,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, MachineCellD
         }
     }
     
+}
+
+extension ViewController: MachineCellDelegate {
+    func MachineCellDidTapReserve(laundryCell: MachineCell) {
+        waitingMachineCell = laundryCell
+        if laundryCell.reserveButton.titleLabel!.text == "reserve" {
+            self.pickTime(laundryCell)
+        } else {
+            laundryCell.updateResaStatus()
+        }
+    }
     
+    func MachineCellDidChangeState(machineCell: MachineCell) {
+        waitingMachineCell = machineCell
+        if machineCell.machine.state == .Working {
+            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer(_:))), userInfo: machineCell.machine, repeats: true)
+        }
+    }
     
+    func MachineCellPresentError(machineCell: MachineCell, error: NSError) {
+        LaundryAlert.presentErrorAlert(error: error, toController: self)
+    }
 }
 

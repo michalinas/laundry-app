@@ -17,7 +17,6 @@ class LocationManager {
     var lastLocationId: Int?
     var cities: [String: String] = [:]
     
-    
     /* add machine to db or threw an error
     */
     func addMachine(newMachine: Machine, completion: (NSError?) -> Void ) {
@@ -25,7 +24,6 @@ class LocationManager {
                 completion(error)
         }
     }
-
 
     /* create unique location id for newLocation,
     add newLocation to db or threw an error
@@ -49,20 +47,17 @@ class LocationManager {
         }
     }
     
-    
     func updateMachine(updatedMachine: Machine, completion: (NSError?) -> Void) {
         DynamoDB.save(updatedMachine) { (error) -> Void in
             completion(error)
         }
     }
     
-    
     func getMachinesForLocation(locationId: String, completion: ([Machine]?, NSError?) -> Void) {
         DynamoDB.search(Machine.self, parameterName: "locationId", parameterValue: locationId, matchMode: .Exact) { (machines, error) -> Void in
             completion(machines, error)
         }
     }
-    
     
     /* load file with cities and zipcodes for NY
     */
@@ -92,9 +87,7 @@ class LocationManager {
     }
     
         
-    func checkStreetForDouble(street: String) {
-        // addlater
-    }
+    //TODO: func checkStreetForDouble(street: String)
     
     
 }

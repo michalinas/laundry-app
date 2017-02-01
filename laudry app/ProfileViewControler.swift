@@ -44,7 +44,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        view.layoutIfNeeded()
         loginErrorLabel.hidden = true
         if defaultUser.objectForKey("currentUser") != nil {
             showLoggedView()
@@ -53,12 +52,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         } else {
             showLoginView()
         }
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         if defaultUser.objectForKey("currentUser") == nil {
@@ -66,7 +63,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         }
     }
-    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -89,12 +85,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                 self.currentLocationLabel.text = "cannot find your location details"
             }
         }
-        
         loggedPasswordButton.setTitle("change password", forState: .Normal)
         changeAdressButton.setTitle("change laundry location", forState: .Normal)
         logOutButton.setTitle("log out", forState: .Normal)
         delateProfileButton.setTitle("delete profile", forState: .Normal)
-        
         UIView.animateWithDuration(0.3) {() -> Void in
             self.loginView.alpha = 0.0
             self.registerView.alpha = 0.0
@@ -137,16 +131,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             self.loginView.alpha = 0.0
             self.loggedView.alpha = 0.0
         }
-
     }
 
-    
     /* check if both username and password are given;
     if yes, verify if they match and set currentuser with given username.
     switch the view to logged view and go to home page.
     */
     @IBAction func logInButtonTapped(sender: UIButton) {
-        view.layoutIfNeeded()
         view.endEditing(true)
         if nameField.text!.isEmpty || passwordField.text!.isEmpty {
             loginErrorLabel.text = "Please fill all fields"
@@ -165,7 +156,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
     /* switch the view to register page when button tapped;
     set up all fields, numeric keyboard for phone
     */
@@ -176,7 +166,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         Profile.userProfiles.startNewUser()
     }
     
-    
     /* set a max length for textFields and permit only to use numbers in phoneField
     */
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {        
@@ -186,16 +175,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
             return textField.text!.characters.count <= 15
     }
 
-    
     // MARK: - registerView
- 
     @IBAction func backToLoginTapped(sender: AnyObject) {
-        view.layoutIfNeeded()
         view.endEditing(true)
         showLoginView()
     }
 
-    
     /* verify if all field are filled.
     Then check if username is available. If not throws an error label, if yes continue the checks.
     create a new user, set as a current user (=log in) and switch to the home page.
@@ -243,22 +228,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-
-    
-    
     // MARK: - loggedView
-    
-
-    
-    
-    
     @IBAction func logOutButtonTapped(sender: AnyObject) {
-        
         defaultUser.setObject(nil, forKey: "currentUser")
         showLoginView()
-
     }
-    
     
     @IBAction func delateProfileButtonTapped(sender: AnyObject) {
         let alert = UIAlertController(title: "delete", message: "You will delete your profile permamently and loose all your data.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -304,7 +278,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
-            
             DynamoDB.delete(userToDelete) { (error) -> Void in
                 if error != nil {
                     LaundryAlert.presentErrorAlert(error: error!, toController: self)
@@ -341,7 +314,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate {
                     self.registerViewBottomConstraint.constant = height
                 }
             }
-            self.view.layoutIfNeeded()
         }
     }
     

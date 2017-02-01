@@ -20,7 +20,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     let defaultUser = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
-        view.layoutIfNeeded()
         super.viewDidLoad()
         newPasswordField.placeholder = "new password"
         newPasswordField.secureTextEntry = true
@@ -29,12 +28,10 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         saveButton.setTitle("change password", forState: .Normal)
         errorLabel.hidden = true
         savePasswordButtonBottomConstraint.constant = Profile.userProfiles.screenHeight / 3
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PasswordViewController.keyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PasswordViewController.keyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
@@ -45,7 +42,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -97,7 +93,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         UIView.animateWithDuration(0.3) { () -> Void in
             let height = height + 20
             self.savePasswordButtonBottomConstraint.constant = height
-            self.view.layoutIfNeeded()
         }
     }
     

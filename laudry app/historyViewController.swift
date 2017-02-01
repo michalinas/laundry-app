@@ -12,13 +12,11 @@ import UIKit
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var refreshControl: UIRefreshControl!
-    
     @IBOutlet weak var titleHistory: UILabel!
     @IBOutlet weak var HistoryTableView: UITableView!
     @IBOutlet weak var noUserLabel: UILabel!
     
     let defaultUser = NSUserDefaults.standardUserDefaults()
-    
     var reservationReports: [Reservation] = []
     var finishedReports: [Report] = []
     
@@ -26,24 +24,20 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         let title = "YOUR HISTORY"
         titleHistory.text = title
-        
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(HistoryViewController.refresh), forControlEvents: .ValueChanged)
         self.HistoryTableView.addSubview(refreshControl)
     }
     
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         loadContent()
     }
     
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
-    
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -55,7 +49,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             return ""
         }
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! ReportCell
@@ -74,7 +67,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if defaultUser.objectForKey("currentUser") == nil {
@@ -89,7 +81,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             return finishedReports.count
         }
     }
-
     
     func refresh() {
         self.HistoryTableView.reloadData()
@@ -128,6 +119,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
+    
 }
 
 
